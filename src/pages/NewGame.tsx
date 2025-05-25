@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Container, Typography, Grid, Autocomplete, TextField, Button, Stack } from "@mui/material";
 import { useGameContext, type Player } from "../context/GameContext";
 import { supabase } from "../lib/supabase";
+import { LastGames } from "./LastGames";
 
 export default function NewGame() {
     const navigate = useNavigate();
@@ -128,6 +129,7 @@ export default function NewGame() {
             <Button variant="contained" sx={{ mt: 4 }} onClick={handleSubmit}>
                 Continue to Result Entry
             </Button>
+            <LastGames />
         </Container>
     );
 }
