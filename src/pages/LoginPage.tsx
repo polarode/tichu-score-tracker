@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { TextField, Button, Container, Typography } from "@mui/material";
 
 export default function LoginPage() {
-    const [password, setPassword] = useState();
+    const [password, setPassword] = useState<string>();
     const navigate = useNavigate();
 
     const sharedPassword = import.meta.env.VITE_SHARED_PASSWORD;
