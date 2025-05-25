@@ -9,7 +9,7 @@ import { GameProvider } from "./context/GameContext";
 ReactDOM.createRoot(document.getElementById("root")!).render(
     <React.StrictMode>
         <GameProvider>
-            <BrowserRouter>
+            <BrowserRouter basename="/tichu-score-tracker">
                 <Routes>
                     <Route path="/" element={<LoginPage />} />
                     <Route path="/new" element={<NewGame />} />
