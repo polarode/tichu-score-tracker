@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Container, Typography, Grid, Autocomplete, TextField, Button, Stack } from "@mui/material";
-import { useGameContext } from "../context/GameContext";
+import { useGameContext, type Player } from "../context/GameContext";
 import { supabase } from "../lib/supabase";
 
 export default function NewGame() {
@@ -20,7 +20,7 @@ export default function NewGame() {
 
     const [team1, setTeam1] = useState<string[]>([]);
     const [team2, setTeam2] = useState<string[]>([]);
-    const [knownPlayers, setKnownPlayers] = useState<string[]>([]);
+    const [knownPlayers, setKnownPlayers] = useState<Player[]>([]);
 
     const [newPlayerName, setNewPlayerName] = useState("");
     const [isAddingPlayer, setIsAddingPlayer] = useState(false);
@@ -30,12 +30,16 @@ export default function NewGame() {
     }, []);
 
     async function fetchPlayers() {
-        const { data, error } = await supabase.from("players").select("name");
+        const { data, error } = await supabase.from("players").select("id, name");
         if (error) {
             console.error("Error fetching players:", error);
             return;
         }
-        setKnownPlayers(data.map((p) => p.name));
+        setKnownPlayers(
+            data.map((p) => {
+                return { id: p.id, name: p.name };
+            }),
+        );
     }
 
     const handleAddPlayer = async () => {
@@ -64,13 +68,16 @@ export default function NewGame() {
             return;
         }
 
-        setTeams(team1, team2);
+        setTeams(
+            knownPlayers.filter((player) => team1.includes(player.name)),
+            knownPlayers.filter((player) => team2.includes(player.name)),
+        );
         navigate("/result");
     };
 
     const availableForTeam = (team: number) => {
         const selected = team === 1 ? team2 : team1;
-        return knownPlayers.filter((name) => !selected.includes(name));
+        return knownPlayers.filter((player) => !selected.includes(player.name)).map((player) => player.name);
     };
 
     return (

@@ -15,9 +15,13 @@ import {
     Slider,
 } from "@mui/material";
 import { useGameContext } from "../context/GameContext";
+import { toast } from "react-toastify";
 
-type TeamScores = { [key: number]: number };
-type TichuCall = "NONE" | "SMALL" | "GRAND";
+type TichuCall = "NONE" | "ST" | "GT";
+
+const TICHU_POINTS = 100;
+const GRAND_TICHU_POINTS = 200;
+const DOUBLE_WIN_POINTS = 200;
 
 export default function GameResult() {
     const navigate = useNavigate();
@@ -28,7 +32,9 @@ export default function GameResult() {
 
     const [positions, setPositions] = useState<(number | null)[]>([null, null, null, null]);
     const [tichuCalls, setTichuCalls] = useState<TichuCall[]>(["NONE", "NONE", "NONE", "NONE"]);
-    const [teamScores, setTeamScores] = useState<TeamScores>({ 1: 0, 2: 0 });
+    const [teamScores, setTeamScores] = useState<number[]>([0, 0]);
+    const [doubleWinTeam, setDoubleWinTeam] = useState<number | null>(null);
+    const [teamTotalScores, setTeamTotalScores] = useState<number[]>([0, 0]);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
@@ -37,22 +43,16 @@ export default function GameResult() {
         }
     }, [team1, team2, navigate]);
 
+    useEffect(() => updateDoubleWin(), [positions]);
+    useEffect(() => updateBonusPoints(), [tichuCalls, teamScores, positions, doubleWinTeam]);
+
     const handleTeam1ScoreChange = (_event: Event, value: number | number[]) => {
         const score = Array.isArray(value) ? value[0] : value;
-        setTeamScores({
-            1: score,
-            2: 100 - score,
-        });
+        setTeamScores([score, 100 - score]);
     };
 
-    const handlePositionChange = (
-        idx: number,
-        newPos: number | null,
-        positions: (number | null)[],
-        setPositions: React.Dispatch<React.SetStateAction<(number | null)[]>>,
-    ) => {
+    const handlePositionChange = (idx: number, newPos: number | null, positions: (number | null)[]) => {
         if (newPos === null) {
-            // User unselected position -> just clear it
             const updated = [...positions];
             updated[idx] = null;
             setPositions(updated);
@@ -87,29 +87,76 @@ export default function GameResult() {
         setTichuCalls((prev) => {
             const updated = [...prev];
             updated[idx] = newTichuCall;
-            console.log(updated);
             return updated;
         });
+    };
+
+    const updateDoubleWin = () => {
+        const firstIndex = positions.findIndex((pos) => pos === 1);
+        const secondIndex = positions.findIndex((pos) => pos === 2);
+        if (teams[firstIndex] === teams[secondIndex]) {
+            setDoubleWinTeam(teams[firstIndex]);
+        } else {
+            setDoubleWinTeam(null);
+        }
+    };
+
+    const updateBonusPoints = () => {
+        const baseTeamScores = { ...teamScores };
+
+        const bonusPoints = [0, 0];
+
+        players.forEach((_, idx) => {
+            const call = tichuCalls[idx];
+            const success = positions[idx] === 1;
+            const team: number = teams[idx] - 1;
+
+            if (call === "ST") {
+                bonusPoints[team] += success ? TICHU_POINTS : -TICHU_POINTS;
+            } else if (call === "GT") {
+                bonusPoints[team] += success ? GRAND_TICHU_POINTS : -GRAND_TICHU_POINTS;
+            }
+        });
+
+        if (doubleWinTeam !== null) {
+            bonusPoints[doubleWinTeam - 1] += DOUBLE_WIN_POINTS;
+        }
+
+        setTeamTotalScores([
+            (doubleWinTeam == null ? baseTeamScores[0] : 0) + bonusPoints[0],
+            (doubleWinTeam == null ? baseTeamScores[1] : 0) + bonusPoints[1],
+        ]);
     };
 
     const handleSubmit = async () => {
         setError(null);
 
-        const entry = {
-            players,
-            teams,
-            positions,
-            tichu_calls: tichuCalls,
-            team_scores: teamScores,
-            timestamp: new Date().toISOString(),
-        };
+        if (positions.some((pos) => pos === null)) {
+            setError("Please set the finishing position for all players.");
+            return;
+        }
 
-        const { error } = await supabase.from("games").insert(entry);
+        const uniquePositions = new Set(positions);
+        if (uniquePositions.size !== 4 || ![1, 2, 3, 4].every((n) => uniquePositions.has(n))) {
+            setError("Positions must be unique and between 1 and 4.");
+            return;
+        }
+
+        const { error } = await supabase.rpc("insert_tichu_game", {
+            p_players: players.map((p) => p.id),
+            p_teams: [1, 1, 2, 2],
+            p_positions: positions,
+            p_tichu_calls: tichuCalls,
+            p_double_wins: doubleWinTeam == 1 ? [true, false] : doubleWinTeam == 2 ? [false, true] : [false, false],
+            p_scores: doubleWinTeam != null ? [0, 0] : teamScores,
+            p_total_scores: teamTotalScores,
+        });
 
         if (error) {
-            setError(error.message);
+            toast.success("Error inserting game:" + error.message);
         } else {
-            navigate("/");
+            toast.success("Game saved successfully!");
+            navigate("/new");
         }
     };
 
@@ -132,13 +179,13 @@ export default function GameResult() {
                     {players.map((player, idx) => (
                         <TableRow key={idx}>
                             {idx % 2 == 0 ? <TableCell rowSpan={2}>{teams[idx]}</TableCell> : <></>}
-                            <TableCell>{player}</TableCell>
+                            <TableCell>{player.name}</TableCell>
                             <TableCell>
                                 <ToggleButtonGroup
                                     exclusive
                                     size="small"
                                     value={positions[idx]}
-                                    onChange={(_, newVal) => handlePositionChange(idx, newVal, positions, setPositions)}
+                                    onChange={(_, newVal) => handlePositionChange(idx, newVal, positions)}
                                     aria-label={`Finish position for player ${player}`}
                                 >
                                     {[1, 2, 3, 4].map((pos) => (
@@ -172,18 +219,27 @@ export default function GameResult() {
                 {[1, 2].map((team) => (
                     <Box key={team} display="flex" flexDirection="column" alignItems="center" minWidth={80}>
                         <Typography>Team {team} Score</Typography>
-                        <Typography variant="h6">{teamScores[team]}</Typography>
+                        <Typography variant="h6">{teamScores[team - 1]}</Typography>
                     </Box>
                 ))}
             </Box>
             <Slider
-                value={teamScores[1]}
+                value={teamScores[0]}
                 min={-25}
                 max={125}
                 step={5}
                 onChange={handleTeam1ScoreChange}
                 valueLabelDisplay="auto"
             />
+
+            <Box display="flex" justifyContent="space-between" mb={2}>
+                {[1, 2].map((team) => (
+                    <Box key={team} display="flex" flexDirection="column" alignItems="center" minWidth={80}>
+                        <Typography>with bonus points</Typography>
+                        <Typography variant="h6">{teamTotalScores[team - 1]}</Typography>
+                    </Box>
+                ))}
+            </Box>
 
             {error && (
                 <Typography color="error" mt={2}>

@@ -5,6 +5,7 @@ import LoginPage from "./pages/LoginPage";
 import NewGame from "./pages/NewGame";
 import GameResult from "./pages/GameResult";
 import { GameProvider } from "./context/GameContext";
+import { ToastContainer } from "react-toastify";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
     <React.StrictMode>
@@ -16,6 +17,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                     <Route path="/result" element={<GameResult />} />
                 </Routes>
             </BrowserRouter>
+            <ToastContainer position="top-right" autoClose={3000} />
         </GameProvider>
     </React.StrictMode>,
 );

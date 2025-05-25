@@ -1,6 +1,9 @@
 import { createContext, useContext, useState } from "react";
 
-type Player = string;
+export type Player = {
+    id: string;
+    name: string;
+};
 
 interface GameContextType {
     team1: Player[];
