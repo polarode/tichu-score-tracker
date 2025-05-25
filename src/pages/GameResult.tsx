@@ -32,7 +32,7 @@ export default function GameResult() {
 
     const [positions, setPositions] = useState<(number | null)[]>([null, null, null, null]);
     const [tichuCalls, setTichuCalls] = useState<TichuCall[]>(["NONE", "NONE", "NONE", "NONE"]);
-    const [teamScores, setTeamScores] = useState<number[]>([0, 0]);
+    const [teamScores, setTeamScores] = useState<number[]>([50, 50]);
     const [doubleWinTeam, setDoubleWinTeam] = useState<number | null>(null);
     const [teamTotalScores, setTeamTotalScores] = useState<number[]>([0, 0]);
     const [error, setError] = useState<string | null>(null);
@@ -171,7 +171,7 @@ export default function GameResult() {
                     <TableRow>
                         <TableCell></TableCell>
                         <TableCell>Player</TableCell>
-                        <TableCell>Finish Position</TableCell>
+                        <TableCell>Finish Order</TableCell>
                         <TableCell>Tichu</TableCell>
                     </TableRow>
                 </TableHead>
@@ -215,11 +215,11 @@ export default function GameResult() {
                 </TableBody>
             </Table>
 
-            <Box display="flex" justifyContent="space-between" mb={2}>
+            <Box display="flex" justifyContent="space-between" mb={2} sx={{ mt: 4 }}>
                 {[1, 2].map((team) => (
                     <Box key={team} display="flex" flexDirection="column" alignItems="center" minWidth={80}>
                         <Typography>Team {team} Score</Typography>
-                        <Typography variant="h6">{teamScores[team - 1]}</Typography>
+                        <Typography variant="h6">{doubleWinTeam != null ? 0 : teamScores[team - 1]}</Typography>
                     </Box>
                 ))}
             </Box>
@@ -228,6 +228,7 @@ export default function GameResult() {
                 min={-25}
                 max={125}
                 step={5}
+                disabled={doubleWinTeam != null}
                 onChange={handleTeam1ScoreChange}
                 valueLabelDisplay="auto"
             />

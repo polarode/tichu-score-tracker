@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Container, Typography, Grid, Autocomplete, TextField, Button, Stack } from "@mui/material";
+import { Container, Typography, Grid, Autocomplete, TextField, Button, Stack, Box } from "@mui/material";
 import { useGameContext, type Player } from "../context/GameContext";
 import { supabase } from "../lib/supabase";
 import { LastGames } from "./LastGames";
@@ -88,9 +88,9 @@ export default function NewGame() {
             </Typography>
             <Grid container spacing={4}>
                 <Grid sx={{ xs: 12, md: 6 }}>
-                    <Typography>Team 1</Typography>
                     <Autocomplete
                         multiple
+                        sx={{ minWidth: "300px" }}
                         options={availableForTeam(1)}
                         value={team1}
                         onChange={(_, value) => value.length <= 2 && setTeam1(value)}
@@ -99,9 +99,9 @@ export default function NewGame() {
                     />
                 </Grid>
                 <Grid sx={{ xs: 12, md: 6 }}>
-                    <Typography>Team 2</Typography>
                     <Autocomplete
                         multiple
+                        sx={{ minWidth: "300px" }}
                         options={availableForTeam(2)}
                         value={team2}
                         onChange={(_, value) => value.length <= 2 && setTeam2(value)}
@@ -129,7 +129,9 @@ export default function NewGame() {
             <Button variant="contained" sx={{ mt: 4 }} onClick={handleSubmit}>
                 Continue to Result Entry
             </Button>
-            <LastGames />
+            <Box sx={{ mt: 4 }}>
+                <LastGames />
+            </Box>
         </Container>
     );
 }

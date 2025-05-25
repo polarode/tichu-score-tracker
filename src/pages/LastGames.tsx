@@ -31,7 +31,7 @@ export const LastGames = () => {
     return (
         <>
             <Typography variant="h6" gutterBottom>
-                Last 5 Games
+                Recent games
             </Typography>
             {recentGames.map((game) => (
                 <Card key={game.id} variant="outlined" sx={{ mb: 2 }}>

@@ -7,7 +7,8 @@
     "scripts": {
         "dev": "vite",
         "build": "tsc -b && vite build",
-        "predeploy": "npm run build",
+        "postbuild": "cp dist/index.html dist/404.html",
+        "predeploy": "npm run build && npm run postbuild",
         "deploy": "gh-pages -d dist",
         "lint": "eslint .",
         "preview": "vite preview",
