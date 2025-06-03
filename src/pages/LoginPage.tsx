@@ -14,7 +14,7 @@ export default function LoginPage() {
         if (password === sharedPassword) {
             setError(false);
             localStorage.setItem("authenticated", "true");
-            navigate("/new");
+            navigate("/dashboard");
         } else {
             setError(true);
         }

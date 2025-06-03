@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Container, Typography, Grid, Autocomplete, TextField, Button, Stack, Box } from "@mui/material";
-import { useGameContext, type Player } from "../context/GameContext";
-import { supabase } from "../lib/supabase";
-import { LastGames } from "./LastGames";
+import { Container, Typography, Grid, Autocomplete, TextField, Button, Stack } from "@mui/material";
+import { useGameContext, type Player } from "../../context/GameContext";
+import { supabase } from "../../lib/supabase";
 
 export default function NewGame() {
     const navigate = useNavigate();
@@ -31,7 +30,7 @@ export default function NewGame() {
     }, []);
 
     async function fetchPlayers() {
-        const { data, error } = await supabase.from("players").select("id, name").order("name", {ascending: true});
+        const { data, error } = await supabase.from("players").select("id, name").order("name", { ascending: true });
         if (error) {
             console.error("Error fetching players:", error);
             return;
@@ -73,7 +72,7 @@ export default function NewGame() {
             knownPlayers.filter((player) => team1.includes(player.name)),
             knownPlayers.filter((player) => team2.includes(player.name)),
         );
-        navigate("/result");
+        navigate("/tichu/result");
     };
 
     const availableForTeam = (team: number) => {
@@ -129,9 +128,6 @@ export default function NewGame() {
             <Button variant="contained" sx={{ mt: 4 }} onClick={handleSubmit}>
                 Continue to Result Entry
             </Button>
-            <Box sx={{ mt: 4 }}>
-                <LastGames />
-            </Box>
         </Container>
     );
 }

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "../lib/supabase";
+import { supabase } from "../../lib/supabase";
 import {
     Table,
     TableHead,
@@ -14,7 +14,7 @@ import {
     ToggleButtonGroup,
     Slider,
 } from "@mui/material";
-import { useGameContext } from "../context/GameContext";
+import { useGameContext } from "../../context/GameContext";
 import { toast } from "react-toastify";
 
 type TichuCall = "NONE" | "ST" | "GT";
@@ -39,7 +39,7 @@ export default function GameResult() {
 
     useEffect(() => {
         if (team1.length !== 2 || team2.length !== 2) {
-            navigate("/new");
+            navigate("/tichu/new");
         }
     }, [team1, team2, navigate]);
 
@@ -156,7 +156,7 @@ export default function GameResult() {
             toast.success("Error inserting game:" + error.message);
         } else {
             toast.success("Game saved successfully!");
-            navigate("/new");
+            navigate("/dashboard");
         }
     };
 

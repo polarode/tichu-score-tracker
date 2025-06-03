@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { supabase } from "../lib/supabase"; // adjust if you use a different path
+import { supabase } from "../../lib/supabase"; // adjust if you use a different path
 import { Card, CardContent, Typography } from "@mui/material";
 
 interface Game {
@@ -31,7 +31,7 @@ export const LastGames = () => {
     return (
         <>
             <Typography variant="h6" gutterBottom>
-                Recent games
+                Recent games of Tichu
             </Typography>
             {recentGames.map((game) => (
                 <Card key={game.id} variant="outlined" sx={{ mb: 2 }}>
