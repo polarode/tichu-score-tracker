@@ -14,7 +14,7 @@ import {
     ToggleButtonGroup,
     Slider,
 } from "@mui/material";
-import { useGameContext } from "../../context/GameContext";
+import { useTichuGameContext } from "../../context/TichuGameContext";
 import { toast } from "react-toastify";
 
 type TichuCall = "NONE" | "ST" | "GT";
@@ -25,7 +25,7 @@ const DOUBLE_WIN_POINTS = 200;
 
 export default function GameResult() {
     const navigate = useNavigate();
-    const { team1, team2 } = useGameContext();
+    const { team1, team2 } = useTichuGameContext();
 
     const players = [...team1, ...team2];
     const teams = [...team1.map(() => 1), ...team2.map(() => 2)];

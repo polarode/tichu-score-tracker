@@ -1,9 +1,5 @@
-import { createContext, useContext, useState } from "react";
-
-export type Player = {
-    id: string;
-    name: string;
-};
+import { createContext as createTichuContext, useContext, useState } from "react";
+import type { Player } from "../lib/types";
 
 interface GameContextType {
     team1: Player[];
@@ -11,7 +7,7 @@ interface GameContextType {
     setTeams: (t1: Player[], t2: Player[]) => void;
 }
 
-const GameContext = createContext<GameContextType | undefined>(undefined);
+const GameContext = createTichuContext<GameContextType | undefined>(undefined);
 
 export const GameProvider = ({ children }: { children: React.ReactNode }) => {
     const [team1, setTeam1] = useState<Player[]>([]);
@@ -25,7 +21,7 @@ export const GameProvider = ({ children }: { children: React.ReactNode }) => {
     return <GameContext.Provider value={{ team1, team2, setTeams }}>{children}</GameContext.Provider>;
 };
 
-export const useGameContext = () => {
+export const useTichuGameContext = () => {
     const context = useContext(GameContext);
     if (!context) throw new Error("useGameContext must be used within GameProvider");
     return context;

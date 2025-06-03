@@ -1,7 +1,6 @@
 import { Container, Typography, Card, CardContent, Button, Grid, Box } from "@mui/material";
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import { LastGames } from "./tichu/LastGames";
 import { Celebration } from "@mui/icons-material";
 
@@ -11,7 +10,7 @@ export default function DashboardPage() {
         if (gameType === "tichu") {
             navigate("/tichu/new");
         } else if (gameType === "rebelPrincess") {
-            toast.info("work in progress, coming soon.")
+            navigate("/rebel-princess/new");
         }
     };
 

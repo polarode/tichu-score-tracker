@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Container, Typography, Grid, Autocomplete, TextField, Button, Stack } from "@mui/material";
-import { useTichuGameContext } from "../../context/TichuGameContext";
 import { supabase } from "../../lib/supabase";
-import { type Player } from "../../lib/types";
 import { toast } from "react-toastify";
+import type { Player } from "../../lib/types";
+import { useRebelPrincessGameContext } from "../../context/RebelPrincessGameContext";
 
 export default function NewGame() {
     const navigate = useNavigate();
@@ -18,10 +18,9 @@ export default function NewGame() {
 
     if (!isAuthenticated) return null;
 
-    const { setTeams } = useTichuGameContext();
+    const { setPlayers } = useRebelPrincessGameContext();
 
-    const [team1, setTeam1] = useState<string[]>([]);
-    const [team2, setTeam2] = useState<string[]>([]);
+    const [playerNames, setPlayerNames] = useState<string[]>([]);
     const [knownPlayers, setKnownPlayers] = useState<Player[]>([]);
 
     const [newPlayerName, setNewPlayerName] = useState("");
@@ -59,55 +58,34 @@ export default function NewGame() {
     };
 
     const handleSubmit = () => {
-        if (team1.length !== 2 || team2.length !== 2) {
-            toast.warn("Each team must have exactly 2 players");
+        if (playerNames.length < 3) {
+            toast.warn("There have to be at least 3 players");
             return;
         }
-
-        const overlap = team1.filter((p) => team2.includes(p));
-        if (overlap.length > 0) {
-            toast.warn(`Players cannot be on both teams: ${overlap.join(", ")}`);
+        if (playerNames.length > 6) {
+            toast.warn("There can be no more than 6 players");
             return;
         }
-
-        setTeams(
-            knownPlayers.filter((player) => team1.includes(player.name)),
-            knownPlayers.filter((player) => team2.includes(player.name)),
-        );
-        navigate("/tichu/result");
-    };
-
-    const availableForTeam = (team: number) => {
-        const selected = team === 1 ? team2 : team1;
-        return knownPlayers.filter((player) => !selected.includes(player.name)).map((player) => player.name);
+        setPlayers(knownPlayers.filter((player) => playerNames.includes(player.name)));
+        //toast.info("work in progress. coming soon")
+        navigate("/rebel-princess/result");
     };
 
     return (
         <Container sx={{ mt: 5 }}>
             <Typography variant="h5" gutterBottom>
-                Select Teams
+                Select 3 to 6 Players
             </Typography>
             <Grid container spacing={4}>
                 <Grid sx={{ xs: 12, md: 6 }}>
                     <Autocomplete
                         multiple
                         sx={{ minWidth: "300px" }}
-                        options={availableForTeam(1)}
-                        value={team1}
-                        onChange={(_, value) => value.length <= 2 && setTeam1(value)}
+                        options={knownPlayers.map((player) => player.name)}
+                        value={playerNames}
+                        onChange={(_, value) => value.length <= 6 && setPlayerNames(value)}
                         disableCloseOnSelect
-                        renderInput={(params) => <TextField {...params} label="Team 1 Players" />}
-                    />
-                </Grid>
-                <Grid sx={{ xs: 12, md: 6 }}>
-                    <Autocomplete
-                        multiple
-                        sx={{ minWidth: "300px" }}
-                        options={availableForTeam(2)}
-                        value={team2}
-                        onChange={(_, value) => value.length <= 2 && setTeam2(value)}
-                        disableCloseOnSelect
-                        renderInput={(params) => <TextField {...params} label="Team 2 Players" />}
+                        renderInput={(params) => <TextField {...params} label="Players" />}
                     />
                 </Grid>
                 {isAddingPlayer ? (
