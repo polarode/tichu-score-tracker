@@ -31,7 +31,7 @@ export default function NewGame() {
     }, []);
 
     async function fetchPlayers() {
-        const { data, error } = await supabase.from("players").select("id, name");
+        const { data, error } = await supabase.from("players").select("id, name").order("name", {ascending: true});
         if (error) {
             console.error("Error fetching players:", error);
             return;
