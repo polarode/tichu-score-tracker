@@ -37,7 +37,7 @@ export const LastGames = () => {
                 <Card key={game.id} variant="outlined" sx={{ mb: 2 }}>
                     <CardContent>
                         <Typography variant="subtitle2" color="text.secondary">
-                            {new Date(game.played_at).toLocaleString()}
+                            {new Date(game.played_at + "Z").toLocaleString()}
                         </Typography>
                         <Typography>
                             {game.players[0].join(", ")}: {game.team_scores[0]}
