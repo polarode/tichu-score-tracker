@@ -3,9 +3,11 @@ import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import { useNavigate } from "react-router-dom";
 import { LastGames } from "./tichu/LastGames";
 import { Celebration } from "@mui/icons-material";
+import { useEffect } from "react";
 
 export default function DashboardPage() {
     const navigate = useNavigate();
+    const isAuthenticated = localStorage.getItem("authenticated") === "true";
     const handleStartGame = (gameType: string) => {
         if (gameType === "tichu") {
             navigate("/tichu/new");
@@ -13,6 +15,12 @@ export default function DashboardPage() {
             navigate("/rebel-princess/new");
         }
     };
+
+    useEffect(() => {
+        if (!isAuthenticated) {
+            navigate("/", { replace: true });
+        }
+    }, [isAuthenticated, navigate]);
 
     return (
         <Container maxWidth="sm" sx={{ mt: 8 }}>

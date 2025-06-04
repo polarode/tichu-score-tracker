@@ -22,11 +22,18 @@ import { toast } from "react-toastify";
 
 export default function RoundResult() {
     const navigate = useNavigate();
+    const isAuthenticated = localStorage.getItem("authenticated") === "true";
     const { players } = useRebelPrincessGameContext();
     const roundModifiers: RPRoundModifier[] = initializeAvailableRoundModifiers();
 
     const [roundModifier, setRoundModifier] = useState<RPRoundModifier | undefined>(undefined);
     const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        if (!isAuthenticated) {
+            navigate("/", { replace: true });
+        }
+    }, [isAuthenticated, navigate]);
 
     useEffect(() => {
         console.log(roundModifier);
