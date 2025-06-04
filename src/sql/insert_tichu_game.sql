@@ -3,6 +3,7 @@ create or replace function insert_tichu_game(
   p_teams int[],
   p_positions int[],
   p_tichu_calls text[],
+  p_bomb_count int[],
   p_double_wins boolean[],
   p_scores int[],
   p_total_scores int[],
@@ -27,6 +28,7 @@ begin
     or array_length(p_teams, 1) != 4
     or array_length(p_positions, 1) != 4
     or array_length(p_tichu_calls, 1) != 4
+    or array_length(p_bomb_count, 1) != 4
     or array_length(p_double_wins, 1) != 2
     or array_length(p_scores, 1) != 2
     or array_length(p_total_scores, 1) != 2 then
@@ -55,8 +57,8 @@ begin
 
   -- Insert game participants
   for i in 1..4 loop
-    insert into game_participants (game_id, player_id, team, position, tichu_call, grand_tichu_call, tichu_success)
-    values (v_game_id, p_players[i], p_teams[i],  p_positions[i], v_small_tichu[i], v_grand_tichu[i], v_tichu_success[i]);
+    insert into game_participants (game_id, player_id, team, position, tichu_call, grand_tichu_call, tichu_success, bomb_count)
+    values (v_game_id, p_players[i], p_teams[i],  p_positions[i], v_small_tichu[i], v_grand_tichu[i], v_tichu_success[i], p_bomb_count[i]);
   end loop;
 
   -- Insert game scores

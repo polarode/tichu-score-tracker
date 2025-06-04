@@ -13,6 +13,7 @@ import {
     ToggleButton,
     ToggleButtonGroup,
     Slider,
+    ButtonGroup,
 } from "@mui/material";
 import { useTichuGameContext } from "../../context/TichuGameContext";
 import { toast } from "react-toastify";
@@ -32,6 +33,7 @@ export default function GameResult() {
 
     const [positions, setPositions] = useState<(number | null)[]>([null, null, null, null]);
     const [tichuCalls, setTichuCalls] = useState<TichuCall[]>(["NONE", "NONE", "NONE", "NONE"]);
+    const [bombCounts, setBombCounts] = useState<number[]>([0, 0, 0, 0]);
     const [teamScores, setTeamScores] = useState<number[]>([50, 50]);
     const [doubleWinTeam, setDoubleWinTeam] = useState<number | null>(null);
     const [teamTotalScores, setTeamTotalScores] = useState<number[]>([0, 0]);
@@ -147,6 +149,7 @@ export default function GameResult() {
             p_teams: [1, 1, 2, 2],
             p_positions: positions,
             p_tichu_calls: tichuCalls,
+            p_bomb_count: bombCounts,
             p_double_wins: doubleWinTeam == 1 ? [true, false] : doubleWinTeam == 2 ? [false, true] : [false, false],
             p_scores: doubleWinTeam != null ? [0, 0] : teamScores,
             p_total_scores: teamTotalScores,
@@ -173,13 +176,16 @@ export default function GameResult() {
                         <TableCell>Player</TableCell>
                         <TableCell>Finish Order</TableCell>
                         <TableCell>Tichu</TableCell>
+                        <TableCell>Bombs</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     {players.map((player, idx) => (
                         <TableRow key={idx}>
                             {idx % 2 == 0 ? <TableCell rowSpan={2}>{teams[idx]}</TableCell> : <></>}
-                            <TableCell>{player.name}</TableCell>
+                            <TableCell>
+                                {player.name} {"💣".repeat(bombCounts[idx])}
+                            </TableCell>
                             <TableCell>
                                 <ToggleButtonGroup
                                     exclusive
@@ -209,6 +215,28 @@ export default function GameResult() {
                                         </ToggleButton>
                                     ))}
                                 </ToggleButtonGroup>
+                            </TableCell>
+                            <TableCell>
+                                <ButtonGroup size="small" aria-label={`Bomb count for player ${player}`}>
+                                    {["-", "+"].map((modification) => (
+                                        <Button
+                                            aria-label={`Bomb count ${modification}`}
+                                            onClick={() => {
+                                                setBombCounts((prev) => {
+                                                    const newCounter = [...prev];
+                                                    if (modification === "+" && newCounter[idx] < 3) {
+                                                        newCounter[idx]++;
+                                                    } else if (modification === "-" && newCounter[idx] > 0) {
+                                                        newCounter[idx]--;
+                                                    }
+                                                    return newCounter;
+                                                });
+                                            }}
+                                        >
+                                            {modification}
+                                        </Button>
+                                    ))}
+                                </ButtonGroup>
                             </TableCell>
                         </TableRow>
                     ))}

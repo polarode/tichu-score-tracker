@@ -1,6 +1,18 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Container, Typography, Grid, Autocomplete, TextField, Button, Stack } from "@mui/material";
+import {
+    Container,
+    Typography,
+    Grid,
+    TextField,
+    Button,
+    Stack,
+    FormControl,
+    InputLabel,
+    Select,
+    MenuItem,
+    Box,
+} from "@mui/material";
 import { useTichuGameContext } from "../../context/TichuGameContext";
 import { supabase } from "../../lib/supabase";
 import { type Player } from "../../lib/types";
@@ -83,32 +95,58 @@ export default function NewGame() {
     };
 
     return (
-        <Container sx={{ mt: 5 }}>
-            <Typography variant="h5" gutterBottom>
-                Select Teams
-            </Typography>
-            <Grid container spacing={4}>
+        <Box maxWidth={800} mx="auto" p={2}>
+            <Container sx={{ mt: 5 }}>
+                <Typography variant="h5" gutterBottom>
+                    Select Teams
+                </Typography>
                 <Grid sx={{ xs: 12, md: 6 }}>
-                    <Autocomplete
-                        multiple
-                        sx={{ minWidth: "300px" }}
-                        options={availableForTeam(1)}
-                        value={team1}
-                        onChange={(_, value) => value.length <= 2 && setTeam1(value)}
-                        disableCloseOnSelect
-                        renderInput={(params) => <TextField {...params} label="Team 1 Players" />}
-                    />
-                </Grid>
-                <Grid sx={{ xs: 12, md: 6 }}>
-                    <Autocomplete
-                        multiple
-                        sx={{ minWidth: "300px" }}
-                        options={availableForTeam(2)}
-                        value={team2}
-                        onChange={(_, value) => value.length <= 2 && setTeam2(value)}
-                        disableCloseOnSelect
-                        renderInput={(params) => <TextField {...params} label="Team 2 Players" />}
-                    />
+                    <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                        <FormControl sx={{ minWidth: "48%" }}>
+                            <InputLabel id="team1">Team 1</InputLabel>
+                            <Select
+                                fullWidth
+                                multiple
+                                value={team1}
+                                labelId="team1"
+                                label="Team 1"
+                                onChange={(event) => {
+                                    const value = event.target.value as string[];
+                                    if (value.length <= 2) {
+                                        setTeam1(value);
+                                    }
+                                }}
+                            >
+                                {availableForTeam(1).map((p) => (
+                                    <MenuItem key={p} value={p}>
+                                        {p}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                        <FormControl sx={{ minWidth: "48%" }}>
+                            <InputLabel id="team2">Team 2</InputLabel>
+                            <Select
+                                fullWidth
+                                multiple
+                                value={team2}
+                                labelId="team2"
+                                label="Team 2"
+                                onChange={(event) => {
+                                    const value = event.target.value as string[];
+                                    if (value.length <= 2) {
+                                        setTeam2(value);
+                                    }
+                                }}
+                            >
+                                {availableForTeam(2).map((p) => (
+                                    <MenuItem key={p} value={p}>
+                                        {p}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                    </Box>
                 </Grid>
                 {isAddingPlayer ? (
                     <Stack direction="row" spacing={2} alignItems="center">
@@ -126,10 +164,10 @@ export default function NewGame() {
                 ) : (
                     <Button onClick={() => setIsAddingPlayer(true)}>+ Add New Player</Button>
                 )}
-            </Grid>
-            <Button variant="contained" sx={{ mt: 4 }} onClick={handleSubmit}>
-                Continue to Result Entry
-            </Button>
-        </Container>
+                <Button variant="contained" sx={{ mt: 4 }} onClick={handleSubmit}>
+                    Continue to Result Entry
+                </Button>
+            </Container>
+        </Box>
     );
 }

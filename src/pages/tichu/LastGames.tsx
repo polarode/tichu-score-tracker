@@ -7,6 +7,7 @@ interface Game {
     played_at: string;
     players: string[][];
     team_scores: number[];
+    bomb_counts: number[][];
 }
 
 export const LastGames = () => {
@@ -15,7 +16,7 @@ export const LastGames = () => {
 
     useEffect(() => {
         const fetchRecentGames = async () => {
-            const { data, error } = await supabase.rpc("get_latest_games", { number_of_games: 5 });
+            const { data, error } = await supabase.rpc("get_latest_games", { number_of_games: 20 });
 
             if (!error && data) {
                 setRecentGames(data as Game[]);
@@ -40,10 +41,14 @@ export const LastGames = () => {
                             {new Date(game.played_at + "Z").toLocaleString()}
                         </Typography>
                         <Typography>
-                            {game.players[0].join(", ")}: {game.team_scores[0]}
+                            {game.players[0][0]}
+                            {"💣".repeat(game.bomb_counts[0][0])},{game.players[0][1]}
+                            {"💣".repeat(game.bomb_counts[0][1])}: {game.team_scores[0]}
                         </Typography>
                         <Typography>
-                            {game.players[1].join(", ")}: {game.team_scores[1]}
+                            {game.players[1][0]}
+                            {"💣".repeat(game.bomb_counts[1][0])},{game.players[1][1]}
+                            {"💣".repeat(game.bomb_counts[1][1])}: {game.team_scores[1]}
                         </Typography>
                     </CardContent>
                 </Card>

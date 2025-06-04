@@ -6,4 +6,4 @@ export type Player = {
 export type RPRoundModifier = {
     id: string;
     name: string;
-}
+};

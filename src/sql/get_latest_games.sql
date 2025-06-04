@@ -5,7 +5,8 @@ returns table (
   id uuid,
   played_at timestamp,
   players text[][],
-  team_scores int[]
+  team_scores int[],
+  bomb_counts int[][]
 )
 language sql
 as $$
@@ -20,7 +21,11 @@ as $$
       SELECT ARRAY_AGG(total_score ORDER BY team)
       FROM game_scores
       WHERE game_id = g.id
-    ) AS team_scores
+    ) AS team_scores,
+    ARRAY[
+      ARRAY_AGG(gp.bomb_count ORDER BY p.name) FILTER (WHERE gp.team = 1),
+      ARRAY_AGG(gp.bomb_count ORDER BY p.name) FILTER (WHERE gp.team = 2)
+    ] AS bomb_counts
   FROM 
     games g
   JOIN game_participants gp ON g.id = gp.game_id
@@ -29,3 +34,4 @@ as $$
   ORDER BY g.timestamp DESC
   LIMIT number_of_games;
 $$;
+

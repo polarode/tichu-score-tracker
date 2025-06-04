@@ -19,10 +19,10 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                     <Routes>
                         <Route path="/" element={<LoginPage />} />
                         <Route path="/dashboard" element={<DashboardPage />} />
-                            <Route path="/tichu/new" element={<NewGame />} />
-                            <Route path="/tichu/result" element={<GameResult />} />
-                            <Route path="/rebel-princess/new" element={<RPNewGame />} />
-                            <Route path="/rebel-princess/result" element={<RPResult />} />
+                        <Route path="/tichu/new" element={<NewGame />} />
+                        <Route path="/tichu/result" element={<GameResult />} />
+                        <Route path="/rebel-princess/new" element={<RPNewGame />} />
+                        <Route path="/rebel-princess/result" element={<RPResult />} />
                     </Routes>
                 </BrowserRouter>
             </RPGameProvider>

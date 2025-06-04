@@ -1,6 +1,18 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Container, Typography, Grid, Autocomplete, TextField, Button, Stack } from "@mui/material";
+import {
+    Container,
+    Typography,
+    Grid,
+    TextField,
+    Button,
+    Stack,
+    MenuItem,
+    Select,
+    Box,
+    FormControl,
+    InputLabel,
+} from "@mui/material";
 import { supabase } from "../../lib/supabase";
 import { toast } from "react-toastify";
 import type { Player } from "../../lib/types";
@@ -72,42 +84,53 @@ export default function NewGame() {
     };
 
     return (
-        <Container sx={{ mt: 5 }}>
-            <Typography variant="h5" gutterBottom>
-                Select 3 to 6 Players
-            </Typography>
-            <Grid container spacing={4}>
+        <Box maxWidth={800} mx="auto" p={2}>
+            <Container sx={{ mt: 5 }}>
+                <Typography variant="h5" gutterBottom>
+                    Select 3 to 6 Players
+                </Typography>
                 <Grid sx={{ xs: 12, md: 6 }}>
-                    <Autocomplete
-                        multiple
-                        sx={{ minWidth: "300px" }}
-                        options={knownPlayers.map((player) => player.name)}
-                        value={playerNames}
-                        onChange={(_, value) => value.length <= 6 && setPlayerNames(value)}
-                        disableCloseOnSelect
-                        renderInput={(params) => <TextField {...params} label="Players" />}
-                    />
+                    <FormControl fullWidth>
+                        <InputLabel id="player">Players</InputLabel>
+                        <Select
+                            fullWidth={true}
+                            multiple
+                            value={playerNames}
+                            labelId="player"
+                            label="Players"
+                            onChange={(event) => {
+                                const value = event.target.value as string[];
+                                if (value.length <= 6) {
+                                    setPlayerNames(value);
+                                }
+                            }}
+                        >
+                            {knownPlayers.map((p) => (
+                                <MenuItem value={p.name}>{p.name}</MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+                    {isAddingPlayer ? (
+                        <Stack direction="row" spacing={2} alignItems="center">
+                            <TextField
+                                label="New Player Name"
+                                value={newPlayerName}
+                                onChange={(e) => setNewPlayerName(e.target.value)}
+                                size="small"
+                            />
+                            <Button variant="contained" onClick={handleAddPlayer}>
+                                Add
+                            </Button>
+                            <Button onClick={() => setIsAddingPlayer(false)}>Cancel</Button>
+                        </Stack>
+                    ) : (
+                        <Button onClick={() => setIsAddingPlayer(true)}>+ Add New Player</Button>
+                    )}
                 </Grid>
-                {isAddingPlayer ? (
-                    <Stack direction="row" spacing={2} alignItems="center">
-                        <TextField
-                            label="New Player Name"
-                            value={newPlayerName}
-                            onChange={(e) => setNewPlayerName(e.target.value)}
-                            size="small"
-                        />
-                        <Button variant="contained" onClick={handleAddPlayer}>
-                            Add
-                        </Button>
-                        <Button onClick={() => setIsAddingPlayer(false)}>Cancel</Button>
-                    </Stack>
-                ) : (
-                    <Button onClick={() => setIsAddingPlayer(true)}>+ Add New Player</Button>
-                )}
-            </Grid>
-            <Button variant="contained" sx={{ mt: 4 }} onClick={handleSubmit}>
-                Continue to Result Entry
-            </Button>
-        </Container>
+                <Button variant="contained" sx={{ mt: 4 }} onClick={handleSubmit}>
+                    Continue to Result Entry
+                </Button>
+            </Container>
+        </Box>
     );
 }
