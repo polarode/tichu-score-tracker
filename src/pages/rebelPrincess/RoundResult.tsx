@@ -27,6 +27,7 @@ export default function RoundResult() {
     const roundModifiers: RPRoundModifier[] = initializeAvailableRoundModifiers();
 
     const [roundModifier, setRoundModifier] = useState<RPRoundModifier | undefined>(undefined);
+    const [playerPoints, setPlayerPoints] = useState<number[]>(new Array(players.length).fill(0));
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
@@ -36,10 +37,6 @@ export default function RoundResult() {
     }, [isAuthenticated, navigate]);
 
     useEffect(() => {
-        console.log(roundModifier);
-    }, [roundModifier]);
-
-    useEffect(() => {
         if (players.length < 3 || players.length > 6) {
             navigate("/rebel-princess/new");
         }
@@ -47,7 +44,21 @@ export default function RoundResult() {
 
     const handleSubmit = async () => {
         setError(null);
-        toast.info("work in progress, coming soon™");
+        if (!roundModifier) {
+            toast.error("Please select a round modifier");
+            return;
+        }
+        const [minPoints, maxPoints] = calculateRoundPoints(players.length, roundModifier);
+        const totalPoints = playerPoints.reduce((sum, points) => sum + points, 0);
+
+        // Validate points are in valid range
+        if (totalPoints < minPoints || totalPoints > maxPoints) {
+            toast.error(`Total points must be between ${minPoints} and ${maxPoints}`);
+            return;
+        }
+
+        // todo: save logic here
+        toast.info("Your points seem to be valid. I would now save the game, if I had already implemented that");
     };
 
     function initializeAvailableRoundModifiers(): RPRoundModifier[] {
@@ -76,6 +87,52 @@ export default function RoundResult() {
         ];
     }
 
+    function getCardsPerColor(numberOfPlayers: number): number {
+        switch (numberOfPlayers) {
+            case 3:
+                return 9; // Cards 2-10
+            case 4:
+            case 5:
+                return 10; // Cards 1-10
+            case 6:
+                return 12; // Cards 1-12
+            default:
+                throw new Error(`Invalid number of players: ${numberOfPlayers}. Must be 3, 4, 5, or 6.`);
+        }
+    }
+
+    // Calculate the minimum and maximum possible points for a round of Rebel Princess
+    function calculateRoundPoints(numberOfPlayers: number, roundModifier?: RPRoundModifier): [number, number] {
+        if (![3, 4, 5, 6].includes(numberOfPlayers)) {
+            throw new Error(`Invalid number of players: ${numberOfPlayers}. Must be 3, 4, 5, or 6.`);
+        }
+
+        const cardsPerColor = getCardsPerColor(numberOfPlayers);
+        let basePointsPerPrinceCard = 1;
+        const frogPoints = 5;
+        const additionalPointsForNumberMatchingQueenPrinceMatches = 2;
+        const additionalPointsPerAnimalCard = 1;
+        const additionalPointsPerFairyCard = -1;
+
+        let min = cardsPerColor * basePointsPerPrinceCard + frogPoints;
+        let max = min;
+
+        // Apply round modifiers that affect points
+        if (roundModifier?.id === "f") {
+            min += cardsPerColor * additionalPointsPerAnimalCard;
+            max = min;
+        } else if (roundModifier?.id === "k") {
+            max += cardsPerColor * additionalPointsForNumberMatchingQueenPrinceMatches;
+        } else if (roundModifier?.id === "o") {
+            basePointsPerPrinceCard = 2;
+            max = cardsPerColor * basePointsPerPrinceCard + frogPoints;
+        } else if (roundModifier?.id === "p") {
+            min += cardsPerColor * additionalPointsPerFairyCard;
+            max = min;
+        }
+        return [min, max];
+    }
+
     return (
         <Box maxWidth={800} mx="auto" p={2}>
             <Typography variant="h5" gutterBottom>
@@ -86,10 +143,15 @@ export default function RoundResult() {
                     <InputLabel id="roundModifier">Round modifier</InputLabel>
                     <Select
                         fullWidth={true}
-                        value={roundModifier?.id}
-                        onChange={(_, value) =>
-                            value !== null && setRoundModifier(roundModifiers.find((modifier) => modifier.id === value))
-                        }
+                        value={roundModifier}
+                        onChange={(event) => {
+                            const selectedId = event.target.value;
+                            console.log(selectedId);
+                            if (selectedId) {
+                                const selectedModifier = roundModifiers.find((modifier) => modifier.id === selectedId);
+                                setRoundModifier(selectedModifier);
+                            }
+                        }}
                         label="Round modifier"
                         labelId="roundModifier"
                     >
@@ -113,10 +175,26 @@ export default function RoundResult() {
                         <TableRow key={idx}>
                             <TableCell>{player.name}</TableCell>
                             <TableCell>
-                                <TextField></TextField>
+                                <TextField
+                                    type="number"
+                                    value={playerPoints[idx]}
+                                    onChange={(e) => {
+                                        const newPoints = [...playerPoints];
+                                        newPoints[idx] = Number(e.target.value) || 0;
+                                        setPlayerPoints(newPoints);
+                                    }}
+                                />
                             </TableCell>
                         </TableRow>
                     ))}
+                    <TableRow>
+                        <TableCell>
+                            <strong>Total</strong>
+                        </TableCell>
+                        <TableCell>
+                            <strong>{playerPoints.reduce((sum, points) => sum + points, 0)}</strong>
+                        </TableCell>
+                    </TableRow>
                 </TableBody>
             </Table>
 
