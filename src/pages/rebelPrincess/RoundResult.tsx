@@ -177,10 +177,17 @@ export default function RoundResult() {
                             <TableCell>
                                 <TextField
                                     type="number"
-                                    value={playerPoints[idx]}
+                                    value={playerPoints[idx] === 0 ? "" : playerPoints[idx].toString()}
                                     onChange={(e) => {
                                         const newPoints = [...playerPoints];
-                                        newPoints[idx] = Number(e.target.value) || 0;
+                                        const inputValue = e.target.value;
+
+                                        if (inputValue === "") {
+                                            newPoints[idx] = 0;
+                                        } else {
+                                            newPoints[idx] = Number(inputValue) || 0;
+                                        }
+
                                         setPlayerPoints(newPoints);
                                     }}
                                 />
