@@ -15,6 +15,7 @@ import {
     MenuItem,
     FormControl,
     InputLabel,
+    Tooltip,
 } from "@mui/material";
 import { useRebelPrincessGameContext } from "../../context/RebelPrincessGameContext";
 import type { RPRoundModifier } from "../../lib/types";
@@ -211,14 +212,30 @@ export default function RoundResult() {
                                 Player
                             </TableCell>
                             {savedRounds.map((round, idx) => (
-                                <TableCell key={idx} align="center">
-                                    Round {idx + 1}
-                                    <Typography variant="caption" display="block">
-                                        ({round.modifier.id}) {round.modifier.name}
-                                    </Typography>
+                                <TableCell sx={{ minWidth: 60}} key={idx} align="center">
+                                    <Tooltip
+                                        title={`(${round.modifier.id}) ${round.modifier.name}`}
+                                        arrow
+                                        disableFocusListener={false}
+                                        disableTouchListener={false}
+                                        enterTouchDelay={0}
+                                    >
+                                        <span>Round {idx + 1}</span>
+                                    </Tooltip>
                                 </TableCell>
                             ))}
-                            <TableCell>Points</TableCell>
+                            <TableCell>
+                                <Tooltip
+                                    title={`(${roundModifier?.id}) ${roundModifier?.name}`}
+                                    arrow
+                                    disableFocusListener={false}
+                                    disableTouchListener={false}
+                                    enterTouchDelay={0}
+                                >
+                                    <span>Round {savedRounds.length + 1}</span>
+                                </Tooltip>
+                            </TableCell>
+                            <TableCell align="center">Total</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -250,6 +267,12 @@ export default function RoundResult() {
                                         }}
                                     />
                                 </TableCell>
+                                <TableCell align="center">
+                                    <strong>
+                                        {savedRounds.reduce((sum, round) => sum + round.points[idx], 0) +
+                                            playerPoints[idx]}
+                                    </strong>
+                                </TableCell>
                             </TableRow>
                         ))}
                         <TableRow>
@@ -263,6 +286,14 @@ export default function RoundResult() {
                             ))}
                             <TableCell>
                                 <strong>{playerPoints.reduce((sum, points) => sum + points, 0)}</strong>
+                            </TableCell>
+                            <TableCell align="center">
+                                <strong>
+                                    {savedRounds.reduce(
+                                        (sum, round) => sum + round.points.reduce((s, p) => s + p, 0),
+                                        0,
+                                    ) + playerPoints.reduce((sum, points) => sum + points, 0)}
+                                </strong>
                             </TableCell>
                         </TableRow>
                     </TableBody>
