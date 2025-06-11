@@ -78,18 +78,18 @@ export default function NewGame() {
             toast.warn("There can be no more than 6 players");
             return;
         }
-        
+
         const selectedPlayers = knownPlayers.filter((player) => playerNames.includes(player.name));
         setPlayers(selectedPlayers);
-        
+
         try {
             // Create a new game and get the game ID
-            const { data, error } = await supabase.rpc('create_rebel_princess_game', {
-                p_players: selectedPlayers.map(player => player.id)
+            const { data, error } = await supabase.rpc("create_rebel_princess_game", {
+                p_players: selectedPlayers.map((player) => player.id),
             });
-            
+
             if (error) throw error;
-            
+
             // Store the game ID in context
             setGameId(data);
             navigate("/rebel-princess/result");

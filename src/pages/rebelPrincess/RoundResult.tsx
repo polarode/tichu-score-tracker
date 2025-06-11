@@ -68,26 +68,29 @@ export default function RoundResult() {
             if (!gameId) {
                 throw new Error("No game ID found");
             }
-            
-            const playerIds = players.map(player => player.id);
 
-            const { error: dbError } = await supabase.rpc('insert_rebel_princess_round', {
+            const playerIds = players.map((player) => player.id);
+
+            const { error: dbError } = await supabase.rpc("insert_rebel_princess_round", {
                 p_game_id: gameId,
                 p_players: playerIds,
                 p_points: playerPoints,
-                p_round_modifier: roundModifier.id
+                p_round_modifier: roundModifier.id,
             });
-            
+
             if (dbError) {
                 throw dbError;
             }
-            
+
             // Add the saved round to the state
-            setSavedRounds([...savedRounds, { 
-                modifier: roundModifier, 
-                points: [...playerPoints] 
-            }]);
-            
+            setSavedRounds([
+                ...savedRounds,
+                {
+                    modifier: roundModifier,
+                    points: [...playerPoints],
+                },
+            ]);
+
             toast.success("Round saved successfully!");
             setPlayerPoints(new Array(players.length).fill(0));
             setRoundModifier(undefined);

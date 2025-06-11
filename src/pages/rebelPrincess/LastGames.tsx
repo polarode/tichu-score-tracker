@@ -41,10 +41,8 @@ export const LastRebelPrincessGames = () => {
                         <Typography variant="subtitle2" color="text.secondary">
                             {new Date(game.played_at + "Z").toLocaleString()}
                         </Typography>
-                        <Typography>
-                            Rounds played: {game.rounds}
-                        </Typography>
-                        {game.players.map(player => (
+                        <Typography>Rounds played: {game.rounds}</Typography>
+                        {game.players.map((player) => (
                             <Typography key={player}>
                                 {player}: {game.player_points[player] || 0} points
                             </Typography>
