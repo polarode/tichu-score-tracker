@@ -71,7 +71,7 @@ export default function RoundResult() {
             
             const playerIds = players.map(player => player.id);
 
-            const { data, error: dbError } = await supabase.rpc('insert_rebel_princess_round', {
+            const { error: dbError } = await supabase.rpc('insert_rebel_princess_round', {
                 p_game_id: gameId,
                 p_players: playerIds,
                 p_points: playerPoints,
