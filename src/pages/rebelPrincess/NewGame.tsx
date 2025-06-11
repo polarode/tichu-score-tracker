@@ -30,7 +30,7 @@ export default function NewGame() {
 
     if (!isAuthenticated) return null;
 
-    const { setPlayers } = useRebelPrincessGameContext();
+    const { setPlayers, setGameId } = useRebelPrincessGameContext();
 
     const [playerNames, setPlayerNames] = useState<string[]>([]);
     const [knownPlayers, setKnownPlayers] = useState<Player[]>([]);
@@ -69,7 +69,7 @@ export default function NewGame() {
         }
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         if (playerNames.length < 3) {
             toast.warn("There have to be at least 3 players");
             return;
@@ -78,9 +78,25 @@ export default function NewGame() {
             toast.warn("There can be no more than 6 players");
             return;
         }
-        setPlayers(knownPlayers.filter((player) => playerNames.includes(player.name)));
-        //toast.info("work in progress. coming soon")
-        navigate("/rebel-princess/result");
+        
+        const selectedPlayers = knownPlayers.filter((player) => playerNames.includes(player.name));
+        setPlayers(selectedPlayers);
+        
+        try {
+            // Create a new game and get the game ID
+            const { data, error } = await supabase.rpc('create_rebel_princess_game', {
+                p_players: selectedPlayers.map(player => player.id)
+            });
+            
+            if (error) throw error;
+            
+            // Store the game ID in context
+            setGameId(data);
+            navigate("/rebel-princess/result");
+        } catch (err) {
+            console.error("Error creating game:", err);
+            toast.error("Failed to create game. Please try again.");
+        }
     };
 
     return (

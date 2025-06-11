@@ -19,15 +19,22 @@ import {
 import { useRebelPrincessGameContext } from "../../context/RebelPrincessGameContext";
 import type { RPRoundModifier } from "../../lib/types";
 import { toast } from "react-toastify";
+import { supabase } from "../../lib/supabase";
+
+type SavedRound = {
+    modifier: RPRoundModifier;
+    points: number[];
+};
 
 export default function RoundResult() {
     const navigate = useNavigate();
     const isAuthenticated = localStorage.getItem("authenticated") === "true";
-    const { players } = useRebelPrincessGameContext();
+    const { players, gameId } = useRebelPrincessGameContext();
     const roundModifiers: RPRoundModifier[] = initializeAvailableRoundModifiers();
 
     const [roundModifier, setRoundModifier] = useState<RPRoundModifier | undefined>(undefined);
     const [playerPoints, setPlayerPoints] = useState<number[]>(new Array(players.length).fill(0));
+    const [savedRounds, setSavedRounds] = useState<SavedRound[]>([]);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
@@ -37,10 +44,10 @@ export default function RoundResult() {
     }, [isAuthenticated, navigate]);
 
     useEffect(() => {
-        if (players.length < 3 || players.length > 6) {
+        if (players.length < 3 || players.length > 6 || !gameId) {
             navigate("/rebel-princess/new");
         }
-    }, [players, navigate]);
+    }, [players, gameId, navigate]);
 
     const handleSubmit = async () => {
         setError(null);
@@ -57,8 +64,38 @@ export default function RoundResult() {
             return;
         }
 
-        // todo: save logic here
-        toast.info("Your points seem to be valid. I would now save the game, if I had already implemented that");
+        try {
+            if (!gameId) {
+                throw new Error("No game ID found");
+            }
+            
+            const playerIds = players.map(player => player.id);
+
+            const { data, error: dbError } = await supabase.rpc('insert_rebel_princess_round', {
+                p_game_id: gameId,
+                p_players: playerIds,
+                p_points: playerPoints,
+                p_round_modifier: roundModifier.id
+            });
+            
+            if (dbError) {
+                throw dbError;
+            }
+            
+            // Add the saved round to the state
+            setSavedRounds([...savedRounds, { 
+                modifier: roundModifier, 
+                points: [...playerPoints] 
+            }]);
+            
+            toast.success("Round saved successfully!");
+            setPlayerPoints(new Array(players.length).fill(0));
+            setRoundModifier(undefined);
+        } catch (err) {
+            console.error("Error saving round:", err);
+            toast.error("Failed to save round. Please try again.");
+            setError("Failed to save round data");
+        }
     };
 
     function initializeAvailableRoundModifiers(): RPRoundModifier[] {
@@ -167,6 +204,14 @@ export default function RoundResult() {
                 <TableHead>
                     <TableRow>
                         <TableCell>Player</TableCell>
+                        {savedRounds.map((round, idx) => (
+                            <TableCell key={idx} align="center">
+                                Round {idx + 1}
+                                <Typography variant="caption" display="block">
+                                    ({round.modifier.id}) {round.modifier.name}
+                                </Typography>
+                            </TableCell>
+                        ))}
                         <TableCell>Points</TableCell>
                     </TableRow>
                 </TableHead>
@@ -174,6 +219,11 @@ export default function RoundResult() {
                     {players.map((player, idx) => (
                         <TableRow key={idx}>
                             <TableCell>{player.name}</TableCell>
+                            {savedRounds.map((round, roundIdx) => (
+                                <TableCell key={roundIdx} align="center">
+                                    {round.points[idx]}
+                                </TableCell>
+                            ))}
                             <TableCell>
                                 <TextField
                                     type="number"
@@ -198,6 +248,11 @@ export default function RoundResult() {
                         <TableCell>
                             <strong>Total</strong>
                         </TableCell>
+                        {savedRounds.map((round, idx) => (
+                            <TableCell key={idx} align="center">
+                                <strong>{round.points.reduce((sum, p) => sum + p, 0)}</strong>
+                            </TableCell>
+                        ))}
                         <TableCell>
                             <strong>{playerPoints.reduce((sum, points) => sum + points, 0)}</strong>
                         </TableCell>
