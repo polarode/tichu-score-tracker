@@ -1,7 +1,8 @@
-import { Container, Typography, Card, CardContent, Button, Grid, Box } from "@mui/material";
+import { Container, Typography, Card, CardContent, Button, Grid, Box, Divider } from "@mui/material";
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import { useNavigate } from "react-router-dom";
 import { LastGames } from "./tichu/LastGames";
+import { LastRebelPrincessGames } from "./rebelPrincess/LastGames";
 import { Celebration } from "@mui/icons-material";
 import { useEffect } from "react";
 
@@ -69,6 +70,8 @@ export default function DashboardPage() {
             </Grid>
             <Box sx={{ mt: 4 }}>
                 <LastGames />
+                <Divider sx={{ my: 3 }} />
+                <LastRebelPrincessGames />
             </Box>
         </Container>
     );
