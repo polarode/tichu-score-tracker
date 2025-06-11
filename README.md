@@ -22,15 +22,7 @@ Before setting up the project, ensure you have the following installed on your s
 npm install
 ```
 
-### 2. Initialize Supabase
-Set up the local Supabase development environment:
-```bash
-npx supabase init
-```
-
-This creates the necessary Supabase configuration files and folder structure in your project. 
-
-### 3. Start Local Supabase Services
+### 2. Start Local Supabase Services
 Launch the local Supabase stack (PostgreSQL, PostgREST, Auth, etc.):
 ```bash
 npx supabase start
@@ -49,7 +41,7 @@ Expected output includes:
 - **Studio URL**: `http://localhost:54323`
 - **Anon Key**: Local anonymous key for client connections
 
-### 4. Start Development Server
+### 3. Start Development Server
 ```bash
 npm run dev
 ```
