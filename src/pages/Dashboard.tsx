@@ -1,14 +1,20 @@
-import { Container, Typography, Card, CardContent, Button, Grid, Box, Divider } from "@mui/material";
+import { Container, Typography, Card, CardContent, Button, Grid, Box, Tabs, Tab } from "@mui/material";
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import { useNavigate } from "react-router-dom";
 import { LastGames } from "./tichu/LastGames";
 import { LastRebelPrincessGames } from "./rebelPrincess/LastGames";
 import { Celebration } from "@mui/icons-material";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function DashboardPage() {
     const navigate = useNavigate();
     const isAuthenticated = localStorage.getItem("authenticated") === "true";
+    const [tabValue, setTabValue] = useState(0);
+
+    const handleTabChange = (_event: React.SyntheticEvent, newValue: number) => {
+        setTabValue(newValue);
+    };
+
     const handleStartGame = (gameType: string) => {
         if (gameType === "tichu") {
             navigate("/tichu/new");
@@ -69,9 +75,16 @@ export default function DashboardPage() {
                 </Grid>
             </Grid>
             <Box sx={{ mt: 4 }}>
-                <LastGames />
-                <Divider sx={{ my: 3 }} />
-                <LastRebelPrincessGames />
+                <Tabs value={tabValue} onChange={handleTabChange} variant="fullWidth" sx={{ mb: 2 }}>
+                    <Tab label="Tichu" />
+                    <Tab label="Rebel Princess" />
+                </Tabs>
+                <Box sx={{ display: tabValue === 0 ? "block" : "none" }}>
+                    <LastGames />
+                </Box>
+                <Box sx={{ display: tabValue === 1 ? "block" : "none" }}>
+                    <LastRebelPrincessGames />
+                </Box>
             </Box>
         </Container>
     );
