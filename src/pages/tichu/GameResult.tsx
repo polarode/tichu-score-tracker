@@ -26,6 +26,7 @@ const DOUBLE_WIN_POINTS = 200;
 
 export default function GameResult() {
     const navigate = useNavigate();
+    const isAuthenticated = localStorage.getItem("authenticated") === "true";
     const { team1, team2 } = useTichuGameContext();
 
     const players = [...team1, ...team2];
@@ -38,6 +39,12 @@ export default function GameResult() {
     const [doubleWinTeam, setDoubleWinTeam] = useState<number | null>(null);
     const [teamTotalScores, setTeamTotalScores] = useState<number[]>([0, 0]);
     const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        if (!isAuthenticated) {
+            navigate("/login", { replace: true });
+        }
+    }, [isAuthenticated, navigate]);
 
     useEffect(() => {
         if (team1.length !== 2 || team2.length !== 2) {
@@ -159,7 +166,7 @@ export default function GameResult() {
             toast.success("Error inserting game:" + error.message);
         } else {
             toast.success("Game saved successfully!");
-            navigate("/dashboard");
+            navigate("/");
         }
     };
 

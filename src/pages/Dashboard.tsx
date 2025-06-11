@@ -25,7 +25,7 @@ export default function DashboardPage() {
 
     useEffect(() => {
         if (!isAuthenticated) {
-            navigate("/", { replace: true });
+            navigate("/login", { replace: true });
         }
     }, [isAuthenticated, navigate]);
 

@@ -17,8 +17,8 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
             <RPGameProvider>
                 <BrowserRouter basename="/tichu-score-tracker">
                     <Routes>
-                        <Route path="/" element={<LoginPage />} />
-                        <Route path="/dashboard" element={<DashboardPage />} />
+                        <Route path="/login" element={<LoginPage />} />
+                        <Route path="/" element={<DashboardPage />} />
                         <Route path="/tichu/new" element={<NewGame />} />
                         <Route path="/tichu/result" element={<GameResult />} />
                         <Route path="/rebel-princess/new" element={<RPNewGame />} />
