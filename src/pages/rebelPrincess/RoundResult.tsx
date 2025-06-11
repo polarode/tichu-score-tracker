@@ -203,72 +203,77 @@ export default function RoundResult() {
                     </Select>
                 </FormControl>
             </Grid>
-            <Table>
-                <TableHead>
-                    <TableRow>
-                        <TableCell>Player</TableCell>
-                        {savedRounds.map((round, idx) => (
-                            <TableCell key={idx} align="center">
-                                Round {idx + 1}
-                                <Typography variant="caption" display="block">
-                                    ({round.modifier.id}) {round.modifier.name}
-                                </Typography>
+            <Box sx={{ overflowX: "auto" }}>
+                <Table sx={{ minWidth: 300 }}>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell sx={{ position: "sticky", left: 0, background: "white", zIndex: 1 }}>
+                                Player
                             </TableCell>
+                            {savedRounds.map((round, idx) => (
+                                <TableCell key={idx} align="center">
+                                    Round {idx + 1}
+                                    <Typography variant="caption" display="block">
+                                        ({round.modifier.id}) {round.modifier.name}
+                                    </Typography>
+                                </TableCell>
+                            ))}
+                            <TableCell>Points</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {players.map((player, idx) => (
+                            <TableRow key={idx}>
+                                <TableCell sx={{ position: "sticky", left: 0, background: "white", zIndex: 1 }}>
+                                    {player.name}
+                                </TableCell>
+                                {savedRounds.map((round, roundIdx) => (
+                                    <TableCell key={roundIdx} align="center">
+                                        {round.points[idx]}
+                                    </TableCell>
+                                ))}
+                                <TableCell>
+                                    <TextField
+                                        type="number"
+                                        value={playerPoints[idx] === 0 ? "" : playerPoints[idx].toString()}
+                                        onChange={(e) => {
+                                            const newPoints = [...playerPoints];
+                                            const inputValue = e.target.value;
+
+                                            if (inputValue === "") {
+                                                newPoints[idx] = 0;
+                                            } else {
+                                                newPoints[idx] = Number(inputValue) || 0;
+                                            }
+
+                                            setPlayerPoints(newPoints);
+                                        }}
+                                    />
+                                </TableCell>
+                            </TableRow>
                         ))}
-                        <TableCell>Points</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {players.map((player, idx) => (
-                        <TableRow key={idx}>
-                            <TableCell>{player.name}</TableCell>
-                            {savedRounds.map((round, roundIdx) => (
-                                <TableCell key={roundIdx} align="center">
-                                    {round.points[idx]}
+                        <TableRow>
+                            <TableCell sx={{ position: "sticky", left: 0, background: "white", zIndex: 1 }}>
+                                <strong>Total</strong>
+                            </TableCell>
+                            {savedRounds.map((round, idx) => (
+                                <TableCell key={idx} align="center">
+                                    <strong>{round.points.reduce((sum, p) => sum + p, 0)}</strong>
                                 </TableCell>
                             ))}
                             <TableCell>
-                                <TextField
-                                    type="number"
-                                    value={playerPoints[idx] === 0 ? "" : playerPoints[idx].toString()}
-                                    onChange={(e) => {
-                                        const newPoints = [...playerPoints];
-                                        const inputValue = e.target.value;
-
-                                        if (inputValue === "") {
-                                            newPoints[idx] = 0;
-                                        } else {
-                                            newPoints[idx] = Number(inputValue) || 0;
-                                        }
-
-                                        setPlayerPoints(newPoints);
-                                    }}
-                                />
+                                <strong>{playerPoints.reduce((sum, points) => sum + points, 0)}</strong>
                             </TableCell>
                         </TableRow>
-                    ))}
-                    <TableRow>
-                        <TableCell>
-                            <strong>Total</strong>
-                        </TableCell>
-                        {savedRounds.map((round, idx) => (
-                            <TableCell key={idx} align="center">
-                                <strong>{round.points.reduce((sum, p) => sum + p, 0)}</strong>
-                            </TableCell>
-                        ))}
-                        <TableCell>
-                            <strong>{playerPoints.reduce((sum, points) => sum + points, 0)}</strong>
-                        </TableCell>
-                    </TableRow>
-                </TableBody>
-            </Table>
+                    </TableBody>
+                </Table>
 
-            {error && (
-                <Typography color="error" mt={2}>
-                    Error: {error}
-                </Typography>
-            )}
-
+                {error && (
+                    <Typography color="error" mt={2}>
+                        Error: {error}
+                    </Typography>
+                )}
+            </Box>
             <Box mt={3}>
                 <Button variant="contained" color="primary" onClick={handleSubmit}>
                     Save Round
