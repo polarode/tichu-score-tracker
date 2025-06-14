@@ -59,6 +59,11 @@ export default function GameResult() {
         setTeamScores([score, 100 - score]);
     };
 
+    const handleTeam2ScoreChange = (_event: Event, value: number | number[]) => {
+        const score = Array.isArray(value) ? value[0] : value;
+        setTeamScores([100 - score, score]);
+    };
+
     const handlePositionChange = (idx: number, newPos: number | null, positions: (number | null)[]) => {
         if (newPos === null) {
             const updated = [...positions];
@@ -253,15 +258,30 @@ export default function GameResult() {
                     </Box>
                 ))}
             </Box>
-            <Slider
-                value={teamScores[0]}
-                min={-25}
-                max={125}
-                step={5}
-                disabled={doubleWinTeam != null}
-                onChange={handleTeam1ScoreChange}
-                valueLabelDisplay="auto"
-            />
+            <Box mb={2}>
+                <Typography>Team 1 Score</Typography>
+                <Slider
+                    value={teamScores[0]}
+                    min={-25}
+                    max={125}
+                    step={5}
+                    disabled={doubleWinTeam != null}
+                    onChange={handleTeam1ScoreChange}
+                    valueLabelDisplay="auto"
+                />
+            </Box>
+            <Box mb={2}>
+                <Typography>Team 2 Score</Typography>
+                <Slider
+                    value={teamScores[1]}
+                    min={-25}
+                    max={125}
+                    step={5}
+                    disabled={doubleWinTeam != null}
+                    onChange={handleTeam2ScoreChange}
+                    valueLabelDisplay="auto"
+                />
+            </Box>
 
             <Box display="flex" justifyContent="space-between" mb={2}>
                 {[1, 2].map((team) => (
