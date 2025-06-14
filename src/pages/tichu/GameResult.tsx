@@ -13,7 +13,6 @@ import {
     ToggleButton,
     ToggleButtonGroup,
     Slider,
-    ButtonGroup,
 } from "@mui/material";
 import { useTichuGameContext } from "../../context/TichuGameContext";
 import { toast } from "react-toastify";
@@ -224,26 +223,22 @@ export default function GameResult() {
                                 </ToggleButtonGroup>
                             </TableCell>
                             <TableCell>
-                                <ButtonGroup size="small" aria-label={`Bomb count for player ${player}`}>
-                                    {["-", "+"].map((modification) => (
-                                        <Button
-                                            aria-label={`Bomb count ${modification}`}
-                                            onClick={() => {
-                                                setBombCounts((prev) => {
-                                                    const newCounter = [...prev];
-                                                    if (modification === "+" && newCounter[idx] < 3) {
-                                                        newCounter[idx]++;
-                                                    } else if (modification === "-" && newCounter[idx] > 0) {
-                                                        newCounter[idx]--;
-                                                    }
-                                                    return newCounter;
-                                                });
-                                            }}
-                                        >
-                                            {modification}
-                                        </Button>
-                                    ))}
-                                </ButtonGroup>
+                                <Button
+                                    size="small"
+                                    variant="outlined"
+                                    sx={{ minWidth: "36px", height: "32px" }}
+                                    aria-label={`Increment bomb count for player ${player}`}
+                                    onClick={() => {
+                                        setBombCounts((prev) => {
+                                            const newCounter = [...prev];
+                                            // Increment and wrap around from 3 back to 0
+                                            newCounter[idx] = (newCounter[idx] + 1) % 4;
+                                            return newCounter;
+                                        });
+                                    }}
+                                >
+                                    💣
+                                </Button>
                             </TableCell>
                         </TableRow>
                     ))}

@@ -17,7 +17,7 @@ import { useTichuGameContext } from "../../context/TichuGameContext";
 import { supabase } from "../../lib/supabase";
 import { type Player } from "../../lib/types";
 import { toast } from "react-toastify";
-import ReplayIcon from '@mui/icons-material/Replay';
+import ReplayIcon from "@mui/icons-material/Replay";
 
 export default function NewGame() {
     const navigate = useNavigate();
@@ -89,21 +89,21 @@ export default function NewGame() {
         );
         navigate("/tichu/result");
     };
-    
+
     const handleRematch = async () => {
         try {
             const { data, error } = await supabase.rpc("get_latest_games", { number_of_games: 1 });
-            
+
             if (error) throw error;
-            
+
             if (data && data.length > 0) {
                 const lastGame = data[0];
-                
+
                 // Check if game was played within the last 2 hours
                 const gameTime = new Date(lastGame.played_at + "Z");
                 const twoHoursAgo = new Date();
                 twoHoursAgo.setHours(twoHoursAgo.getHours() - 2);
-                
+
                 if (gameTime > twoHoursAgo) {
                     // Set teams from the last game
                     setTeam1(lastGame.players[0]);
@@ -196,12 +196,8 @@ export default function NewGame() {
                 ) : (
                     <Button onClick={() => setIsAddingPlayer(true)}>+ Add New Player</Button>
                 )}
-                <Box sx={{ display: 'flex', gap: 2, mt: 4 }}>
-                    <Button 
-                        startIcon={<ReplayIcon />} 
-                        variant="outlined" 
-                        onClick={handleRematch}
-                    >
+                <Box sx={{ display: "flex", gap: 2, mt: 4 }}>
+                    <Button startIcon={<ReplayIcon />} variant="outlined" onClick={handleRematch}>
                         Rematch
                     </Button>
                     <Button variant="contained" onClick={handleSubmit}>

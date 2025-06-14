@@ -212,7 +212,7 @@ export default function RoundResult() {
                                 Player
                             </TableCell>
                             {savedRounds.map((round, idx) => (
-                                <TableCell sx={{ minWidth: 60}} key={idx} align="center">
+                                <TableCell sx={{ minWidth: 60 }} key={idx} align="center">
                                     <Tooltip
                                         title={`(${round.modifier.id}) ${round.modifier.name}`}
                                         arrow
