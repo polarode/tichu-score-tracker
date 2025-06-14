@@ -180,7 +180,7 @@ export default function GameResult() {
                 Enter Game Results
             </Typography>
 
-            <Table sx={{ "& .MuiTableCell-root": { py: 2, px: 1 } }}>
+            <Table sx={{ "& .MuiTableCell-root": { py: 1, px: 1 } }}>
                 <TableHead>
                     <TableRow>
                         <TableCell></TableCell>
@@ -258,8 +258,8 @@ export default function GameResult() {
                     </Box>
                 ))}
             </Box>
-            <Box mb={2}>
-                <Typography>Team 1 Score</Typography>
+            <Box mb={1}>
+                <Typography variant="caption">Team 1 Score</Typography>
                 <Slider
                     value={teamScores[0]}
                     min={-25}
@@ -268,10 +268,11 @@ export default function GameResult() {
                     disabled={doubleWinTeam != null}
                     onChange={handleTeam1ScoreChange}
                     valueLabelDisplay="auto"
+                    sx={{ mt: 0 }}
                 />
             </Box>
-            <Box mb={2}>
-                <Typography>Team 2 Score</Typography>
+            <Box mb={1}>
+                <Typography variant="caption">Team 2 Score</Typography>
                 <Slider
                     value={teamScores[1]}
                     min={-25}
@@ -280,6 +281,7 @@ export default function GameResult() {
                     disabled={doubleWinTeam != null}
                     onChange={handleTeam2ScoreChange}
                     valueLabelDisplay="auto"
+                    sx={{ mt: 0 }}
                 />
             </Box>
 
