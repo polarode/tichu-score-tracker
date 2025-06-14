@@ -38,6 +38,7 @@ export default function GameResult() {
     const [doubleWinTeam, setDoubleWinTeam] = useState<number | null>(null);
     const [teamTotalScores, setTeamTotalScores] = useState<number[]>([0, 0]);
     const [error, setError] = useState<string | null>(null);
+    const [beschissFlag, setBeschissFlag] = useState<boolean>(false);
 
     useEffect(() => {
         if (!isAuthenticated) {
@@ -164,6 +165,7 @@ export default function GameResult() {
             p_double_wins: doubleWinTeam == 1 ? [true, false] : doubleWinTeam == 2 ? [false, true] : [false, false],
             p_scores: doubleWinTeam != null ? [0, 0] : teamScores,
             p_total_scores: teamTotalScores,
+            p_beschiss: beschissFlag,
         });
 
         if (error) {
@@ -300,9 +302,24 @@ export default function GameResult() {
                 </Typography>
             )}
 
-            <Box mt={3}>
+            <Box mt={3} display="flex" gap={2}>
                 <Button variant="contained" color="primary" onClick={handleSubmit}>
                     Save Game
+                </Button>
+                <Button
+                    variant="outlined"
+                    onClick={() => setBeschissFlag(!beschissFlag)}
+                    sx={{
+                        color: beschissFlag ? "white" : "error.main",
+                        bgcolor: beschissFlag ? "error.main" : "transparent",
+                        borderColor: beschissFlag ? "error.main" : "rgba(0, 0, 0, 0.23)",
+                        "&:hover": {
+                            bgcolor: "rgba(0, 0, 0, 0.04)",
+                            borderColor: "error.main",
+                        },
+                    }}
+                >
+                    {beschissFlag ? "Beschiss ✓" : "Beschiss"}
                 </Button>
             </Box>
         </Box>

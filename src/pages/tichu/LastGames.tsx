@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../../lib/supabase"; // adjust if you use a different path
-import { Card, CardContent, Typography } from "@mui/material";
+import { Card, CardContent, Typography, Box } from "@mui/material";
 
 interface Game {
     id: number;
@@ -8,6 +8,7 @@ interface Game {
     players: string[][];
     team_scores: number[];
     bomb_counts: number[][];
+    beschiss: boolean;
 }
 
 export const LastGames = () => {
@@ -35,7 +36,7 @@ export const LastGames = () => {
                 Recent games of Tichu
             </Typography>
             {recentGames.map((game) => (
-                <Card key={game.id} variant="outlined" sx={{ mb: 2 }}>
+                <Card key={game.id} variant="outlined" sx={{ mb: 2, position: "relative" }}>
                     <CardContent>
                         <Typography variant="subtitle2" color="text.secondary">
                             {new Date(game.played_at + "Z").toLocaleString()}
@@ -50,6 +51,20 @@ export const LastGames = () => {
                             {"💣".repeat(game.bomb_counts[1][0])},{game.players[1][1]}
                             {"💣".repeat(game.bomb_counts[1][1])}: {game.team_scores[1]}
                         </Typography>
+                        {game.beschiss && (
+                            <Box
+                                sx={{
+                                    position: "absolute",
+                                    top: 8,
+                                    right: 8,
+                                    color: "error.main",
+                                    fontSize: "0.85rem",
+                                    fontWeight: "bold",
+                                }}
+                            >
+                                Beschiss
+                            </Box>
+                        )}
                     </CardContent>
                 </Card>
             ))}
