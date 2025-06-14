@@ -170,12 +170,12 @@ export default function GameResult() {
     };
 
     return (
-        <Box maxWidth={800} mx="auto" p={2}>
+        <Box maxWidth={600} mx="auto" p={2}>
             <Typography variant="h5" gutterBottom>
                 Enter Game Results
             </Typography>
 
-            <Table>
+            <Table sx={{ "& .MuiTableCell-root": { py: 2, px: 1 } }}>
                 <TableHead>
                     <TableRow>
                         <TableCell></TableCell>
