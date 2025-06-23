@@ -42,15 +42,25 @@ export default function DashboardPage() {
                             <Typography variant="h6" gutterBottom>
                                 Tichu
                             </Typography>
-                            <Button
-                                fullWidth
-                                variant="contained"
-                                color="primary"
-                                startIcon={<EmojiEventsIcon />}
-                                onClick={() => handleStartGame("tichu")}
-                            >
-                                Start Game
-                            </Button>
+                            <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
+                                <Button
+                                    fullWidth
+                                    variant="contained"
+                                    color="primary"
+                                    startIcon={<EmojiEventsIcon />}
+                                    onClick={() => handleStartGame("tichu")}
+                                >
+                                    Start Game
+                                </Button>
+                                <Button
+                                    fullWidth
+                                    variant="outlined"
+                                    color="primary"
+                                    onClick={() => navigate("/tichu/stats")}
+                                >
+                                    View Statistics
+                                </Button>
+                            </Box>
                         </CardContent>
                     </Card>
                 </Grid>
