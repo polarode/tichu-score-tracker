@@ -32,17 +32,17 @@ export default function DashboardPage() {
     }, [isAuthenticated, navigate]);
 
     return (
-        <Container maxWidth="sm" sx={{ mt: 8 }}>
+        <Container maxWidth="sm">
+            <Button
+                onClick={() => navigate("/changelog")}
+                variant="outlined"
+                size="small"
+                sx={{ position: "absolute", top: 16, right: 16 }}
+            >
+                v{changelogData[0].version}
+            </Button>
             <Box sx={{ position: "relative" }}>
-                <Button
-                    onClick={() => navigate("/changelog")}
-                    variant="outlined"
-                    size="small"
-                    sx={{ position: "absolute", top: -16, right: -16 }}
-                >
-                    v{changelogData[0].version}
-                </Button>
-                <Typography variant="h4" align="center" gutterBottom>
+                <Typography variant="h4" align="center" sx={{ mt: 8 }} gutterBottom>
                     Lets play a game of...
                 </Typography>
             </Box>
