@@ -5,6 +5,7 @@ import { LastGames } from "./tichu/LastGames";
 import { LastRebelPrincessGames } from "./rebelPrincess/LastGames";
 import { Celebration } from "@mui/icons-material";
 import { useEffect, useState } from "react";
+import changelogData from "../data/changelog.json";
 
 export default function DashboardPage() {
     const navigate = useNavigate();
@@ -31,9 +32,19 @@ export default function DashboardPage() {
 
     return (
         <Container maxWidth="sm" sx={{ mt: 8 }}>
-            <Typography variant="h4" align="center" gutterBottom>
-                Lets play a game of...
-            </Typography>
+            <Box sx={{ position: "relative" }}>
+                <Button 
+                    onClick={() => navigate("/changelog")}
+                    variant="outlined"
+                    size="small"
+                    sx={{ position: "absolute", top: -16, right: -16 }}
+                >
+                    v{changelogData[0].version}
+                </Button>
+                <Typography variant="h4" align="center" gutterBottom>
+                    Lets play a game of...
+                </Typography>
+            </Box>
 
             <Grid container spacing={4} justifyContent="center">
                 <Grid sx={{ xs: 12, sm: 6 }}>

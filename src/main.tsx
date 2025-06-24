@@ -8,6 +8,7 @@ import RPNewGame from "./pages/rebelPrincess/NewGame";
 import RPResult from "./pages/rebelPrincess/RoundResult";
 import GameResult from "./pages/tichu/GameResult";
 import Statistics from "./pages/tichu/Statistics";
+import ChangelogPage from "./pages/Changelog";
 import { GameProvider } from "./context/TichuGameContext";
 import { RPGameProvider } from "./context/RebelPrincessGameContext";
 import { ToastContainer } from "react-toastify";
@@ -25,6 +26,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                         <Route path="/tichu/stats" element={<Statistics />} />
                         <Route path="/rebel-princess/new" element={<RPNewGame />} />
                         <Route path="/rebel-princess/result" element={<RPResult />} />
+                        <Route path="/changelog" element={<ChangelogPage />} />
                     </Routes>
                 </BrowserRouter>
             </RPGameProvider>
