@@ -1,60 +1,47 @@
 [
-  {
-    "version": "1.2.0",
-    "date": "2025-06-24",
-    "changes": [
-      "Added multi-game match support with customizable point targets (500, 1000, or custom). Play series of games until one team reaches the target score",
-      "Added match progress tracking and automatic completion detection",
-      "Added changelog"
-    ]
-  },
-  {
-    "version": "1.1.3",
-    "date": "2025-06-23",
-    "changes": [
-      "Added player statistics for Tichu"
-    ]
-  },
-  {
-    "version": "1.1.2",
-    "date": "2025-06-15",
-    "changes": [
-      "Added 'Beschiss' button"
-    ]
-  },
-  {
-    "version": "1.1.1",
-    "date": "2025-06-14",
-    "changes": [
-      "Updated bomb counter to only use one button"
-    ]
-  },
-  {
-    "version": "1.1.0",
-    "date": "2025-06-11",
-    "changes": [
-      "Added support for Rebel Princess"
-    ]
-  },
-  {
-    "version": "1.0.2",
-    "date": "2025-06-04",
-    "changes": [
-      "Added bomb counter"
-    ]
-  },
-  {
-    "version": "1.0.1",
-    "date": "2025-06-03",
-    "changes": [
-      "Fixed timezone in recent games"
-    ]
-  },
-  {
-    "version": "1.0.0",
-    "date": "2025-05-25",
-    "changes": [
-      "Initial release of Tichu Score Tracker"
-    ]
-  }
+    {
+        "version": "1.2.0",
+        "date": "2025-06-24",
+        "changes": [
+            "Added multi-game match support with customizable point targets (500, 1000, or custom). Play series of games until one team reaches the target score",
+            "Added match progress tracking and automatic completion detection",
+            "Added recent tichu matches as a new tab",
+            "Added changelog"
+        ]
+    },
+    {
+        "version": "1.1.3",
+        "date": "2025-06-23",
+        "changes": ["Added player statistics for Tichu"]
+    },
+    {
+        "version": "1.1.2",
+        "date": "2025-06-15",
+        "changes": ["Added 'Beschiss' button"]
+    },
+    {
+        "version": "1.1.1",
+        "date": "2025-06-14",
+        "changes": ["Updated bomb counter to only use one button"]
+    },
+    {
+        "version": "1.1.0",
+        "date": "2025-06-11",
+        "changes": ["Added support for Rebel Princess"]
+    },
+    {
+        "version": "1.0.2",
+        "date": "2025-06-04",
+        "changes": ["Added bomb counter"]
+    },
+    {
+        "version": "1.0.1",
+        "date": "2025-06-03",
+        "changes": ["Fixed timezone in recent games"]
+    },
+    {
+        "version": "1.0.0",
+        "date": "2025-05-25",
+        "changes": ["Initial release of Tichu Score Tracker"]
+    }
 ]

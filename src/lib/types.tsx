@@ -12,7 +12,7 @@ export type MatchSeries = {
     id: string;
     created_at: string;
     target_points: number;
-    status: 'active' | 'completed';
+    status: "active" | "completed";
     winning_team: number | null;
 };
 

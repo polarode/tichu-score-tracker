@@ -145,24 +145,24 @@ export default function GameResult() {
 
     const checkMatchCompletion = async () => {
         if (!currentMatch) return;
-        
+
         try {
             const { data: standings, error } = await supabase.rpc("get_match_standings", {
-                p_match_id: currentMatch.id
+                p_match_id: currentMatch.id,
             });
-            
+
             if (error) throw error;
-            
+
             setMatchStandings(standings as MatchStandings);
-            
-            const winningTeam = standings?.find(s => s.total_score >= currentMatch.target_points);
-            
+
+            const winningTeam = standings?.find((s) => s.total_score >= currentMatch.target_points);
+
             if (winningTeam) {
                 await supabase
                     .from("match_series")
                     .update({ status: "completed", winning_team: winningTeam.team })
                     .eq("id", currentMatch.id);
-                
+
                 setCurrentMatch(null);
                 toast.success(`Match completed! Team ${winningTeam.team} wins with ${winningTeam.total_score} points!`);
                 navigate("/");
@@ -206,7 +206,7 @@ export default function GameResult() {
             toast.error("Error inserting game: " + error.message);
         } else {
             toast.success("Game saved successfully!");
-            
+
             if (currentMatch) {
                 await checkMatchCompletion();
             } else {

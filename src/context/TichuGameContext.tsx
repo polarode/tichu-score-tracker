@@ -25,15 +25,15 @@ export const GameProvider = ({ children }: { children: React.ReactNode }) => {
     };
 
     return (
-        <GameContext.Provider 
-            value={{ 
-                team1, 
-                team2, 
-                currentMatch, 
-                matchStandings, 
-                setTeams, 
-                setCurrentMatch, 
-                setMatchStandings 
+        <GameContext.Provider
+            value={{
+                team1,
+                team2,
+                currentMatch,
+                matchStandings,
+                setTeams,
+                setCurrentMatch,
+                setMatchStandings,
             }}
         >
             {children}

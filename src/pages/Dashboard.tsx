@@ -2,6 +2,7 @@ import { Container, Typography, Card, CardContent, Button, Grid, Box, Tabs, Tab 
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import { useNavigate } from "react-router-dom";
 import { LastGames } from "./tichu/LastGames";
+import { LastMatches } from "./tichu/LastMatches";
 import { LastRebelPrincessGames } from "./rebelPrincess/LastGames";
 import { Celebration } from "@mui/icons-material";
 import { useEffect, useState } from "react";
@@ -33,7 +34,7 @@ export default function DashboardPage() {
     return (
         <Container maxWidth="sm" sx={{ mt: 8 }}>
             <Box sx={{ position: "relative" }}>
-                <Button 
+                <Button
                     onClick={() => navigate("/changelog")}
                     variant="outlined"
                     size="small"
@@ -105,13 +106,17 @@ export default function DashboardPage() {
             </Grid>
             <Box sx={{ mt: 4 }}>
                 <Tabs value={tabValue} onChange={handleTabChange} variant="fullWidth" sx={{ mb: 2 }}>
-                    <Tab label="Tichu" />
+                    <Tab label="Tichu Games" />
+                    <Tab label="Tichu Matches" />
                     <Tab label="Rebel Princess" />
                 </Tabs>
                 <Box sx={{ display: tabValue === 0 ? "block" : "none" }}>
                     <LastGames />
                 </Box>
                 <Box sx={{ display: tabValue === 1 ? "block" : "none" }}>
+                    <LastMatches />
+                </Box>
+                <Box sx={{ display: tabValue === 2 ? "block" : "none" }}>
                     <LastRebelPrincessGames />
                 </Box>
             </Box>

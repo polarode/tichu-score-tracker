@@ -84,8 +84,8 @@ export default function NewMatch() {
         try {
             const { data: matchId, error } = await supabase.rpc("create_match_series", {
                 p_target_points: finalTarget,
-                p_team1_players: team1Players.map(p => p.id),
-                p_team2_players: team2Players.map(p => p.id),
+                p_team1_players: team1Players.map((p) => p.id),
+                p_team2_players: team2Players.map((p) => p.id),
             });
 
             if (error) throw error;
@@ -120,7 +120,7 @@ export default function NewMatch() {
                 <Typography variant="h5" gutterBottom>
                     Start New Match
                 </Typography>
-                
+
                 <Box sx={{ mb: 4 }}>
                     <Typography variant="h6" gutterBottom>
                         Target Points

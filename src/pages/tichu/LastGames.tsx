@@ -17,10 +17,60 @@ export const LastGames = () => {
 
     useEffect(() => {
         const fetchRecentGames = async () => {
-            const { data, error } = await supabase.rpc("get_latest_games", { number_of_games: 20 });
+            // Get games that are NOT part of a match (standalone games only)
+            const { data, error } = await supabase
+                .from("games")
+                .select(`
+                    id,
+                    timestamp,
+                    game_participants(
+                        team,
+                        position,
+                        bomb_count,
+                        players(name)
+                    ),
+                    game_scores(
+                        team,
+                        total_score
+                    )
+                `)
+                .is("match_id", null)
+                .order("timestamp", { ascending: false })
+                .limit(10);
 
             if (!error && data) {
-                setRecentGames(data as Game[]);
+                const formattedGames = data.map((game: any) => {
+                    const team1Players = game.game_participants
+                        .filter((p: any) => p.team === 1)
+                        .sort((a: any, b: any) => a.position - b.position)
+                        .map((p: any) => p.players.name);
+                    const team2Players = game.game_participants
+                        .filter((p: any) => p.team === 2)
+                        .sort((a: any, b: any) => a.position - b.position)
+                        .map((p: any) => p.players.name);
+
+                    const team1Bombs = game.game_participants
+                        .filter((p: any) => p.team === 1)
+                        .sort((a: any, b: any) => a.position - b.position)
+                        .map((p: any) => p.bomb_count || 0);
+                    const team2Bombs = game.game_participants
+                        .filter((p: any) => p.team === 2)
+                        .sort((a: any, b: any) => a.position - b.position)
+                        .map((p: any) => p.bomb_count || 0);
+
+                    const team1Score = game.game_scores.find((s: any) => s.team === 1)?.total_score || 0;
+                    const team2Score = game.game_scores.find((s: any) => s.team === 2)?.total_score || 0;
+
+                    return {
+                        id: game.id,
+                        played_at: game.timestamp,
+                        players: [team1Players, team2Players],
+                        team_scores: [team1Score, team2Score],
+                        bomb_counts: [team1Bombs, team2Bombs],
+                        beschiss: false, // We'll need to add this to the query if needed
+                    };
+                });
+                setRecentGames(formattedGames);
             }
             setLoading(false);
         };

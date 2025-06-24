@@ -66,18 +66,18 @@ export default function NewGame() {
             if (matches && matches.length > 0) {
                 const match = matches[0];
                 setCurrentMatch(match);
-                
+
                 const team1Players = match.match_participants
                     .filter((p: any) => p.team === 1)
                     .map((p: any) => p.players);
                 const team2Players = match.match_participants
                     .filter((p: any) => p.team === 2)
                     .map((p: any) => p.players);
-                
+
                 setTeam1(team1Players.map((p: any) => p.name));
                 setTeam2(team2Players.map((p: any) => p.name));
                 setTeams(team1Players, team2Players);
-                
+
                 toast.info(`Continuing active match to ${match.target_points} points`);
             }
         } catch (err) {
