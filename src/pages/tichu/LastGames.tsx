@@ -23,6 +23,7 @@ export const LastGames = () => {
                 .select(`
                     id,
                     timestamp,
+                    beschiss,
                     game_participants(
                         team,
                         position,
@@ -67,7 +68,7 @@ export const LastGames = () => {
                         players: [team1Players, team2Players],
                         team_scores: [team1Score, team2Score],
                         bomb_counts: [team1Bombs, team2Bombs],
-                        beschiss: false, // We'll need to add this to the query if needed
+                        beschiss: game.beschiss || false,
                     };
                 });
                 setRecentGames(formattedGames);
