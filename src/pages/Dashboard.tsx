@@ -67,6 +67,14 @@ export default function DashboardPage() {
                                     fullWidth
                                     variant="outlined"
                                     color="primary"
+                                    onClick={() => navigate("/tichu/new-match")}
+                                >
+                                    Start Match
+                                </Button>
+                                <Button
+                                    fullWidth
+                                    variant="outlined"
+                                    color="primary"
                                     onClick={() => navigate("/tichu/stats")}
                                 >
                                     View Statistics

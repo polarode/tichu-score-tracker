@@ -1,8 +1,10 @@
 [
   {
-    "version": "1.1.4",
+    "version": "1.2.0",
     "date": "2025-06-24",
     "changes": [
+      "Added multi-game match support with customizable point targets (500, 1000, or custom). Play series of games until one team reaches the target score",
+      "Added match progress tracking and automatic completion detection",
       "Added changelog"
     ]
   },

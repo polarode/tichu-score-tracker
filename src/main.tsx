@@ -4,6 +4,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import DashboardPage from "./pages/Dashboard";
 import NewGame from "./pages/tichu/NewGame";
+import NewMatch from "./pages/tichu/NewMatch";
+import MatchProgress from "./pages/tichu/MatchProgress";
 import RPNewGame from "./pages/rebelPrincess/NewGame";
 import RPResult from "./pages/rebelPrincess/RoundResult";
 import GameResult from "./pages/tichu/GameResult";
@@ -22,6 +24,8 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                         <Route path="/login" element={<LoginPage />} />
                         <Route path="/" element={<DashboardPage />} />
                         <Route path="/tichu/new" element={<NewGame />} />
+                        <Route path="/tichu/new-match" element={<NewMatch />} />
+                        <Route path="/tichu/match-progress" element={<MatchProgress />} />
                         <Route path="/tichu/result" element={<GameResult />} />
                         <Route path="/tichu/stats" element={<Statistics />} />
                         <Route path="/rebel-princess/new" element={<RPNewGame />} />

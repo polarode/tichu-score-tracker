@@ -31,7 +31,7 @@ export default function NewGame() {
 
     if (!isAuthenticated) return null;
 
-    const { setTeams } = useTichuGameContext();
+    const { setTeams, currentMatch, setCurrentMatch, setMatchStandings } = useTichuGameContext();
 
     const [team1, setTeam1] = useState<string[]>([]);
     const [team2, setTeam2] = useState<string[]>([]);
@@ -42,7 +42,48 @@ export default function NewGame() {
 
     useEffect(() => {
         fetchPlayers();
+        checkActiveMatch();
     }, []);
+
+    const checkActiveMatch = async () => {
+        try {
+            const { data: matches, error } = await supabase
+                .from("match_series")
+                .select(`
+                    *,
+                    match_participants(
+                        player_id,
+                        team,
+                        players(id, name)
+                    )
+                `)
+                .eq("status", "active")
+                .order("created_at", { ascending: false })
+                .limit(1);
+
+            if (error) throw error;
+
+            if (matches && matches.length > 0) {
+                const match = matches[0];
+                setCurrentMatch(match);
+                
+                const team1Players = match.match_participants
+                    .filter((p: any) => p.team === 1)
+                    .map((p: any) => p.players);
+                const team2Players = match.match_participants
+                    .filter((p: any) => p.team === 2)
+                    .map((p: any) => p.players);
+                
+                setTeam1(team1Players.map((p: any) => p.name));
+                setTeam2(team2Players.map((p: any) => p.name));
+                setTeams(team1Players, team2Players);
+                
+                toast.info(`Continuing active match to ${match.target_points} points`);
+            }
+        } catch (err) {
+            console.error("Error checking active match:", err);
+        }
+    };
 
     async function fetchPlayers() {
         const { data, error } = await supabase.from("players").select("id, name").order("name", { ascending: true });
