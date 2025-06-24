@@ -102,13 +102,13 @@ export function LastMatches() {
     return (
         <>
             <Typography variant="h6" gutterBottom>
-                Recent Matches
+                Recent matches of Tichu
             </Typography>
             {matches.map((match) => (
                 <Box key={match.id} sx={{ mb: 2, p: 2, border: 1, borderColor: "divider", borderRadius: 1 }}>
                     <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 1 }}>
-                        <Typography variant="body2" color="text.secondary">
-                            {new Date(match.created_at).toLocaleDateString()}
+                        <Typography variant="subtitle2" color="text.secondary">
+                            {new Date(match.created_at).toLocaleString()}
                         </Typography>
                         <Chip
                             label={match.status === "active" ? "Active" : "Completed"}

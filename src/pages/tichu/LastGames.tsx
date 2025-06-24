@@ -89,7 +89,7 @@ export const LastGames = () => {
                 <Card key={game.id} variant="outlined" sx={{ mb: 2, position: "relative" }}>
                     <CardContent>
                         <Typography variant="subtitle2" color="text.secondary">
-                            {new Date(game.played_at + "Z").toLocaleString()}
+                            {new Date(game.played_at).toLocaleString()}
                         </Typography>
                         <Typography>
                             {game.players[0][0]}
