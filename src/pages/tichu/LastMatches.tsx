@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Card, CardContent, Typography, Box, Chip } from "@mui/material";
+import { Typography, Box, Chip } from "@mui/material";
 import { supabase } from "../../lib/supabase";
 
 type MatchResult = {

@@ -31,7 +31,7 @@ export default function NewGame() {
 
     if (!isAuthenticated) return null;
 
-    const { setTeams, currentMatch, setCurrentMatch, setMatchStandings } = useTichuGameContext();
+    const { setTeams, setCurrentMatch, } = useTichuGameContext();
 
     const [team1, setTeam1] = useState<string[]>([]);
     const [team2, setTeam2] = useState<string[]>([]);
