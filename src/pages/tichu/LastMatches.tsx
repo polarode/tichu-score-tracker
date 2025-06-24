@@ -92,7 +92,7 @@ export function LastMatches() {
         return (
             <>
                 <Typography variant="h6" gutterBottom>
-                    Recent Matches
+                    Recent matches of Tichu
                 </Typography>
                 <Typography color="text.secondary">No matches played yet</Typography>
             </>
