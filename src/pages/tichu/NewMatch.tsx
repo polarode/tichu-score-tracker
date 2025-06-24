@@ -13,6 +13,15 @@ import {
     TextField,
     ToggleButtonGroup,
     ToggleButton,
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogActions,
+    List,
+    ListItem,
+    ListItemButton,
+    ListItemText,
+    Divider,
 } from "@mui/material";
 import { useTichuGameContext } from "../../context/TichuGameContext";
 import { supabase } from "../../lib/supabase";
@@ -29,6 +38,8 @@ export default function NewMatch() {
     const [knownPlayers, setKnownPlayers] = useState<Player[]>([]);
     const [targetPoints, setTargetPoints] = useState<number>(500);
     const [customTarget, setCustomTarget] = useState<string>("");
+    const [activeMatches, setActiveMatches] = useState<any[]>([]);
+    const [matchDialogOpen, setMatchDialogOpen] = useState(false);
 
     useEffect(() => {
         if (!isAuthenticated) {
@@ -38,7 +49,43 @@ export default function NewMatch() {
 
     useEffect(() => {
         fetchPlayers();
+        fetchActiveMatches();
     }, []);
+
+    const fetchActiveMatches = async () => {
+        try {
+            const { data: matches, error } = await supabase
+                .from("match_series")
+                .select(`
+                    *,
+                    match_participants(
+                        player_id,
+                        team,
+                        players(id, name)
+                    )
+                `)
+                .eq("status", "active")
+                .order("created_at", { ascending: false });
+
+            if (error) throw error;
+            setActiveMatches(matches || []);
+        } catch (err) {
+            console.error("Error fetching active matches:", err);
+        }
+    };
+
+    const handleMatchSelection = (match: any) => {
+        setCurrentMatch(match);
+
+        const team1Players = match.match_participants.filter((p: any) => p.team === 1).map((p: any) => p.players);
+        const team2Players = match.match_participants.filter((p: any) => p.team === 2).map((p: any) => p.players);
+
+        setTeams(team1Players, team2Players);
+
+        setMatchDialogOpen(false);
+        toast.info(`Continuing match to ${match.target_points} points`);
+        navigate("/tichu/match-progress");
+    };
 
     async function fetchPlayers() {
         const { data, error } = await supabase.from("players").select("id, name").order("name", { ascending: true });
@@ -116,7 +163,21 @@ export default function NewMatch() {
     return (
         <Box maxWidth={800} mx="auto" p={2}>
             <Container sx={{ mt: 5 }}>
-                <Typography variant="h5" gutterBottom>
+                {activeMatches.length > 0 && (
+                    <>
+                        <Box sx={{ mb: 4 }}>
+                            <Typography variant="h6" gutterBottom>
+                                Continue Active Match
+                            </Typography>
+                            <Button variant="outlined" onClick={() => setMatchDialogOpen(true)}>
+                                Select Active Match
+                            </Button>
+                        </Box>
+                        <Divider sx={{ mb: 4 }} />
+                    </>
+                )}
+
+                <Typography variant="h6" gutterBottom>
                     Start New Match
                 </Typography>
 
@@ -206,6 +267,37 @@ export default function NewMatch() {
                         Start Match
                     </Button>
                 </Box>
+
+                <Dialog open={matchDialogOpen} onClose={() => setMatchDialogOpen(false)} maxWidth="sm" fullWidth>
+                    <DialogTitle>Select Active Match</DialogTitle>
+                    <DialogContent>
+                        <List>
+                            {activeMatches.map((match) => {
+                                const team1Names = match.match_participants
+                                    .filter((p: any) => p.team === 1)
+                                    .map((p: any) => p.players.name)
+                                    .join(", ");
+                                const team2Names = match.match_participants
+                                    .filter((p: any) => p.team === 2)
+                                    .map((p: any) => p.players.name)
+                                    .join(", ");
+                                return (
+                                    <ListItem key={match.id} disablePadding>
+                                        <ListItemButton onClick={() => handleMatchSelection(match)}>
+                                            <ListItemText
+                                                primary={`${team1Names} vs ${team2Names}`}
+                                                secondary={`Target: ${match.target_points} points • Started ${new Date(match.created_at).toLocaleDateString()}`}
+                                            />
+                                        </ListItemButton>
+                                    </ListItem>
+                                );
+                            })}
+                        </List>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={() => setMatchDialogOpen(false)}>Cancel</Button>
+                    </DialogActions>
+                </Dialog>
             </Container>
         </Box>
     );

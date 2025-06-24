@@ -70,7 +70,7 @@ export default function DashboardPage() {
                                     color="primary"
                                     onClick={() => navigate("/tichu/new-match")}
                                 >
-                                    Start Match
+                                    Matches
                                 </Button>
                                 <Button
                                     fullWidth

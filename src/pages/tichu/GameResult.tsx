@@ -155,7 +155,9 @@ export default function GameResult() {
 
             setMatchStandings(standings as MatchStandings);
 
-            const winningTeam = standings?.find((s: { total_score: number; }) => s.total_score >= currentMatch.target_points);
+            const winningTeam = standings?.find(
+                (s: { total_score: number }) => s.total_score >= currentMatch.target_points,
+            );
 
             if (winningTeam) {
                 await supabase
