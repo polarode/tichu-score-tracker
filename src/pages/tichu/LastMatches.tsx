@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Typography, Box, Chip } from "@mui/material";
 import { supabase } from "../../lib/supabase";
+import { Trans } from "@lingui/react/macro";
 
 type MatchResult = {
     id: string;
@@ -92,9 +93,11 @@ export function LastMatches() {
         return (
             <>
                 <Typography variant="h6" gutterBottom>
-                    Recent matches of Tichu
+                    <Trans>Recent matches of Tichu</Trans>
                 </Typography>
-                <Typography color="text.secondary">No matches played yet</Typography>
+                <Typography color="text.secondary">
+                    <Trans>No matches played yet</Trans>
+                </Typography>
             </>
         );
     }
@@ -102,7 +105,7 @@ export function LastMatches() {
     return (
         <>
             <Typography variant="h6" gutterBottom>
-                Recent matches of Tichu
+                <Trans>Recent matches of Tichu</Trans>
             </Typography>
             {matches.map((match) => (
                 <Box key={match.id} sx={{ mb: 2, p: 2, border: 1, borderColor: "divider", borderRadius: 1 }}>
@@ -118,7 +121,7 @@ export function LastMatches() {
                     </Box>
 
                     <Typography variant="body2" sx={{ mb: 1 }}>
-                        Target: {match.target_points} points
+                        <Trans>Target</Trans>: {match.target_points} <Trans>points</Trans>
                     </Typography>
 
                     <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
@@ -137,11 +140,11 @@ export function LastMatches() {
                                     {match.team1_score} - {match.team2_score}
                                 </Typography>
                                 <Typography variant="body2" color="text.secondary">
-                                    {match.game_count} games
+                                    {match.game_count} <Trans>games</Trans>
                                 </Typography>
                                 {match.winning_team && (
                                     <Typography variant="body2" color="success.main">
-                                        Team {match.winning_team} wins!
+                                        Team {match.winning_team} <Trans>wins!</Trans>
                                     </Typography>
                                 )}
                             </Box>

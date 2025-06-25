@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../../lib/supabase";
 import { Card, CardContent, Typography } from "@mui/material";
+import { Trans } from "@lingui/react/macro";
 
 interface RPGame {
     id: string;
@@ -28,12 +29,17 @@ export const LastRebelPrincessGames = () => {
         fetchRecentGames();
     }, []);
 
-    if (loading) return <p>Loading recent games...</p>;
+    if (loading)
+        return (
+            <p>
+                <Trans>Loading recent games...</Trans>
+            </p>
+        );
 
     return (
         <>
             <Typography variant="h6" gutterBottom>
-                Recent games of Rebel Princess
+                <Trans>Recent games of Rebel Princess</Trans>
             </Typography>
             {recentGames.map((game) => (
                 <Card key={game.id} variant="outlined" sx={{ mb: 2 }}>
@@ -41,10 +47,12 @@ export const LastRebelPrincessGames = () => {
                         <Typography variant="subtitle2" color="text.secondary">
                             {new Date(game.played_at + "Z").toLocaleString()}
                         </Typography>
-                        <Typography>Rounds played: {game.rounds}</Typography>
+                        <Typography>
+                            <Trans>Rounds played</Trans>: {game.rounds}
+                        </Typography>
                         {game.players.map((player) => (
                             <Typography key={player}>
-                                {player}: {game.player_points[player] || 0} points
+                                {player}: {game.player_points[player] || 0} <Trans>points</Trans>
                             </Typography>
                         ))}
                     </CardContent>

@@ -7,6 +7,8 @@ import { LastRebelPrincessGames } from "./rebelPrincess/LastGames";
 import { Celebration } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import changelogData from "../data/changelog.json";
+import { Trans } from "@lingui/react/macro";
+import { LanguageSelector } from "../components/LanguageSelector";
 
 export default function DashboardPage() {
     const navigate = useNavigate();
@@ -32,64 +34,63 @@ export default function DashboardPage() {
     }, [isAuthenticated, navigate]);
 
     return (
-        <Container maxWidth="sm">
+        <Container maxWidth="sm" sx={{p:"8px"}}>
+            <LanguageSelector />
             <Button
                 onClick={() => navigate("/changelog")}
                 variant="outlined"
                 size="small"
-                sx={{ position: "absolute", top: 16, right: 16 }}
+                sx={{ position: "absolute", top: 20, right: 20 }}
             >
                 v{changelogData[0].version}
             </Button>
             <Box sx={{ position: "relative" }}>
                 <Typography variant="h4" align="center" sx={{ mt: 8 }} gutterBottom>
-                    Lets play a game of...
+                    <Trans>Lets play a game of...</Trans>
                 </Typography>
             </Box>
 
-            <Grid container spacing={4} justifyContent="center">
-                <Grid sx={{ xs: 12, sm: 6 }}>
-                    <Card sx={{ borderRadius: 4, boxShadow: 3 }}>
-                        <CardContent>
-                            <Typography variant="h6" gutterBottom>
-                                Tichu
-                            </Typography>
-                            <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
-                                <Button
-                                    fullWidth
-                                    variant="contained"
-                                    color="primary"
-                                    startIcon={<EmojiEventsIcon />}
-                                    onClick={() => handleStartGame("tichu")}
-                                >
-                                    Start Game
-                                </Button>
-                                <Button
-                                    fullWidth
-                                    variant="outlined"
-                                    color="primary"
-                                    onClick={() => navigate("/tichu/new-match")}
-                                >
-                                    Matches
-                                </Button>
-                                <Button
-                                    fullWidth
-                                    variant="outlined"
-                                    color="primary"
-                                    onClick={() => navigate("/tichu/stats")}
-                                >
-                                    View Statistics
-                                </Button>
-                            </Box>
-                        </CardContent>
-                    </Card>
-                </Grid>
+            <Grid container spacing={2}  justifyContent="center">
+                <Card sx={{ borderRadius: 4, boxShadow: 3 }}>
+                    <CardContent>
+                        <Typography variant="h6" gutterBottom>
+                            <Trans>Tichu</Trans>
+                        </Typography>
+                        <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
+                            <Button
+                                fullWidth
+                                variant="contained"
+                                color="primary"
+                                startIcon={<EmojiEventsIcon />}
+                                onClick={() => handleStartGame("tichu")}
+                            >
+                                <Trans>Start Game</Trans>
+                            </Button>
+                            <Button
+                                fullWidth
+                                variant="outlined"
+                                color="primary"
+                                onClick={() => navigate("/tichu/new-match")}
+                            >
+                                <Trans>Matches</Trans>
+                            </Button>
+                            <Button
+                                fullWidth
+                                variant="outlined"
+                                color="primary"
+                                onClick={() => navigate("/tichu/stats")}
+                            >
+                                <Trans>Statistics</Trans>
+                            </Button>
+                        </Box>
+                    </CardContent>
+                </Card>
 
                 <Grid sx={{ xs: 12, sm: 6 }}>
                     <Card sx={{ borderRadius: 4, boxShadow: 3 }}>
                         <CardContent>
                             <Typography variant="h6" gutterBottom>
-                                Rebel Princess
+                                <Trans>Rebel Princess</Trans>
                             </Typography>
                             <Button
                                 fullWidth
@@ -98,7 +99,7 @@ export default function DashboardPage() {
                                 startIcon={<Celebration />}
                                 onClick={() => handleStartGame("rebelPrincess")}
                             >
-                                Start Game
+                                <Trans>Start Game</Trans>
                             </Button>
                         </CardContent>
                     </Card>
@@ -106,9 +107,9 @@ export default function DashboardPage() {
             </Grid>
             <Box sx={{ mt: 4 }}>
                 <Tabs value={tabValue} onChange={handleTabChange} variant="fullWidth" sx={{ mb: 2 }}>
-                    <Tab label="Tichu Games" />
-                    <Tab label="Tichu Matches" />
-                    <Tab label="Rebel Princess" />
+                    <Tab label={<Trans>Tichu Games</Trans>} />
+                    <Tab label={<Trans>Tichu Matches</Trans>} />
+                    <Tab label={<Trans>Rebel Princess</Trans>} />
                 </Tabs>
                 <Box sx={{ display: tabValue === 0 ? "block" : "none" }}>
                     <LastGames />

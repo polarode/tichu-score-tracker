@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../../lib/supabase"; // adjust if you use a different path
 import { Card, CardContent, Typography, Box } from "@mui/material";
+import { Trans } from "@lingui/react/macro";
 
 interface Game {
     id: number;
@@ -84,7 +85,7 @@ export const LastGames = () => {
     return (
         <>
             <Typography variant="h6" gutterBottom>
-                Recent games of Tichu
+                <Trans>Recent games of Tichu</Trans>
             </Typography>
             {recentGames.map((game) => (
                 <Card key={game.id} variant="outlined" sx={{ mb: 2, position: "relative" }}>

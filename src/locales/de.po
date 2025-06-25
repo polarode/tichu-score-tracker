@@ -1,0 +1,90 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2025-06-25 20:02+0200\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: de\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Plural-Forms: \n"
+
+#: src/pages/tichu/LastMatches.tsx:143
+msgid "games"
+msgstr "Spiele"
+
+#: src/pages/Dashboard.tsx:49
+msgid "Lets play a game of..."
+msgstr "Lass uns ein Spiel spielen..."
+
+#: src/pages/rebelPrincess/LastGames.tsx:35
+msgid "Loading recent games..."
+msgstr "Letzte Spiele werden geladen"
+
+#: src/pages/Dashboard.tsx:76
+msgid "Matches"
+msgstr "Matches"
+
+#: src/pages/tichu/LastMatches.tsx:99
+msgid "No matches played yet"
+msgstr "Es wurden noch keine Zündhölzer gespielt"
+
+#: src/pages/tichu/LastMatches.tsx:124
+#: src/pages/rebelPrincess/LastGames.tsx:55
+msgid "points"
+msgstr "Punkte"
+
+#: src/pages/Dashboard.tsx:95
+#: src/pages/Dashboard.tsx:114
+msgid "Rebel Princess"
+msgstr "Rebel Princess"
+
+#: src/pages/rebelPrincess/LastGames.tsx:42
+msgid "Recent games of Rebel Princess"
+msgstr "Zuletzt gespielte Spiele von Rebel Princess"
+
+#: src/pages/tichu/LastGames.tsx:88
+msgid "Recent games of Tichu"
+msgstr "Zuletzt gespielte Spiele von Tichu"
+
+#: src/pages/tichu/LastMatches.tsx:96
+#: src/pages/tichu/LastMatches.tsx:108
+msgid "Recent matches of Tichu"
+msgstr "Zuletzt gespielte Zündhölzer von Tichu"
+
+#: src/pages/rebelPrincess/LastGames.tsx:51
+msgid "Rounds played"
+msgstr "Runden gespielt"
+
+#: src/pages/Dashboard.tsx:68
+#: src/pages/Dashboard.tsx:104
+msgid "Start Game"
+msgstr "Spiel starten"
+
+#: src/pages/tichu/LastMatches.tsx:124
+msgid "Target"
+msgstr "Ziel"
+
+#: src/pages/Dashboard.tsx:58
+msgid "Tichu"
+msgstr "Tichu"
+
+#: src/pages/Dashboard.tsx:112
+msgid "Tichu Games"
+msgstr "Tichu Spiele"
+
+#: src/pages/Dashboard.tsx:113
+msgid "Tichu Matches"
+msgstr "Tichu Matches"
+
+#: src/pages/Dashboard.tsx:84
+msgid "Statistics"
+msgstr "Statistiken"
+
+#: src/pages/tichu/LastMatches.tsx:147
+msgid "wins!"
+msgstr "gewinnt!"
