@@ -17,6 +17,7 @@ import { useTichuGameContext } from "../../context/TichuGameContext";
 import { supabase } from "../../lib/supabase";
 import { toast } from "react-toastify";
 import { PageTemplate } from "../../components/PageTemplate";
+import { Trans } from "@lingui/react/macro";
 
 export default function MatchProgress() {
     const navigate = useNavigate();
@@ -81,13 +82,13 @@ export default function MatchProgress() {
     return (
         <PageTemplate maxWidth="md" showVersionButton={false}>
             <Typography variant="h5" gutterBottom>
-                Match Progress
+                <Trans>Match Progress</Trans>
             </Typography>
 
             <Card sx={{ mb: 3 }}>
                 <CardContent>
                     <Typography variant="h6" gutterBottom>
-                        Target: {currentMatch.target_points} points
+                        <Trans>Target: {currentMatch.target_points} points</Trans>
                     </Typography>
                     <LinearProgress
                         variant="determinate"
@@ -95,7 +96,7 @@ export default function MatchProgress() {
                         sx={{ height: 10, borderRadius: 5, mb: 2 }}
                     />
                     <Typography variant="body2" color="text.secondary">
-                        {Math.round(progress)}% to target
+                        <Trans>{Math.round(progress)}% to target</Trans>
                     </Typography>
                 </CardContent>
             </Card>
@@ -103,21 +104,33 @@ export default function MatchProgress() {
             <Table>
                 <TableHead>
                     <TableRow>
-                        <TableCell>Team</TableCell>
-                        <TableCell>Players</TableCell>
-                        <TableCell align="right">Score</TableCell>
-                        <TableCell align="right">Games</TableCell>
+                        <TableCell>
+                            <Trans>Team</Trans>
+                        </TableCell>
+                        <TableCell>
+                            <Trans>Players</Trans>
+                        </TableCell>
+                        <TableCell align="right">
+                            <Trans>Score</Trans>
+                        </TableCell>
+                        <TableCell align="right">
+                            <Trans>Games</Trans>
+                        </TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     <TableRow>
-                        <TableCell>Team 1</TableCell>
+                        <TableCell>
+                            <Trans>Team 1</Trans>
+                        </TableCell>
                         <TableCell>{team1.map((p) => p.name).join(", ")}</TableCell>
                         <TableCell align="right">{team1Score}</TableCell>
                         <TableCell align="right">{matchStandings.find((s) => s.team === 1)?.game_count || 0}</TableCell>
                     </TableRow>
                     <TableRow>
-                        <TableCell>Team 2</TableCell>
+                        <TableCell>
+                            <Trans>Team 2</Trans>
+                        </TableCell>
                         <TableCell>{team2.map((p) => p.name).join(", ")}</TableCell>
                         <TableCell align="right">{team2Score}</TableCell>
                         <TableCell align="right">{matchStandings.find((s) => s.team === 2)?.game_count || 0}</TableCell>
@@ -127,10 +140,10 @@ export default function MatchProgress() {
 
             <Box sx={{ display: "flex", gap: 2, mt: 4 }}>
                 <Button variant="contained" onClick={handleContinueMatch} disabled={loading}>
-                    Continue Match
+                    <Trans>Continue Match</Trans>
                 </Button>
                 <Button variant="outlined" color="error" onClick={handleEndMatch} disabled={loading}>
-                    End Match
+                    <Trans>End Match</Trans>
                 </Button>
             </Box>
         </PageTemplate>

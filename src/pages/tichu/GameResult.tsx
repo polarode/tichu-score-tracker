@@ -18,6 +18,7 @@ import { useTichuGameContext } from "../../context/TichuGameContext";
 import { toast } from "react-toastify";
 import type { MatchStandings } from "../../lib/types";
 import { PageTemplate } from "../../components/PageTemplate";
+import { Trans } from "@lingui/react/macro";
 
 type TichuCall = "NONE" | "ST" | "GT";
 
@@ -221,17 +222,25 @@ export default function GameResult() {
     return (
         <PageTemplate maxWidth="md" showVersionButton={false}>
             <Typography variant="h5" gutterBottom>
-                Enter Game Results
+                <Trans>Enter Game Results</Trans>
             </Typography>
 
             <Table sx={{ "& .MuiTableCell-root": { py: 1, px: 1 } }}>
                 <TableHead>
                     <TableRow>
                         <TableCell></TableCell>
-                        <TableCell>Player</TableCell>
-                        <TableCell>Finish Order</TableCell>
-                        <TableCell>Tichu</TableCell>
-                        <TableCell>Bombs</TableCell>
+                        <TableCell>
+                            <Trans>Player</Trans>
+                        </TableCell>
+                        <TableCell>
+                            <Trans>Finish Order</Trans>
+                        </TableCell>
+                        <TableCell>
+                            <Trans>Tichu</Trans>
+                        </TableCell>
+                        <TableCell>
+                            <Trans>Bombs</Trans>
+                        </TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -297,13 +306,17 @@ export default function GameResult() {
             <Box display="flex" justifyContent="space-between" mb={2} sx={{ mt: 4 }}>
                 {[1, 2].map((team) => (
                     <Box key={team} display="flex" flexDirection="column" alignItems="center" minWidth={80}>
-                        <Typography>Team {team} Score</Typography>
+                        <Typography>
+                            <Trans>Team {team} Score</Trans>
+                        </Typography>
                         <Typography variant="h6">{doubleWinTeam != null ? 0 : teamScores[team - 1]}</Typography>
                     </Box>
                 ))}
             </Box>
             <Box mb={1}>
-                <Typography variant="caption">Team 1 Score</Typography>
+                <Typography variant="caption">
+                    <Trans>Team 1 Score</Trans>
+                </Typography>
                 <Slider
                     value={teamScores[0]}
                     min={-25}
@@ -316,7 +329,9 @@ export default function GameResult() {
                 />
             </Box>
             <Box mb={1}>
-                <Typography variant="caption">Team 2 Score</Typography>
+                <Typography variant="caption">
+                    <Trans>Team 2 Score</Trans>
+                </Typography>
                 <Slider
                     value={teamScores[1]}
                     min={-25}
@@ -332,7 +347,9 @@ export default function GameResult() {
             <Box display="flex" justifyContent="space-between" mb={2}>
                 {[1, 2].map((team) => (
                     <Box key={team} display="flex" flexDirection="column" alignItems="center" minWidth={80}>
-                        <Typography>with bonus points</Typography>
+                        <Typography>
+                            <Trans>with bonus points</Trans>
+                        </Typography>
                         <Typography variant="h6">{teamTotalScores[team - 1]}</Typography>
                     </Box>
                 ))}
@@ -346,7 +363,7 @@ export default function GameResult() {
 
             <Box mt={3} display="flex" gap={2}>
                 <Button variant="contained" color="primary" onClick={handleSubmit}>
-                    Save Game
+                    <Trans>Save Game</Trans>
                 </Button>
                 <Button
                     variant="outlined"
@@ -361,7 +378,7 @@ export default function GameResult() {
                         },
                     }}
                 >
-                    {beschissFlag ? "Beschiss ✓" : "Beschiss"}
+                    {beschissFlag ? <Trans>Beschiss ✓</Trans> : <Trans>Beschiss</Trans>}
                 </Button>
             </Box>
         </PageTemplate>

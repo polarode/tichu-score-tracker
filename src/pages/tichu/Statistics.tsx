@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import SortIcon from "@mui/icons-material/Sort";
 import { PageTemplate } from "../../components/PageTemplate";
+import { Trans } from "@lingui/react/macro";
 
 interface PlayerStatistics {
     player_id: string;
@@ -90,19 +91,27 @@ export const Statistics = () => {
     return (
         <PageTemplate maxWidth="lg" showVersionButton={false}>
             <Typography variant="h4" gutterBottom>
-                Tichu Statistics
+                <Trans>Tichu Statistics</Trans>
             </Typography>
 
             <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mt: 3, mb: 2 }}>
-                <Typography variant="h6">Player Summary</Typography>
+                <Typography variant="h6">
+                    <Trans>Player Summary</Trans>
+                </Typography>
                 <Box>
                     <Button variant="outlined" size="small" startIcon={<SortIcon />} onClick={handleSortClick}>
-                        Sort by {sortBy === "games" ? "Games" : sortBy === "name" ? "Name" : "Score"}
+                        <Trans>Sort by {sortBy === "games" ? "Games" : sortBy === "name" ? "Name" : "Score"}</Trans>
                     </Button>
                     <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={() => handleSortClose()}>
-                        <MenuItem onClick={() => handleSortClose("name")}>Name</MenuItem>
-                        <MenuItem onClick={() => handleSortClose("games")}>Games Played</MenuItem>
-                        <MenuItem onClick={() => handleSortClose("score")}>Average Score</MenuItem>
+                        <MenuItem onClick={() => handleSortClose("name")}>
+                            <Trans>Name</Trans>
+                        </MenuItem>
+                        <MenuItem onClick={() => handleSortClose("games")}>
+                            <Trans>Games Played</Trans>
+                        </MenuItem>
+                        <MenuItem onClick={() => handleSortClose("score")}>
+                            <Trans>Average Score</Trans>
+                        </MenuItem>
                     </Menu>
                 </Box>
             </Box>
@@ -119,21 +128,21 @@ export const Statistics = () => {
 
                                 <Box sx={{ display: "flex", justifyContent: "space-between", mb: 1 }}>
                                     <Typography variant="body2" color="text.secondary">
-                                        Games:
+                                        <Trans>Games:</Trans>
                                     </Typography>
                                     <Typography variant="body1">{player.games_played}</Typography>
                                 </Box>
 
                                 <Box sx={{ display: "flex", justifyContent: "space-between", mb: 1 }}>
                                     <Typography variant="body2" color="text.secondary">
-                                        Avg Score:
+                                        <Trans>Avg Score:</Trans>
                                     </Typography>
                                     <Typography variant="body1">{Math.round(player.avg_score)}</Typography>
                                 </Box>
 
                                 <Box sx={{ display: "flex", justifyContent: "space-between", mb: 1 }}>
                                     <Typography variant="body2" color="text.secondary">
-                                        Tichus won:
+                                        <Trans>Tichus won:</Trans>
                                     </Typography>
                                     <Typography variant="body1">
                                         {calculateSuccessRate(player.tichu_success, player.tichu_calls)}
@@ -145,7 +154,7 @@ export const Statistics = () => {
 
                                 <Box sx={{ display: "flex", justifyContent: "space-between", mb: 1 }}>
                                     <Typography variant="body2" color="text.secondary">
-                                        Grand Tichus won:
+                                        <Trans>Grand Tichus won:</Trans>
                                     </Typography>
                                     <Typography variant="body1">
                                         {calculateSuccessRate(player.grand_tichu_success, player.grand_tichu_calls)}
@@ -157,7 +166,7 @@ export const Statistics = () => {
 
                                 <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                                     <Typography variant="body2" color="text.secondary">
-                                        Bombs Used:
+                                        <Trans>Bombs Used:</Trans>
                                     </Typography>
                                     <Typography variant="body1">{player.bombs_used}</Typography>
                                 </Box>

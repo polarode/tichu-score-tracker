@@ -18,6 +18,7 @@ import { type Player } from "../../lib/types";
 import { toast } from "react-toastify";
 import ReplayIcon from "@mui/icons-material/Replay";
 import { PageTemplate } from "../../components/PageTemplate";
+import { Trans } from "@lingui/react/macro";
 
 export default function NewGame() {
     const navigate = useNavigate();
@@ -131,18 +132,20 @@ export default function NewGame() {
     return (
         <PageTemplate maxWidth="md" showVersionButton={false}>
             <Typography variant="h5" gutterBottom>
-                Select Teams
+                <Trans>Select Teams</Trans>
             </Typography>
             <Grid sx={{ xs: 12, md: 6 }}>
                 <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                     <FormControl sx={{ minWidth: "48%" }}>
-                        <InputLabel id="team1">Team 1</InputLabel>
+                        <InputLabel id="team1">
+                            <Trans>Team 1</Trans>
+                        </InputLabel>
                         <Select
                             fullWidth
                             multiple
                             value={team1}
                             labelId="team1"
-                            label="Team 1"
+                            label={<Trans>Team 1</Trans>}
                             onChange={(event) => {
                                 const value = event.target.value as string[];
                                 if (value.length <= 2) {
@@ -158,13 +161,15 @@ export default function NewGame() {
                         </Select>
                     </FormControl>
                     <FormControl sx={{ minWidth: "48%" }}>
-                        <InputLabel id="team2">Team 2</InputLabel>
+                        <InputLabel id="team2">
+                            <Trans>Team 2</Trans>
+                        </InputLabel>
                         <Select
                             fullWidth
                             multiple
                             value={team2}
                             labelId="team2"
-                            label="Team 2"
+                            label={<Trans>Team 2</Trans>}
                             onChange={(event) => {
                                 const value = event.target.value as string[];
                                 if (value.length <= 2) {
@@ -184,25 +189,29 @@ export default function NewGame() {
             {isAddingPlayer ? (
                 <Stack direction="row" spacing={2} alignItems="center">
                     <TextField
-                        label="New Player Name"
+                        label={<Trans>New Player Name</Trans>}
                         value={newPlayerName}
                         onChange={(e) => setNewPlayerName(e.target.value)}
                         size="small"
                     />
                     <Button variant="contained" onClick={handleAddPlayer}>
-                        Add
+                        <Trans>Add</Trans>
                     </Button>
-                    <Button onClick={() => setIsAddingPlayer(false)}>Cancel</Button>
+                    <Button onClick={() => setIsAddingPlayer(false)}>
+                        <Trans>Cancel</Trans>
+                    </Button>
                 </Stack>
             ) : (
-                <Button onClick={() => setIsAddingPlayer(true)}>+ Add New Player</Button>
+                <Button onClick={() => setIsAddingPlayer(true)}>
+                    <Trans>+ Add New Player</Trans>
+                </Button>
             )}
             <Box sx={{ display: "flex", gap: 2, mt: 4 }}>
                 <Button startIcon={<ReplayIcon />} variant="outlined" onClick={handleRematch}>
-                    Rematch
+                    <Trans>Rematch</Trans>
                 </Button>
                 <Button variant="contained" onClick={handleSubmit}>
-                    Continue to Result Entry
+                    <Trans>Continue to Result Entry</Trans>
                 </Button>
             </Box>
         </PageTemplate>

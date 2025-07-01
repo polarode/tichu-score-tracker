@@ -22,6 +22,7 @@ import type { RPRoundModifier } from "../../lib/types";
 import { toast } from "react-toastify";
 import { supabase } from "../../lib/supabase";
 import { PageTemplate } from "../../components/PageTemplate";
+import { Trans } from "@lingui/react/macro";
 
 type SavedRound = {
     modifier: RPRoundModifier;
@@ -178,11 +179,13 @@ export default function RoundResult() {
     return (
         <PageTemplate maxWidth="lg" showVersionButton={false}>
             <Typography variant="h5" gutterBottom>
-                Enter Round Results
+                <Trans>Enter Round Results</Trans>
             </Typography>
             <Grid sx={{ xs: 12, md: 6 }}>
                 <FormControl fullWidth>
-                    <InputLabel id="roundModifier">Round modifier</InputLabel>
+                    <InputLabel id="roundModifier">
+                        <Trans>Round modifier</Trans>
+                    </InputLabel>
                     <Select
                         fullWidth={true}
                         value={roundModifier}
@@ -194,7 +197,7 @@ export default function RoundResult() {
                                 setRoundModifier(selectedModifier);
                             }
                         }}
-                        label="Round modifier"
+                        label={<Trans>Round modifier</Trans>}
                         labelId="roundModifier"
                     >
                         {roundModifiers.map((rm) => (
@@ -210,7 +213,7 @@ export default function RoundResult() {
                     <TableHead>
                         <TableRow>
                             <TableCell sx={{ position: "sticky", left: 0, background: "white", zIndex: 1 }}>
-                                Player
+                                <Trans>Player</Trans>
                             </TableCell>
                             {savedRounds.map((round, idx) => (
                                 <TableCell sx={{ minWidth: 60 }} key={idx} align="center">
@@ -221,7 +224,9 @@ export default function RoundResult() {
                                         disableTouchListener={false}
                                         enterTouchDelay={0}
                                     >
-                                        <span>Round {idx + 1}</span>
+                                        <span>
+                                            <Trans>Round {idx + 1}</Trans>
+                                        </span>
                                     </Tooltip>
                                 </TableCell>
                             ))}
@@ -233,10 +238,14 @@ export default function RoundResult() {
                                     disableTouchListener={false}
                                     enterTouchDelay={0}
                                 >
-                                    <span>Round {savedRounds.length + 1}</span>
+                                    <span>
+                                        <Trans>Round {savedRounds.length + 1}</Trans>
+                                    </span>
                                 </Tooltip>
                             </TableCell>
-                            <TableCell align="center">Total</TableCell>
+                            <TableCell align="center">
+                                <Trans>Total</Trans>
+                            </TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -278,7 +287,9 @@ export default function RoundResult() {
                         ))}
                         <TableRow>
                             <TableCell sx={{ position: "sticky", left: 0, background: "white", zIndex: 1 }}>
-                                <strong>Total</strong>
+                                <strong>
+                                    <Trans>Total</Trans>
+                                </strong>
                             </TableCell>
                             {savedRounds.map((round, idx) => (
                                 <TableCell key={idx} align="center">
@@ -308,7 +319,7 @@ export default function RoundResult() {
             </Box>
             <Box mt={3}>
                 <Button variant="contained" color="primary" onClick={handleSubmit}>
-                    Save Round
+                    <Trans>Save Round</Trans>
                 </Button>
             </Box>
         </PageTemplate>

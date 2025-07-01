@@ -8,7 +8,6 @@ import {
     Stack,
     MenuItem,
     Select,
-    Box,
     FormControl,
     InputLabel,
 } from "@mui/material";
@@ -17,6 +16,7 @@ import { toast } from "react-toastify";
 import type { Player } from "../../lib/types";
 import { useRebelPrincessGameContext } from "../../context/RebelPrincessGameContext";
 import { PageTemplate } from "../../components/PageTemplate";
+import { Trans } from "@lingui/react/macro";
 
 export default function NewGame() {
     const navigate = useNavigate();
@@ -102,17 +102,19 @@ export default function NewGame() {
     return (
         <PageTemplate maxWidth="md" showVersionButton={false}>
             <Typography variant="h5" gutterBottom>
-                Select 3 to 6 Players
+                <Trans>Select 3 to 6 Players</Trans>
             </Typography>
             <Grid sx={{ xs: 12, md: 6 }}>
                 <FormControl fullWidth>
-                    <InputLabel id="player">Players</InputLabel>
+                    <InputLabel id="player">
+                        <Trans>Players</Trans>
+                    </InputLabel>
                     <Select
                         fullWidth={true}
                         multiple
                         value={playerNames}
                         labelId="player"
-                        label="Players"
+                        label={<Trans>Players</Trans>}
                         onChange={(event) => {
                             const value = event.target.value as string[];
                             if (value.length <= 6) {
@@ -128,22 +130,26 @@ export default function NewGame() {
                 {isAddingPlayer ? (
                     <Stack direction="row" spacing={2} alignItems="center">
                         <TextField
-                            label="New Player Name"
+                            label={<Trans>New Player Name</Trans>}
                             value={newPlayerName}
                             onChange={(e) => setNewPlayerName(e.target.value)}
                             size="small"
                         />
                         <Button variant="contained" onClick={handleAddPlayer}>
-                            Add
+                            <Trans>Add</Trans>
                         </Button>
-                        <Button onClick={() => setIsAddingPlayer(false)}>Cancel</Button>
+                        <Button onClick={() => setIsAddingPlayer(false)}>
+                            <Trans>Cancel</Trans>
+                        </Button>
                     </Stack>
                 ) : (
-                    <Button onClick={() => setIsAddingPlayer(true)}>+ Add New Player</Button>
+                    <Button onClick={() => setIsAddingPlayer(true)}>
+                        <Trans>+ Add New Player</Trans>
+                    </Button>
                 )}
             </Grid>
             <Button variant="contained" sx={{ mt: 4 }} onClick={handleSubmit}>
-                Continue to Result Entry
+                <Trans>Continue to Result Entry</Trans>
             </Button>
         </PageTemplate>
     );

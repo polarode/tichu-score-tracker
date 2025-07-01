@@ -27,6 +27,7 @@ import { supabase } from "../../lib/supabase";
 import { type Player } from "../../lib/types";
 import { toast } from "react-toastify";
 import { PageTemplate } from "../../components/PageTemplate";
+import { Trans } from "@lingui/react/macro";
 
 export default function NewMatch() {
     const navigate = useNavigate();
@@ -166,10 +167,10 @@ export default function NewMatch() {
                 <>
                     <Box sx={{ mb: 4 }}>
                         <Typography variant="h6" gutterBottom>
-                            Continue Active Match
+                            <Trans>Continue Active Match</Trans>
                         </Typography>
                         <Button variant="outlined" onClick={() => setMatchDialogOpen(true)}>
-                            Select Active Match
+                            <Trans>Select Active Match</Trans>
                         </Button>
                     </Box>
                     <Divider sx={{ mb: 4 }} />
@@ -177,12 +178,12 @@ export default function NewMatch() {
             )}
 
             <Typography variant="h6" gutterBottom>
-                Start New Match
+                <Trans>Start New Match</Trans>
             </Typography>
 
             <Box sx={{ mb: 4 }}>
                 <Typography variant="h6" gutterBottom>
-                    Target Points
+                    <Trans>Target Points</Trans>
                 </Typography>
                 <ToggleButtonGroup
                     exclusive
@@ -196,7 +197,7 @@ export default function NewMatch() {
                 </ToggleButtonGroup>
                 {(!targetPoints || targetPoints === 0) && (
                     <TextField
-                        label="Custom Target"
+                        label={<Trans>Custom Target</Trans>}
                         type="number"
                         value={customTarget}
                         onChange={(e) => setCustomTarget(e.target.value)}
@@ -207,18 +208,20 @@ export default function NewMatch() {
             </Box>
 
             <Typography variant="h6" gutterBottom>
-                Select Teams
+                <Trans>Select Teams</Trans>
             </Typography>
             <Grid sx={{ xs: 12, md: 6 }}>
                 <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                     <FormControl sx={{ minWidth: "48%" }}>
-                        <InputLabel id="team1">Team 1</InputLabel>
+                        <InputLabel id="team1">
+                            <Trans>Team 1</Trans>
+                        </InputLabel>
                         <Select
                             fullWidth
                             multiple
                             value={team1}
                             labelId="team1"
-                            label="Team 1"
+                            label={<Trans>Team 1</Trans>}
                             onChange={(event) => {
                                 const value = event.target.value as string[];
                                 if (value.length <= 2) {
@@ -234,13 +237,15 @@ export default function NewMatch() {
                         </Select>
                     </FormControl>
                     <FormControl sx={{ minWidth: "48%" }}>
-                        <InputLabel id="team2">Team 2</InputLabel>
+                        <InputLabel id="team2">
+                            <Trans>Team 2</Trans>
+                        </InputLabel>
                         <Select
                             fullWidth
                             multiple
                             value={team2}
                             labelId="team2"
-                            label="Team 2"
+                            label={<Trans>Team 2</Trans>}
                             onChange={(event) => {
                                 const value = event.target.value as string[];
                                 if (value.length <= 2) {
@@ -260,15 +265,17 @@ export default function NewMatch() {
 
             <Box sx={{ display: "flex", gap: 2, mt: 4 }}>
                 <Button variant="outlined" onClick={() => navigate("/")}>
-                    Cancel
+                    <Trans>Cancel</Trans>
                 </Button>
                 <Button variant="contained" onClick={handleSubmit}>
-                    Start Match
+                    <Trans>Start Match</Trans>
                 </Button>
             </Box>
 
             <Dialog open={matchDialogOpen} onClose={() => setMatchDialogOpen(false)} maxWidth="sm" fullWidth>
-                <DialogTitle>Select Active Match</DialogTitle>
+                <DialogTitle>
+                    <Trans>Select Active Match</Trans>
+                </DialogTitle>
                 <DialogContent>
                     <List>
                         {activeMatches.map((match) => {
@@ -294,7 +301,9 @@ export default function NewMatch() {
                     </List>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={() => setMatchDialogOpen(false)}>Cancel</Button>
+                    <Button onClick={() => setMatchDialogOpen(false)}>
+                        <Trans>Cancel</Trans>
+                    </Button>
                 </DialogActions>
             </Dialog>
         </PageTemplate>
