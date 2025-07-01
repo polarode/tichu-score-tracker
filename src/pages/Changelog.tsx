@@ -1,5 +1,6 @@
-import { Container, Typography, Card, CardContent, Box, Chip, List, ListItem, ListItemText } from "@mui/material";
+import { Typography, Card, CardContent, Box, Chip, List, ListItem, ListItemText } from "@mui/material";
 import changelogData from "../data/changelog.json";
+import { PageTemplate } from "../components/PageTemplate";
 
 interface ChangelogEntry {
     version: string;
@@ -11,7 +12,7 @@ export default function ChangelogPage() {
     const changelog: ChangelogEntry[] = changelogData;
 
     return (
-        <Container maxWidth="md" sx={{ mt: 4, mb: 4 }}>
+        <PageTemplate maxWidth="md" showVersionButton={false}>
             <Box sx={{ display: "flex", alignItems: "center", mb: 3 }}>
                 <Typography variant="h4" component="h1">
                     Changelog
@@ -38,6 +39,6 @@ export default function ChangelogPage() {
                     </CardContent>
                 </Card>
             ))}
-        </Container>
+        </PageTemplate>
     );
 }
