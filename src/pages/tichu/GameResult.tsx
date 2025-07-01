@@ -17,6 +17,7 @@ import {
 import { useTichuGameContext } from "../../context/TichuGameContext";
 import { toast } from "react-toastify";
 import type { MatchStandings } from "../../lib/types";
+import { PageTemplate } from "../../components/PageTemplate";
 
 type TichuCall = "NONE" | "ST" | "GT";
 
@@ -218,7 +219,7 @@ export default function GameResult() {
     };
 
     return (
-        <Box maxWidth={600} mx="auto" p={2}>
+        <PageTemplate maxWidth="md" showVersionButton={false}>
             <Typography variant="h5" gutterBottom>
                 Enter Game Results
             </Typography>
@@ -363,6 +364,6 @@ export default function GameResult() {
                     {beschissFlag ? "Beschiss ✓" : "Beschiss"}
                 </Button>
             </Box>
-        </Box>
+        </PageTemplate>
     );
 }

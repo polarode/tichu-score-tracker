@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
-    Container,
     Typography,
     Grid,
     TextField,
@@ -18,6 +17,7 @@ import { supabase } from "../../lib/supabase";
 import { type Player } from "../../lib/types";
 import { toast } from "react-toastify";
 import ReplayIcon from "@mui/icons-material/Replay";
+import { PageTemplate } from "../../components/PageTemplate";
 
 export default function NewGame() {
     const navigate = useNavigate();
@@ -129,84 +129,82 @@ export default function NewGame() {
     };
 
     return (
-        <Box maxWidth={800} mx="auto" p={2}>
-            <Container sx={{ mt: 5 }}>
-                <Typography variant="h5" gutterBottom>
-                    Select Teams
-                </Typography>
-                <Grid sx={{ xs: 12, md: 6 }}>
-                    <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-                        <FormControl sx={{ minWidth: "48%" }}>
-                            <InputLabel id="team1">Team 1</InputLabel>
-                            <Select
-                                fullWidth
-                                multiple
-                                value={team1}
-                                labelId="team1"
-                                label="Team 1"
-                                onChange={(event) => {
-                                    const value = event.target.value as string[];
-                                    if (value.length <= 2) {
-                                        setTeam1(value);
-                                    }
-                                }}
-                            >
-                                {availableForTeam(1).map((p) => (
-                                    <MenuItem key={p} value={p}>
-                                        {p}
-                                    </MenuItem>
-                                ))}
-                            </Select>
-                        </FormControl>
-                        <FormControl sx={{ minWidth: "48%" }}>
-                            <InputLabel id="team2">Team 2</InputLabel>
-                            <Select
-                                fullWidth
-                                multiple
-                                value={team2}
-                                labelId="team2"
-                                label="Team 2"
-                                onChange={(event) => {
-                                    const value = event.target.value as string[];
-                                    if (value.length <= 2) {
-                                        setTeam2(value);
-                                    }
-                                }}
-                            >
-                                {availableForTeam(2).map((p) => (
-                                    <MenuItem key={p} value={p}>
-                                        {p}
-                                    </MenuItem>
-                                ))}
-                            </Select>
-                        </FormControl>
-                    </Box>
-                </Grid>
-                {isAddingPlayer ? (
-                    <Stack direction="row" spacing={2} alignItems="center">
-                        <TextField
-                            label="New Player Name"
-                            value={newPlayerName}
-                            onChange={(e) => setNewPlayerName(e.target.value)}
-                            size="small"
-                        />
-                        <Button variant="contained" onClick={handleAddPlayer}>
-                            Add
-                        </Button>
-                        <Button onClick={() => setIsAddingPlayer(false)}>Cancel</Button>
-                    </Stack>
-                ) : (
-                    <Button onClick={() => setIsAddingPlayer(true)}>+ Add New Player</Button>
-                )}
-                <Box sx={{ display: "flex", gap: 2, mt: 4 }}>
-                    <Button startIcon={<ReplayIcon />} variant="outlined" onClick={handleRematch}>
-                        Rematch
-                    </Button>
-                    <Button variant="contained" onClick={handleSubmit}>
-                        Continue to Result Entry
-                    </Button>
+        <PageTemplate maxWidth="md" showVersionButton={false}>
+            <Typography variant="h5" gutterBottom>
+                Select Teams
+            </Typography>
+            <Grid sx={{ xs: 12, md: 6 }}>
+                <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                    <FormControl sx={{ minWidth: "48%" }}>
+                        <InputLabel id="team1">Team 1</InputLabel>
+                        <Select
+                            fullWidth
+                            multiple
+                            value={team1}
+                            labelId="team1"
+                            label="Team 1"
+                            onChange={(event) => {
+                                const value = event.target.value as string[];
+                                if (value.length <= 2) {
+                                    setTeam1(value);
+                                }
+                            }}
+                        >
+                            {availableForTeam(1).map((p) => (
+                                <MenuItem key={p} value={p}>
+                                    {p}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+                    <FormControl sx={{ minWidth: "48%" }}>
+                        <InputLabel id="team2">Team 2</InputLabel>
+                        <Select
+                            fullWidth
+                            multiple
+                            value={team2}
+                            labelId="team2"
+                            label="Team 2"
+                            onChange={(event) => {
+                                const value = event.target.value as string[];
+                                if (value.length <= 2) {
+                                    setTeam2(value);
+                                }
+                            }}
+                        >
+                            {availableForTeam(2).map((p) => (
+                                <MenuItem key={p} value={p}>
+                                    {p}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
                 </Box>
-            </Container>
-        </Box>
+            </Grid>
+            {isAddingPlayer ? (
+                <Stack direction="row" spacing={2} alignItems="center">
+                    <TextField
+                        label="New Player Name"
+                        value={newPlayerName}
+                        onChange={(e) => setNewPlayerName(e.target.value)}
+                        size="small"
+                    />
+                    <Button variant="contained" onClick={handleAddPlayer}>
+                        Add
+                    </Button>
+                    <Button onClick={() => setIsAddingPlayer(false)}>Cancel</Button>
+                </Stack>
+            ) : (
+                <Button onClick={() => setIsAddingPlayer(true)}>+ Add New Player</Button>
+            )}
+            <Box sx={{ display: "flex", gap: 2, mt: 4 }}>
+                <Button startIcon={<ReplayIcon />} variant="outlined" onClick={handleRematch}>
+                    Rematch
+                </Button>
+                <Button variant="contained" onClick={handleSubmit}>
+                    Continue to Result Entry
+                </Button>
+            </Box>
+        </PageTemplate>
     );
 }

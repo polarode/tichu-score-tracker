@@ -1,4 +1,4 @@
-import { Container, Typography, Card, CardContent, Button, Grid, Box, Tabs, Tab } from "@mui/material";
+import { Typography, Card, CardContent, Button, Grid, Box, Tabs, Tab } from "@mui/material";
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import { useNavigate } from "react-router-dom";
 import { LastGames } from "./tichu/LastGames";
@@ -6,9 +6,8 @@ import { LastMatches } from "./tichu/LastMatches";
 import { LastRebelPrincessGames } from "./rebelPrincess/LastGames";
 import { Celebration } from "@mui/icons-material";
 import { useEffect, useState } from "react";
-import changelogData from "../data/changelog.json";
 import { Trans } from "@lingui/react/macro";
-import { LanguageSelector } from "../components/LanguageSelector";
+import { PageTemplate } from "../components/PageTemplate";
 
 export default function DashboardPage() {
     const navigate = useNavigate();
@@ -34,23 +33,12 @@ export default function DashboardPage() {
     }, [isAuthenticated, navigate]);
 
     return (
-        <Container maxWidth="sm" sx={{p:"8px"}}>
-            <LanguageSelector />
-            <Button
-                onClick={() => navigate("/changelog")}
-                variant="outlined"
-                size="small"
-                sx={{ position: "absolute", top: 20, right: 20 }}
-            >
-                v{changelogData[0].version}
-            </Button>
-            <Box sx={{ position: "relative" }}>
-                <Typography variant="h4" align="center" sx={{ mt: 8 }} gutterBottom>
-                    <Trans>Lets play a game of...</Trans>
-                </Typography>
-            </Box>
+        <PageTemplate>
+            <Typography variant="h4" align="center" gutterBottom>
+                <Trans>Lets play a game of...</Trans>
+            </Typography>
 
-            <Grid container spacing={2}  justifyContent="center">
+            <Grid container spacing={2} justifyContent="center">
                 <Card sx={{ borderRadius: 4, boxShadow: 3 }}>
                     <CardContent>
                         <Typography variant="h6" gutterBottom>
@@ -121,6 +109,6 @@ export default function DashboardPage() {
                     <LastRebelPrincessGames />
                 </Box>
             </Box>
-        </Container>
+        </PageTemplate>
     );
 }

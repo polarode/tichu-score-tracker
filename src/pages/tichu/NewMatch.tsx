@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
-    Container,
     Typography,
     Grid,
     Button,
@@ -27,6 +26,7 @@ import { useTichuGameContext } from "../../context/TichuGameContext";
 import { supabase } from "../../lib/supabase";
 import { type Player } from "../../lib/types";
 import { toast } from "react-toastify";
+import { PageTemplate } from "../../components/PageTemplate";
 
 export default function NewMatch() {
     const navigate = useNavigate();
@@ -161,144 +161,142 @@ export default function NewMatch() {
     };
 
     return (
-        <Box maxWidth={800} mx="auto" p={2}>
-            <Container sx={{ mt: 5 }}>
-                {activeMatches.length > 0 && (
-                    <>
-                        <Box sx={{ mb: 4 }}>
-                            <Typography variant="h6" gutterBottom>
-                                Continue Active Match
-                            </Typography>
-                            <Button variant="outlined" onClick={() => setMatchDialogOpen(true)}>
-                                Select Active Match
-                            </Button>
-                        </Box>
-                        <Divider sx={{ mb: 4 }} />
-                    </>
-                )}
-
-                <Typography variant="h6" gutterBottom>
-                    Start New Match
-                </Typography>
-
-                <Box sx={{ mb: 4 }}>
-                    <Typography variant="h6" gutterBottom>
-                        Target Points
-                    </Typography>
-                    <ToggleButtonGroup
-                        exclusive
-                        value={targetPoints || "custom"}
-                        onChange={(_, value) => handleTargetChange(value)}
-                        sx={{ mb: 2 }}
-                    >
-                        <ToggleButton value={500}>500</ToggleButton>
-                        <ToggleButton value={1000}>1000</ToggleButton>
-                        <ToggleButton value="custom">Custom</ToggleButton>
-                    </ToggleButtonGroup>
-                    {(!targetPoints || targetPoints === 0) && (
-                        <TextField
-                            label="Custom Target"
-                            type="number"
-                            value={customTarget}
-                            onChange={(e) => setCustomTarget(e.target.value)}
-                            size="small"
-                            sx={{ ml: 2 }}
-                        />
-                    )}
-                </Box>
-
-                <Typography variant="h6" gutterBottom>
-                    Select Teams
-                </Typography>
-                <Grid sx={{ xs: 12, md: 6 }}>
-                    <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-                        <FormControl sx={{ minWidth: "48%" }}>
-                            <InputLabel id="team1">Team 1</InputLabel>
-                            <Select
-                                fullWidth
-                                multiple
-                                value={team1}
-                                labelId="team1"
-                                label="Team 1"
-                                onChange={(event) => {
-                                    const value = event.target.value as string[];
-                                    if (value.length <= 2) {
-                                        setTeam1(value);
-                                    }
-                                }}
-                            >
-                                {availableForTeam(1).map((p) => (
-                                    <MenuItem key={p} value={p}>
-                                        {p}
-                                    </MenuItem>
-                                ))}
-                            </Select>
-                        </FormControl>
-                        <FormControl sx={{ minWidth: "48%" }}>
-                            <InputLabel id="team2">Team 2</InputLabel>
-                            <Select
-                                fullWidth
-                                multiple
-                                value={team2}
-                                labelId="team2"
-                                label="Team 2"
-                                onChange={(event) => {
-                                    const value = event.target.value as string[];
-                                    if (value.length <= 2) {
-                                        setTeam2(value);
-                                    }
-                                }}
-                            >
-                                {availableForTeam(2).map((p) => (
-                                    <MenuItem key={p} value={p}>
-                                        {p}
-                                    </MenuItem>
-                                ))}
-                            </Select>
-                        </FormControl>
+        <PageTemplate maxWidth="md" showVersionButton={false}>
+            {activeMatches.length > 0 && (
+                <>
+                    <Box sx={{ mb: 4 }}>
+                        <Typography variant="h6" gutterBottom>
+                            Continue Active Match
+                        </Typography>
+                        <Button variant="outlined" onClick={() => setMatchDialogOpen(true)}>
+                            Select Active Match
+                        </Button>
                     </Box>
-                </Grid>
+                    <Divider sx={{ mb: 4 }} />
+                </>
+            )}
 
-                <Box sx={{ display: "flex", gap: 2, mt: 4 }}>
-                    <Button variant="outlined" onClick={() => navigate("/")}>
-                        Cancel
-                    </Button>
-                    <Button variant="contained" onClick={handleSubmit}>
-                        Start Match
-                    </Button>
+            <Typography variant="h6" gutterBottom>
+                Start New Match
+            </Typography>
+
+            <Box sx={{ mb: 4 }}>
+                <Typography variant="h6" gutterBottom>
+                    Target Points
+                </Typography>
+                <ToggleButtonGroup
+                    exclusive
+                    value={targetPoints || "custom"}
+                    onChange={(_, value) => handleTargetChange(value)}
+                    sx={{ mb: 2 }}
+                >
+                    <ToggleButton value={500}>500</ToggleButton>
+                    <ToggleButton value={1000}>1000</ToggleButton>
+                    <ToggleButton value="custom">Custom</ToggleButton>
+                </ToggleButtonGroup>
+                {(!targetPoints || targetPoints === 0) && (
+                    <TextField
+                        label="Custom Target"
+                        type="number"
+                        value={customTarget}
+                        onChange={(e) => setCustomTarget(e.target.value)}
+                        size="small"
+                        sx={{ ml: 2 }}
+                    />
+                )}
+            </Box>
+
+            <Typography variant="h6" gutterBottom>
+                Select Teams
+            </Typography>
+            <Grid sx={{ xs: 12, md: 6 }}>
+                <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                    <FormControl sx={{ minWidth: "48%" }}>
+                        <InputLabel id="team1">Team 1</InputLabel>
+                        <Select
+                            fullWidth
+                            multiple
+                            value={team1}
+                            labelId="team1"
+                            label="Team 1"
+                            onChange={(event) => {
+                                const value = event.target.value as string[];
+                                if (value.length <= 2) {
+                                    setTeam1(value);
+                                }
+                            }}
+                        >
+                            {availableForTeam(1).map((p) => (
+                                <MenuItem key={p} value={p}>
+                                    {p}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+                    <FormControl sx={{ minWidth: "48%" }}>
+                        <InputLabel id="team2">Team 2</InputLabel>
+                        <Select
+                            fullWidth
+                            multiple
+                            value={team2}
+                            labelId="team2"
+                            label="Team 2"
+                            onChange={(event) => {
+                                const value = event.target.value as string[];
+                                if (value.length <= 2) {
+                                    setTeam2(value);
+                                }
+                            }}
+                        >
+                            {availableForTeam(2).map((p) => (
+                                <MenuItem key={p} value={p}>
+                                    {p}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
                 </Box>
+            </Grid>
 
-                <Dialog open={matchDialogOpen} onClose={() => setMatchDialogOpen(false)} maxWidth="sm" fullWidth>
-                    <DialogTitle>Select Active Match</DialogTitle>
-                    <DialogContent>
-                        <List>
-                            {activeMatches.map((match) => {
-                                const team1Names = match.match_participants
-                                    .filter((p: any) => p.team === 1)
-                                    .map((p: any) => p.players.name)
-                                    .join(", ");
-                                const team2Names = match.match_participants
-                                    .filter((p: any) => p.team === 2)
-                                    .map((p: any) => p.players.name)
-                                    .join(", ");
-                                return (
-                                    <ListItem key={match.id} disablePadding>
-                                        <ListItemButton onClick={() => handleMatchSelection(match)}>
-                                            <ListItemText
-                                                primary={`${team1Names} vs ${team2Names}`}
-                                                secondary={`Target: ${match.target_points} points • Started ${new Date(match.created_at).toLocaleDateString()}`}
-                                            />
-                                        </ListItemButton>
-                                    </ListItem>
-                                );
-                            })}
-                        </List>
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={() => setMatchDialogOpen(false)}>Cancel</Button>
-                    </DialogActions>
-                </Dialog>
-            </Container>
-        </Box>
+            <Box sx={{ display: "flex", gap: 2, mt: 4 }}>
+                <Button variant="outlined" onClick={() => navigate("/")}>
+                    Cancel
+                </Button>
+                <Button variant="contained" onClick={handleSubmit}>
+                    Start Match
+                </Button>
+            </Box>
+
+            <Dialog open={matchDialogOpen} onClose={() => setMatchDialogOpen(false)} maxWidth="sm" fullWidth>
+                <DialogTitle>Select Active Match</DialogTitle>
+                <DialogContent>
+                    <List>
+                        {activeMatches.map((match) => {
+                            const team1Names = match.match_participants
+                                .filter((p: any) => p.team === 1)
+                                .map((p: any) => p.players.name)
+                                .join(", ");
+                            const team2Names = match.match_participants
+                                .filter((p: any) => p.team === 2)
+                                .map((p: any) => p.players.name)
+                                .join(", ");
+                            return (
+                                <ListItem key={match.id} disablePadding>
+                                    <ListItemButton onClick={() => handleMatchSelection(match)}>
+                                        <ListItemText
+                                            primary={`${team1Names} vs ${team2Names}`}
+                                            secondary={`Target: ${match.target_points} points • Started ${new Date(match.created_at).toLocaleDateString()}`}
+                                        />
+                                    </ListItemButton>
+                                </ListItem>
+                            );
+                        })}
+                    </List>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={() => setMatchDialogOpen(false)}>Cancel</Button>
+                </DialogActions>
+            </Dialog>
+        </PageTemplate>
     );
 }

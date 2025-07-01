@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
-    Container,
     Typography,
     Grid,
     TextField,
@@ -17,6 +16,7 @@ import { supabase } from "../../lib/supabase";
 import { toast } from "react-toastify";
 import type { Player } from "../../lib/types";
 import { useRebelPrincessGameContext } from "../../context/RebelPrincessGameContext";
+import { PageTemplate } from "../../components/PageTemplate";
 
 export default function NewGame() {
     const navigate = useNavigate();
@@ -100,53 +100,51 @@ export default function NewGame() {
     };
 
     return (
-        <Box maxWidth={800} mx="auto" p={2}>
-            <Container sx={{ mt: 5 }}>
-                <Typography variant="h5" gutterBottom>
-                    Select 3 to 6 Players
-                </Typography>
-                <Grid sx={{ xs: 12, md: 6 }}>
-                    <FormControl fullWidth>
-                        <InputLabel id="player">Players</InputLabel>
-                        <Select
-                            fullWidth={true}
-                            multiple
-                            value={playerNames}
-                            labelId="player"
-                            label="Players"
-                            onChange={(event) => {
-                                const value = event.target.value as string[];
-                                if (value.length <= 6) {
-                                    setPlayerNames(value);
-                                }
-                            }}
-                        >
-                            {knownPlayers.map((p) => (
-                                <MenuItem value={p.name}>{p.name}</MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
-                    {isAddingPlayer ? (
-                        <Stack direction="row" spacing={2} alignItems="center">
-                            <TextField
-                                label="New Player Name"
-                                value={newPlayerName}
-                                onChange={(e) => setNewPlayerName(e.target.value)}
-                                size="small"
-                            />
-                            <Button variant="contained" onClick={handleAddPlayer}>
-                                Add
-                            </Button>
-                            <Button onClick={() => setIsAddingPlayer(false)}>Cancel</Button>
-                        </Stack>
-                    ) : (
-                        <Button onClick={() => setIsAddingPlayer(true)}>+ Add New Player</Button>
-                    )}
-                </Grid>
-                <Button variant="contained" sx={{ mt: 4 }} onClick={handleSubmit}>
-                    Continue to Result Entry
-                </Button>
-            </Container>
-        </Box>
+        <PageTemplate maxWidth="md" showVersionButton={false}>
+            <Typography variant="h5" gutterBottom>
+                Select 3 to 6 Players
+            </Typography>
+            <Grid sx={{ xs: 12, md: 6 }}>
+                <FormControl fullWidth>
+                    <InputLabel id="player">Players</InputLabel>
+                    <Select
+                        fullWidth={true}
+                        multiple
+                        value={playerNames}
+                        labelId="player"
+                        label="Players"
+                        onChange={(event) => {
+                            const value = event.target.value as string[];
+                            if (value.length <= 6) {
+                                setPlayerNames(value);
+                            }
+                        }}
+                    >
+                        {knownPlayers.map((p) => (
+                            <MenuItem value={p.name}>{p.name}</MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
+                {isAddingPlayer ? (
+                    <Stack direction="row" spacing={2} alignItems="center">
+                        <TextField
+                            label="New Player Name"
+                            value={newPlayerName}
+                            onChange={(e) => setNewPlayerName(e.target.value)}
+                            size="small"
+                        />
+                        <Button variant="contained" onClick={handleAddPlayer}>
+                            Add
+                        </Button>
+                        <Button onClick={() => setIsAddingPlayer(false)}>Cancel</Button>
+                    </Stack>
+                ) : (
+                    <Button onClick={() => setIsAddingPlayer(true)}>+ Add New Player</Button>
+                )}
+            </Grid>
+            <Button variant="contained" sx={{ mt: 4 }} onClick={handleSubmit}>
+                Continue to Result Entry
+            </Button>
+        </PageTemplate>
     );
 }

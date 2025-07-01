@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../../lib/supabase";
 import {
-    Container,
     Typography,
     Grid,
     Card,
@@ -14,6 +13,7 @@ import {
     MenuItem,
 } from "@mui/material";
 import SortIcon from "@mui/icons-material/Sort";
+import { PageTemplate } from "../../components/PageTemplate";
 
 interface PlayerStatistics {
     player_id: string;
@@ -88,7 +88,7 @@ export const Statistics = () => {
         );
 
     return (
-        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+        <PageTemplate maxWidth="lg" showVersionButton={false}>
             <Typography variant="h4" gutterBottom>
                 Tichu Statistics
             </Typography>
@@ -166,7 +166,7 @@ export const Statistics = () => {
                     </Grid>
                 ))}
             </Grid>
-        </Container>
+        </PageTemplate>
     );
 };
 

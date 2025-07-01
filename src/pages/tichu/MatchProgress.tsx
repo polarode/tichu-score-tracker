@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
-    Container,
     Typography,
     Box,
     Button,
@@ -17,6 +16,7 @@ import {
 import { useTichuGameContext } from "../../context/TichuGameContext";
 import { supabase } from "../../lib/supabase";
 import { toast } from "react-toastify";
+import { PageTemplate } from "../../components/PageTemplate";
 
 export default function MatchProgress() {
     const navigate = useNavigate();
@@ -79,66 +79,60 @@ export default function MatchProgress() {
     const progress = (maxScore / currentMatch.target_points) * 100;
 
     return (
-        <Box maxWidth={600} mx="auto" p={2}>
-            <Container sx={{ mt: 5 }}>
-                <Typography variant="h5" gutterBottom>
-                    Match Progress
-                </Typography>
+        <PageTemplate maxWidth="md" showVersionButton={false}>
+            <Typography variant="h5" gutterBottom>
+                Match Progress
+            </Typography>
 
-                <Card sx={{ mb: 3 }}>
-                    <CardContent>
-                        <Typography variant="h6" gutterBottom>
-                            Target: {currentMatch.target_points} points
-                        </Typography>
-                        <LinearProgress
-                            variant="determinate"
-                            value={Math.min(progress, 100)}
-                            sx={{ height: 10, borderRadius: 5, mb: 2 }}
-                        />
-                        <Typography variant="body2" color="text.secondary">
-                            {Math.round(progress)}% to target
-                        </Typography>
-                    </CardContent>
-                </Card>
+            <Card sx={{ mb: 3 }}>
+                <CardContent>
+                    <Typography variant="h6" gutterBottom>
+                        Target: {currentMatch.target_points} points
+                    </Typography>
+                    <LinearProgress
+                        variant="determinate"
+                        value={Math.min(progress, 100)}
+                        sx={{ height: 10, borderRadius: 5, mb: 2 }}
+                    />
+                    <Typography variant="body2" color="text.secondary">
+                        {Math.round(progress)}% to target
+                    </Typography>
+                </CardContent>
+            </Card>
 
-                <Table>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>Team</TableCell>
-                            <TableCell>Players</TableCell>
-                            <TableCell align="right">Score</TableCell>
-                            <TableCell align="right">Games</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        <TableRow>
-                            <TableCell>Team 1</TableCell>
-                            <TableCell>{team1.map((p) => p.name).join(", ")}</TableCell>
-                            <TableCell align="right">{team1Score}</TableCell>
-                            <TableCell align="right">
-                                {matchStandings.find((s) => s.team === 1)?.game_count || 0}
-                            </TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell>Team 2</TableCell>
-                            <TableCell>{team2.map((p) => p.name).join(", ")}</TableCell>
-                            <TableCell align="right">{team2Score}</TableCell>
-                            <TableCell align="right">
-                                {matchStandings.find((s) => s.team === 2)?.game_count || 0}
-                            </TableCell>
-                        </TableRow>
-                    </TableBody>
-                </Table>
+            <Table>
+                <TableHead>
+                    <TableRow>
+                        <TableCell>Team</TableCell>
+                        <TableCell>Players</TableCell>
+                        <TableCell align="right">Score</TableCell>
+                        <TableCell align="right">Games</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    <TableRow>
+                        <TableCell>Team 1</TableCell>
+                        <TableCell>{team1.map((p) => p.name).join(", ")}</TableCell>
+                        <TableCell align="right">{team1Score}</TableCell>
+                        <TableCell align="right">{matchStandings.find((s) => s.team === 1)?.game_count || 0}</TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell>Team 2</TableCell>
+                        <TableCell>{team2.map((p) => p.name).join(", ")}</TableCell>
+                        <TableCell align="right">{team2Score}</TableCell>
+                        <TableCell align="right">{matchStandings.find((s) => s.team === 2)?.game_count || 0}</TableCell>
+                    </TableRow>
+                </TableBody>
+            </Table>
 
-                <Box sx={{ display: "flex", gap: 2, mt: 4 }}>
-                    <Button variant="contained" onClick={handleContinueMatch} disabled={loading}>
-                        Continue Match
-                    </Button>
-                    <Button variant="outlined" color="error" onClick={handleEndMatch} disabled={loading}>
-                        End Match
-                    </Button>
-                </Box>
-            </Container>
-        </Box>
+            <Box sx={{ display: "flex", gap: 2, mt: 4 }}>
+                <Button variant="contained" onClick={handleContinueMatch} disabled={loading}>
+                    Continue Match
+                </Button>
+                <Button variant="outlined" color="error" onClick={handleEndMatch} disabled={loading}>
+                    End Match
+                </Button>
+            </Box>
+        </PageTemplate>
     );
 }

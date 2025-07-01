@@ -21,6 +21,7 @@ import { useRebelPrincessGameContext } from "../../context/RebelPrincessGameCont
 import type { RPRoundModifier } from "../../lib/types";
 import { toast } from "react-toastify";
 import { supabase } from "../../lib/supabase";
+import { PageTemplate } from "../../components/PageTemplate";
 
 type SavedRound = {
     modifier: RPRoundModifier;
@@ -175,7 +176,7 @@ export default function RoundResult() {
     }
 
     return (
-        <Box maxWidth={800} mx="auto" p={2}>
+        <PageTemplate maxWidth="lg" showVersionButton={false}>
             <Typography variant="h5" gutterBottom>
                 Enter Round Results
             </Typography>
@@ -310,6 +311,6 @@ export default function RoundResult() {
                     Save Round
                 </Button>
             </Box>
-        </Box>
+        </PageTemplate>
     );
 }
