@@ -33,7 +33,7 @@ export default function DashboardPage() {
     }, [isAuthenticated, navigate]);
 
     return (
-        <PageTemplate>
+        <PageTemplate showHomeButton={false}>
             <Typography variant="h4" align="center" gutterBottom>
                 <Trans>Lets play a game of...</Trans>
             </Typography>

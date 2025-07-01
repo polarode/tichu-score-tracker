@@ -2,7 +2,10 @@
     {
         "version": "1.2.2",
         "date": "2025-07-01",
-        "changes": ["Added loading spinner when saving games to prevent double-saves"]
+        "changes": [
+            "Added loading spinner when saving games to prevent double-saves",
+            "Added Home button to return to the dashboard"
+        ]
     },
     {
         "version": "1.2.1",

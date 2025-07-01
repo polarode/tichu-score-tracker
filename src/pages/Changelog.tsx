@@ -1,17 +1,4 @@
-import {
-    Container,
-    Typography,
-    Card,
-    CardContent,
-    Box,
-    Chip,
-    List,
-    ListItem,
-    ListItemText,
-    Button,
-} from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { Container, Typography, Card, CardContent, Box, Chip, List, ListItem, ListItemText } from "@mui/material";
 import changelogData from "../data/changelog.json";
 
 interface ChangelogEntry {
@@ -21,15 +8,11 @@ interface ChangelogEntry {
 }
 
 export default function ChangelogPage() {
-    const navigate = useNavigate();
     const changelog: ChangelogEntry[] = changelogData;
 
     return (
         <Container maxWidth="md" sx={{ mt: 4, mb: 4 }}>
             <Box sx={{ display: "flex", alignItems: "center", mb: 3 }}>
-                <Button startIcon={<ArrowBackIcon />} onClick={() => navigate("/")} sx={{ mr: 2 }}>
-                    Dashboard
-                </Button>
                 <Typography variant="h4" component="h1">
                     Changelog
                 </Typography>
