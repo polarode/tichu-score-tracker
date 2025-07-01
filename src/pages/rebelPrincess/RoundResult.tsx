@@ -16,6 +16,8 @@ import {
     FormControl,
     InputLabel,
     Tooltip,
+    CircularProgress,
+    Backdrop,
 } from "@mui/material";
 import { useRebelPrincessGameContext } from "../../context/RebelPrincessGameContext";
 import type { RPRoundModifier } from "../../lib/types";
@@ -39,6 +41,7 @@ export default function RoundResult() {
     const [playerPoints, setPlayerPoints] = useState<number[]>(new Array(players.length).fill(0));
     const [savedRounds, setSavedRounds] = useState<SavedRound[]>([]);
     const [error, setError] = useState<string | null>(null);
+    const [isSaving, setIsSaving] = useState<boolean>(false);
 
     useEffect(() => {
         if (!isAuthenticated) {
@@ -53,21 +56,25 @@ export default function RoundResult() {
     }, [players, gameId, navigate]);
 
     const handleSubmit = async () => {
-        setError(null);
-        if (!roundModifier) {
-            toast.error("Please select a round modifier");
-            return;
-        }
-        const [minPoints, maxPoints] = calculateRoundPoints(players.length, roundModifier);
-        const totalPoints = playerPoints.reduce((sum, points) => sum + points, 0);
+        if (isSaving) return;
 
-        // Validate points are in valid range
-        if (totalPoints < minPoints || totalPoints > maxPoints) {
-            toast.error(`Total points must be between ${minPoints} and ${maxPoints}`);
-            return;
-        }
+        setError(null);
+        setIsSaving(true);
 
         try {
+            if (!roundModifier) {
+                toast.error("Please select a round modifier");
+                return;
+            }
+            const [minPoints, maxPoints] = calculateRoundPoints(players.length, roundModifier);
+            const totalPoints = playerPoints.reduce((sum, points) => sum + points, 0);
+
+            // Validate points are in valid range
+            if (totalPoints < minPoints || totalPoints > maxPoints) {
+                toast.error(`Total points must be between ${minPoints} and ${maxPoints}`);
+                return;
+            }
+
             if (!gameId) {
                 throw new Error("No game ID found");
             }
@@ -101,6 +108,8 @@ export default function RoundResult() {
             console.error("Error saving round:", err);
             toast.error("Failed to save round. Please try again.");
             setError("Failed to save round data");
+        } finally {
+            setIsSaving(false);
         }
     };
 
@@ -318,10 +327,13 @@ export default function RoundResult() {
                 )}
             </Box>
             <Box mt={3}>
-                <Button variant="contained" color="primary" onClick={handleSubmit}>
+                <Button variant="contained" color="primary" onClick={handleSubmit} disabled={isSaving}>
                     <Trans>Save Round</Trans>
                 </Button>
             </Box>
+            <Backdrop sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }} open={isSaving}>
+                <CircularProgress color="inherit" />
+            </Backdrop>
         </PageTemplate>
     );
 }

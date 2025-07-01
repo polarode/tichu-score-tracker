@@ -13,6 +13,8 @@ import {
     ToggleButton,
     ToggleButtonGroup,
     Slider,
+    CircularProgress,
+    Backdrop,
 } from "@mui/material";
 import { useTichuGameContext } from "../../context/TichuGameContext";
 import { toast } from "react-toastify";
@@ -42,6 +44,7 @@ export default function GameResult() {
     const [teamTotalScores, setTeamTotalScores] = useState<number[]>([0, 0]);
     const [error, setError] = useState<string | null>(null);
     const [beschissFlag, setBeschissFlag] = useState<boolean>(false);
+    const [isSaving, setIsSaving] = useState<boolean>(false);
 
     useEffect(() => {
         if (!isAuthenticated) {
@@ -180,42 +183,49 @@ export default function GameResult() {
     };
 
     const handleSubmit = async () => {
+        if (isSaving) return;
+
         setError(null);
+        setIsSaving(true);
 
-        if (positions.some((pos) => pos === null)) {
-            setError("Please set the finishing position for all players.");
-            return;
-        }
-
-        const uniquePositions = new Set(positions);
-        if (uniquePositions.size !== 4 || ![1, 2, 3, 4].every((n) => uniquePositions.has(n))) {
-            setError("Positions must be unique and between 1 and 4.");
-            return;
-        }
-
-        const { error } = await supabase.rpc("insert_tichu_game", {
-            p_players: players.map((p) => p.id),
-            p_teams: [1, 1, 2, 2],
-            p_positions: positions,
-            p_tichu_calls: tichuCalls,
-            p_bomb_count: bombCounts,
-            p_double_wins: doubleWinTeam == 1 ? [true, false] : doubleWinTeam == 2 ? [false, true] : [false, false],
-            p_scores: doubleWinTeam != null ? [0, 0] : teamScores,
-            p_total_scores: teamTotalScores,
-            p_beschiss: beschissFlag,
-            p_match_id: currentMatch?.id || null,
-        });
-
-        if (error) {
-            toast.error("Error inserting game: " + error.message);
-        } else {
-            toast.success("Game saved successfully!");
-
-            if (currentMatch) {
-                await checkMatchCompletion();
-            } else {
-                navigate("/");
+        try {
+            if (positions.some((pos) => pos === null)) {
+                setError("Please set the finishing position for all players.");
+                return;
             }
+
+            const uniquePositions = new Set(positions);
+            if (uniquePositions.size !== 4 || ![1, 2, 3, 4].every((n) => uniquePositions.has(n))) {
+                setError("Positions must be unique and between 1 and 4.");
+                return;
+            }
+
+            const { error } = await supabase.rpc("insert_tichu_game", {
+                p_players: players.map((p) => p.id),
+                p_teams: [1, 1, 2, 2],
+                p_positions: positions,
+                p_tichu_calls: tichuCalls,
+                p_bomb_count: bombCounts,
+                p_double_wins: doubleWinTeam == 1 ? [true, false] : doubleWinTeam == 2 ? [false, true] : [false, false],
+                p_scores: doubleWinTeam != null ? [0, 0] : teamScores,
+                p_total_scores: teamTotalScores,
+                p_beschiss: beschissFlag,
+                p_match_id: currentMatch?.id || null,
+            });
+
+            if (error) {
+                toast.error("Error inserting game: " + error.message);
+            } else {
+                toast.success("Game saved successfully!");
+
+                if (currentMatch) {
+                    await checkMatchCompletion();
+                } else {
+                    navigate("/");
+                }
+            }
+        } finally {
+            setIsSaving(false);
         }
     };
 
@@ -362,7 +372,7 @@ export default function GameResult() {
             )}
 
             <Box mt={3} display="flex" gap={2}>
-                <Button variant="contained" color="primary" onClick={handleSubmit}>
+                <Button variant="contained" color="primary" onClick={handleSubmit} disabled={isSaving}>
                     <Trans>Save Game</Trans>
                 </Button>
                 <Button
@@ -381,6 +391,9 @@ export default function GameResult() {
                     {beschissFlag ? <Trans>Beschiss ✓</Trans> : <Trans>Beschiss</Trans>}
                 </Button>
             </Box>
+            <Backdrop sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }} open={isSaving}>
+                <CircularProgress color="inherit" />
+            </Backdrop>
         </PageTemplate>
     );
 }

@@ -1,8 +1,13 @@
 [
     {
+        "version": "1.2.2",
+        "date": "2025-07-01",
+        "changes": ["Added loading spinner when saving games to prevent double-saves"]
+    },
+    {
         "version": "1.2.1",
         "date": "2025-06-25",
-        "changes": ["Added translations"]
+        "changes": ["Added German translations with language selector"]
     },
     {
         "version": "1.2.0",
