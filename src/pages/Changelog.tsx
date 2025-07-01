@@ -28,7 +28,7 @@ export default function ChangelogPage() {
         <Container maxWidth="md" sx={{ mt: 4, mb: 4 }}>
             <Box sx={{ display: "flex", alignItems: "center", mb: 3 }}>
                 <Button startIcon={<ArrowBackIcon />} onClick={() => navigate("/")} sx={{ mr: 2 }}>
-                    Back to Dashboard
+                    Dashboard
                 </Button>
                 <Typography variant="h4" component="h1">
                     Changelog

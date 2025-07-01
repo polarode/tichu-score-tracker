@@ -14,7 +14,7 @@ export function PageTemplate({ children, maxWidth = "sm", showVersionButton = tr
 
     return (
         <Box>
-            <Box sx={{ position: "absolute", top: 20, left: 20 }}>
+            <Box sx={{ position: "absolute", top: 20, left: 20, zIndex: 1000 }}>
                 <LanguageSelector />
             </Box>
             {showVersionButton && (
@@ -22,7 +22,7 @@ export function PageTemplate({ children, maxWidth = "sm", showVersionButton = tr
                     onClick={() => navigate("/changelog")}
                     variant="outlined"
                     size="small"
-                    sx={{ position: "absolute", top: 20, right: 20 }}
+                    sx={{ position: "absolute", top: 20, right: 20, zIndex: 1000 }}
                 >
                     v{changelogData[0].version}
                 </Button>

@@ -1,16 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-    Typography,
-    Grid,
-    TextField,
-    Button,
-    Stack,
-    MenuItem,
-    Select,
-    FormControl,
-    InputLabel,
-} from "@mui/material";
+import { Typography, Grid, TextField, Button, Stack, MenuItem, Select, FormControl, InputLabel } from "@mui/material";
 import { supabase } from "../../lib/supabase";
 import { toast } from "react-toastify";
 import type { Player } from "../../lib/types";
