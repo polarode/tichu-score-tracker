@@ -221,11 +221,13 @@ export default function RoundResult() {
                 <Table sx={{ minWidth: 300 }}>
                     <TableHead>
                         <TableRow>
-                            <TableCell sx={{ position: "sticky", left: 0, background: "white", zIndex: 1 }}>
+                            <TableCell
+                                sx={{ position: "sticky", left: 0, background: "white", padding: "8px", zIndex: 1 }}
+                            >
                                 <Trans>Player</Trans>
                             </TableCell>
                             {savedRounds.map((round, idx) => (
-                                <TableCell sx={{ minWidth: 60 }} key={idx} align="center">
+                                <TableCell sx={{ minWidth: 55, padding: "8px" }} key={idx} align="center">
                                     <Tooltip
                                         title={`(${round.modifier.id}) ${round.modifier.name}`}
                                         arrow
@@ -239,7 +241,7 @@ export default function RoundResult() {
                                     </Tooltip>
                                 </TableCell>
                             ))}
-                            <TableCell>
+                            <TableCell sx={{ minWidth: 55, padding: "8px" }}>
                                 <Tooltip
                                     title={`(${roundModifier?.id}) ${roundModifier?.name}`}
                                     arrow
@@ -260,18 +262,22 @@ export default function RoundResult() {
                     <TableBody>
                         {players.map((player, idx) => (
                             <TableRow key={idx}>
-                                <TableCell sx={{ position: "sticky", left: 0, background: "white", zIndex: 1 }}>
+                                <TableCell
+                                    align="left"
+                                    sx={{ position: "sticky", left: 0, background: "white", padding: "8px", zIndex: 1 }}
+                                >
                                     {player.name}
                                 </TableCell>
                                 {savedRounds.map((round, roundIdx) => (
-                                    <TableCell key={roundIdx} align="center">
+                                    <TableCell key={roundIdx} align="center" sx={{ padding: "8px" }}>
                                         {round.points[idx]}
                                     </TableCell>
                                 ))}
-                                <TableCell>
+                                <TableCell sx={{ padding: "8px" }}>
                                     <TextField
                                         type="number"
                                         value={playerPoints[idx] === 0 ? "" : playerPoints[idx].toString()}
+                                        variant="standard"
                                         onChange={(e) => {
                                             const newPoints = [...playerPoints];
                                             const inputValue = e.target.value;
@@ -286,7 +292,7 @@ export default function RoundResult() {
                                         }}
                                     />
                                 </TableCell>
-                                <TableCell align="center">
+                                <TableCell align="center" sx={{ padding: "8px" }}>
                                     <strong>
                                         {savedRounds.reduce((sum, round) => sum + round.points[idx], 0) +
                                             playerPoints[idx]}
