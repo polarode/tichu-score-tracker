@@ -1,7 +1,7 @@
 {
     "name": "tichu-score-tracker",
     "private": true,
-    "version": "1.2.2",
+    "version": "1.2.3",
     "type": "module",
     "homepage": "https://polarode.github.io/tichu-score-tracker",
     "scripts": {
