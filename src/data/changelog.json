@@ -2,7 +2,10 @@
     {
         "version": "1.2.3",
         "date": "2025-07-20",
-        "changes": ["Increased width for input fields for Rebel Princess to allow entering double digit numbers"]
+        "changes": [
+            "Increased width for input fields for Rebel Princess to allow entering double digit numbers",
+            "Update Result entry for Tichu and removed second slider"
+        ]
     },
     {
         "version": "1.2.2",

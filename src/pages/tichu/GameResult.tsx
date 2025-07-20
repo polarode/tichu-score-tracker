@@ -66,11 +66,6 @@ export default function GameResult() {
         setTeamScores([score, 100 - score]);
     };
 
-    const handleTeam2ScoreChange = (_event: Event, value: number | number[]) => {
-        const score = Array.isArray(value) ? value[0] : value;
-        setTeamScores([100 - score, score]);
-    };
-
     const handlePositionChange = (idx: number, newPos: number | null, positions: (number | null)[]) => {
         if (newPos === null) {
             const updated = [...positions];
@@ -238,29 +233,23 @@ export default function GameResult() {
             <Table sx={{ "& .MuiTableCell-root": { py: 1, px: 1 } }}>
                 <TableHead>
                     <TableRow>
-                        <TableCell></TableCell>
-                        <TableCell>
-                            <Trans>Player</Trans>
+                        <TableCell align="center" colSpan={2}>
+                            Team 1
                         </TableCell>
-                        <TableCell>
-                            <Trans>Finish Order</Trans>
+                        <TableCell align="center" colSpan={2}>
+                            Team 2
                         </TableCell>
-                        <TableCell>
-                            <Trans>Tichu</Trans>
-                        </TableCell>
-                        <TableCell>
-                            <Trans>Bombs</Trans>
-                        </TableCell>
+                    </TableRow>
+                    <TableRow>
+                        {players.map((player) => (
+                            <TableCell align="center">{player.name}</TableCell>
+                        ))}
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {players.map((player, idx) => (
-                        <TableRow key={idx}>
-                            {idx % 2 == 0 ? <TableCell rowSpan={2}>{teams[idx]}</TableCell> : <></>}
-                            <TableCell>
-                                {player.name} {"💣".repeat(bombCounts[idx])}
-                            </TableCell>
-                            <TableCell>
+                    <TableRow>
+                        {players.map((player, idx) => (
+                            <TableCell align="center">
                                 <ToggleButtonGroup
                                     exclusive
                                     size="small"
@@ -275,7 +264,12 @@ export default function GameResult() {
                                     ))}
                                 </ToggleButtonGroup>
                             </TableCell>
-                            <TableCell>
+                        ))}
+                    </TableRow>
+
+                    <TableRow>
+                        {players.map((player, idx) => (
+                            <TableCell align="center">
                                 <ToggleButtonGroup
                                     exclusive
                                     size="small"
@@ -290,11 +284,19 @@ export default function GameResult() {
                                     ))}
                                 </ToggleButtonGroup>
                             </TableCell>
-                            <TableCell>
+                        ))}
+                    </TableRow>
+                    <TableRow>
+                        {players.map((player, idx) => (
+                            <TableCell align="center">
                                 <Button
                                     size="small"
                                     variant="outlined"
-                                    sx={{ minWidth: "36px", height: "32px" }}
+                                    sx={{
+                                        minWidth: "36px",
+                                        height: "32px",
+                                        opacity: bombCounts[idx] === 0 ? "60%" : "100%",
+                                    }}
                                     aria-label={`Increment bomb count for player ${player}`}
                                     onClick={() => {
                                         setBombCounts((prev) => {
@@ -305,25 +307,37 @@ export default function GameResult() {
                                         });
                                     }}
                                 >
-                                    💣
+                                    {bombCounts[idx] === 0 ? "💣" : "💣".repeat(bombCounts[idx])}
                                 </Button>
                             </TableCell>
-                        </TableRow>
-                    ))}
+                        ))}
+                    </TableRow>
+
+                    <TableRow>
+                        {[1, 2].map((team) => (
+                            <TableCell align="center" colSpan={2}>
+                                <Typography>
+                                    <Trans>Score</Trans>
+                                </Typography>
+                                <Typography variant="h6">{doubleWinTeam != null ? 0 : teamScores[team - 1]}</Typography>
+                            </TableCell>
+                        ))}
+                    </TableRow>
+
+                    <TableRow>
+                        {[1, 2].map((team) => (
+                            <TableCell align="center" colSpan={2}>
+                                <Typography>
+                                    <Trans>with bonus points</Trans>
+                                </Typography>
+                                <Typography variant="h6">{teamTotalScores[team - 1]}</Typography>
+                            </TableCell>
+                        ))}
+                    </TableRow>
                 </TableBody>
             </Table>
 
-            <Box display="flex" justifyContent="space-between" mb={2} sx={{ mt: 4 }}>
-                {[1, 2].map((team) => (
-                    <Box key={team} display="flex" flexDirection="column" alignItems="center" minWidth={80}>
-                        <Typography>
-                            <Trans>Team {team} Score</Trans>
-                        </Typography>
-                        <Typography variant="h6">{doubleWinTeam != null ? 0 : teamScores[team - 1]}</Typography>
-                    </Box>
-                ))}
-            </Box>
-            <Box mb={1}>
+            <Box mb={1} sx={{ mt: 4 }}>
                 <Typography variant="caption">
                     <Trans>Team 1 Score</Trans>
                 </Typography>
@@ -337,32 +351,6 @@ export default function GameResult() {
                     valueLabelDisplay="auto"
                     sx={{ mt: 0 }}
                 />
-            </Box>
-            <Box mb={1}>
-                <Typography variant="caption">
-                    <Trans>Team 2 Score</Trans>
-                </Typography>
-                <Slider
-                    value={teamScores[1]}
-                    min={-25}
-                    max={125}
-                    step={5}
-                    disabled={doubleWinTeam != null}
-                    onChange={handleTeam2ScoreChange}
-                    valueLabelDisplay="auto"
-                    sx={{ mt: 0 }}
-                />
-            </Box>
-
-            <Box display="flex" justifyContent="space-between" mb={2}>
-                {[1, 2].map((team) => (
-                    <Box key={team} display="flex" flexDirection="column" alignItems="center" minWidth={80}>
-                        <Typography>
-                            <Trans>with bonus points</Trans>
-                        </Typography>
-                        <Typography variant="h6">{teamTotalScores[team - 1]}</Typography>
-                    </Box>
-                ))}
             </Box>
 
             {error && (
