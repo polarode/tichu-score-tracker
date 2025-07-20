@@ -33,13 +33,13 @@ export default function NewGame() {
     }, []);
 
     async function fetchPlayers() {
-        const { data, error } = await supabase.from("players").select("id, name").order("name", { ascending: true });
+        const { data, error } = await supabase.rpc("fetch_players_by_recent_rebel_princess_games");
         if (error) {
             console.error("Error fetching players:", error);
             return;
         }
         setKnownPlayers(
-            data.map((p) => {
+            data.map((p: Player) => {
                 return { id: p.id, name: p.name };
             }),
         );

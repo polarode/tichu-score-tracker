@@ -5,7 +5,8 @@
         "changes": [
             "Increased width for input fields for Rebel Princess to allow entering double digit numbers",
             "Updated result entry for Tichu and removed second slider",
-            "Changed the method of entering the finishing order"
+            "Changed the method of entering the finishing order",
+            "Updated the order of players to be sorted by recent games"
         ]
     },
     {
