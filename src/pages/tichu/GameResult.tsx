@@ -66,31 +66,6 @@ export default function GameResult() {
         setTeamScores([score, 100 - score]);
     };
 
-    const handlePositionChange = (idx: number, newPos: number | null, positions: (number | null)[]) => {
-        if (newPos === null) {
-            const updated = [...positions];
-            updated[idx] = null;
-            setPositions(updated);
-            return;
-        }
-
-        // Check if newPos is already selected by another player
-        const takenByIdx = positions.findIndex((pos, i) => pos === newPos && i !== idx);
-
-        const updated = [...positions];
-
-        if (takenByIdx === -1) {
-            // Position not taken — just assign it
-            updated[idx] = newPos;
-        } else {
-            // Swap positions between idx and takenByIdx
-            updated[takenByIdx] = updated[idx];
-            updated[idx] = newPos;
-        }
-
-        setPositions(updated);
-    };
-
     const handleTichuCallChange = (
         idx: number,
         newTichuCall: TichuCall,
@@ -250,19 +225,76 @@ export default function GameResult() {
                     <TableRow>
                         {players.map((player, idx) => (
                             <TableCell align="center">
-                                <ToggleButtonGroup
-                                    exclusive
-                                    size="small"
-                                    value={positions[idx]}
-                                    onChange={(_, newVal) => handlePositionChange(idx, newVal, positions)}
-                                    aria-label={`Finish position for player ${player}`}
+                                <Box
+                                    sx={{
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "space-between",
+                                        position: "relative",
+                                        minWidth: "36px",
+                                        height: "32px",
+                                    }}
                                 >
-                                    {[1, 2, 3, 4].map((pos) => (
-                                        <ToggleButton key={pos} value={pos} aria-label={`Position ${pos}`}>
-                                            {pos}
-                                        </ToggleButton>
-                                    ))}
-                                </ToggleButtonGroup>
+                                    <Box sx={{ flex: 1 }}></Box>
+                                    <Box
+                                        sx={{
+                                            position: "absolute",
+                                            left: "50%",
+                                            transform: "translateX(-50%)",
+                                        }}
+                                    >
+                                        {positions[idx] === null ? (
+                                            <Button
+                                                size="small"
+                                                variant="outlined"
+                                                sx={{
+                                                    minWidth: "36px",
+                                                    height: "32px",
+                                                }}
+                                                aria-label={`Set the finishing order for ${player} to the next available position`}
+                                                onClick={() => {
+                                                    setPositions((prev) => {
+                                                        const newPositions = [...prev];
+                                                        // Find the lowest number from 1-4 that's not already used
+                                                        const usedPositions = new Set(
+                                                            newPositions.filter((p) => p !== null),
+                                                        );
+                                                        for (let i = 1; i <= 4; i++) {
+                                                            if (!usedPositions.has(i)) {
+                                                                newPositions[idx] = i;
+                                                                break;
+                                                            }
+                                                        }
+                                                        return newPositions;
+                                                    });
+                                                }}
+                                            >
+                                                Finish
+                                            </Button>
+                                        ) : (
+                                            <Typography>{positions[idx]}.</Typography>
+                                        )}
+                                    </Box>
+                                    {positions[idx] !== null && (
+                                        <Button
+                                            size="small"
+                                            sx={{
+                                                minWidth: "36px",
+                                                height: "32px",
+                                            }}
+                                            aria-label={`Reset the finishing order for ${player}`}
+                                            onClick={() => {
+                                                setPositions((prev) => {
+                                                    const newPositions = [...prev];
+                                                    newPositions[idx] = null;
+                                                    return newPositions;
+                                                });
+                                            }}
+                                        >
+                                            🗑️
+                                        </Button>
+                                    )}
+                                </Box>
                             </TableCell>
                         ))}
                     </TableRow>
