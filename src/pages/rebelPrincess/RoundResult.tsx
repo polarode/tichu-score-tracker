@@ -115,6 +115,7 @@ export default function RoundResult() {
 
     function initializeAvailableRoundModifiers(): RPRoundModifier[] {
         return [
+            { id: "-", name: "ohne" },
             { id: "a", name: "Es war einmal ..." },
             { id: "b", name: "Einladung" },
             { id: "c", name: "Maskenball" },
