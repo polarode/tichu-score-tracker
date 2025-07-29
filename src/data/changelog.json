@@ -1,5 +1,12 @@
 [
     {
+        "version": "1.2.4",
+        "date": "2025-07-29",
+        "changes": [
+            "Added round modifier 'none' for Rebel Princess"
+        ]
+    },
+    {
         "version": "1.2.3",
         "date": "2025-07-20",
         "changes": [
