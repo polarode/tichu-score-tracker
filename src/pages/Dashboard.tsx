@@ -80,15 +80,25 @@ export default function DashboardPage() {
                             <Typography variant="h6" gutterBottom>
                                 <Trans>Rebel Princess</Trans>
                             </Typography>
-                            <Button
-                                fullWidth
-                                variant="contained"
-                                color="secondary"
-                                startIcon={<Celebration />}
-                                onClick={() => handleStartGame("rebelPrincess")}
-                            >
-                                <Trans>Start Game</Trans>
-                            </Button>
+                            <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
+                                <Button
+                                    fullWidth
+                                    variant="contained"
+                                    color="secondary"
+                                    startIcon={<Celebration />}
+                                    onClick={() => handleStartGame("rebelPrincess")}
+                                >
+                                    <Trans>Start Game</Trans>
+                                </Button>
+                                <Button
+                                    fullWidth
+                                    variant="outlined"
+                                    color="secondary"
+                                    onClick={() => navigate("/rebel-princess/stats")}
+                                >
+                                    <Trans>Statistics</Trans>
+                                </Button>
+                            </Box>
                         </CardContent>
                     </Card>
                 </Grid>
