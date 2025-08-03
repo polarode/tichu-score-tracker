@@ -1,11 +1,13 @@
 [
     {
+        "version": "1.2.5",
+        "date": "2025-08-03",
+        "changes": ["Imported Rebel Princess games from Micheal's recordings"]
+    },
+    {
         "version": "1.2.4",
         "date": "2025-07-29",
-        "changes": [
-            "Added round modifier 'none' for Rebel Princess",
-            "Added player statistics for Rebel Princess"
-        ]
+        "changes": ["Added round modifier 'none' for Rebel Princess", "Added player statistics for Rebel Princess"]
     },
     {
         "version": "1.2.3",
