@@ -1,6 +1,6 @@
 -- Import Rebel Princess games from Michael's export
 INSERT INTO public.players (name) VALUES
-('Daniel'), ('Domi'), ('Max'), ('Karsten'), ('Marcel'), ('Michael'), ('Moritz'), ('Nicole'), ('Eric'), ('Ralf'), ('Totti'), ('Severin'), ('Kristin')
+('Daniel'), ('Domi'), ('Max'), ('Karsten'), ('Marcel'), ('Michael'), ('Moritz'), ('Nicole'), ('Eric'), ('Ralf'), ('Totti'), ('Severin'), ('Krissi')
 ON CONFLICT (name) DO NOTHING;
 
 DO $$
@@ -9,7 +9,7 @@ DECLARE
     round_id uuid;
     player_ids uuid[];
 BEGIN
-    SELECT ARRAY(SELECT id FROM public.players WHERE name IN ('Daniel', 'Domi', 'Max', 'Karsten', 'Marcel', 'Michael', 'Moritz', 'Nicole', 'Eric', 'Ralf', 'Totti', 'Severin', 'Kristin') ORDER BY name) INTO player_ids;
+    SELECT ARRAY(SELECT id FROM public.players WHERE name IN ('Daniel', 'Domi', 'Max', 'Karsten', 'Marcel', 'Michael', 'Moritz', 'Nicole', 'Eric', 'Ralf', 'Totti', 'Severin', 'Krissi') ORDER BY name) INTO player_ids;
 
     -- Game 2025-04-11T12:00:00+02:00
     INSERT INTO public.rp_games (timestamp, number_of_players, source) VALUES ('2025-04-11T12:00:00+02:00', 3, 'michael_export') RETURNING id INTO game_id;
@@ -190,7 +190,7 @@ BEGIN
     (game_id, round_id, (SELECT id FROM public.players WHERE name = 'Marcel'), 0),
     (game_id, round_id, (SELECT id FROM public.players WHERE name = 'Michael'), 3),
     (game_id, round_id, (SELECT id FROM public.players WHERE name = 'Ralf'), 0),
-    (game_id, round_id, (SELECT id FROM public.players WHERE name = 'Kristin'), 2);
+    (game_id, round_id, (SELECT id FROM public.players WHERE name = 'Krissi'), 2);
 
     INSERT INTO public.rp_rounds (game_id, points) VALUES (game_id, 25) RETURNING id INTO round_id;
     INSERT INTO public.rp_round_participants (game_id, round_id, player_id, points) VALUES
@@ -198,7 +198,7 @@ BEGIN
     (game_id, round_id, (SELECT id FROM public.players WHERE name = 'Marcel'), 6),
     (game_id, round_id, (SELECT id FROM public.players WHERE name = 'Michael'), 1),
     (game_id, round_id, (SELECT id FROM public.players WHERE name = 'Ralf'), 16),
-    (game_id, round_id, (SELECT id FROM public.players WHERE name = 'Kristin'), 2);
+    (game_id, round_id, (SELECT id FROM public.players WHERE name = 'Krissi'), 2);
 
     INSERT INTO public.rp_rounds (game_id, points) VALUES (game_id, 15) RETURNING id INTO round_id;
     INSERT INTO public.rp_round_participants (game_id, round_id, player_id, points) VALUES
@@ -206,7 +206,7 @@ BEGIN
     (game_id, round_id, (SELECT id FROM public.players WHERE name = 'Marcel'), 5),
     (game_id, round_id, (SELECT id FROM public.players WHERE name = 'Michael'), 1),
     (game_id, round_id, (SELECT id FROM public.players WHERE name = 'Ralf'), 1),
-    (game_id, round_id, (SELECT id FROM public.players WHERE name = 'Kristin'), 5);
+    (game_id, round_id, (SELECT id FROM public.players WHERE name = 'Krissi'), 5);
 
     INSERT INTO public.rp_rounds (game_id, points) VALUES (game_id, 10) RETURNING id INTO round_id;
     INSERT INTO public.rp_round_participants (game_id, round_id, player_id, points) VALUES
@@ -214,7 +214,7 @@ BEGIN
     (game_id, round_id, (SELECT id FROM public.players WHERE name = 'Marcel'), 3),
     (game_id, round_id, (SELECT id FROM public.players WHERE name = 'Michael'), 0),
     (game_id, round_id, (SELECT id FROM public.players WHERE name = 'Ralf'), 0),
-    (game_id, round_id, (SELECT id FROM public.players WHERE name = 'Kristin'), 2);
+    (game_id, round_id, (SELECT id FROM public.players WHERE name = 'Krissi'), 2);
 
 
     -- Game 2025-04-24T12:00:00+02:00
@@ -224,21 +224,21 @@ BEGIN
     (game_id, round_id, (SELECT id FROM public.players WHERE name = 'Domi'), 7),
     (game_id, round_id, (SELECT id FROM public.players WHERE name = 'Marcel'), 1),
     (game_id, round_id, (SELECT id FROM public.players WHERE name = 'Michael'), 5),
-    (game_id, round_id, (SELECT id FROM public.players WHERE name = 'Kristin'), 2);
+    (game_id, round_id, (SELECT id FROM public.players WHERE name = 'Krissi'), 2);
 
     INSERT INTO public.rp_rounds (game_id, points) VALUES (game_id, 14) RETURNING id INTO round_id;
     INSERT INTO public.rp_round_participants (game_id, round_id, player_id, points) VALUES
     (game_id, round_id, (SELECT id FROM public.players WHERE name = 'Domi'), 6),
     (game_id, round_id, (SELECT id FROM public.players WHERE name = 'Marcel'), 2),
     (game_id, round_id, (SELECT id FROM public.players WHERE name = 'Michael'), 2),
-    (game_id, round_id, (SELECT id FROM public.players WHERE name = 'Kristin'), 4);
+    (game_id, round_id, (SELECT id FROM public.players WHERE name = 'Krissi'), 4);
 
     INSERT INTO public.rp_rounds (game_id, points) VALUES (game_id, 15) RETURNING id INTO round_id;
     INSERT INTO public.rp_round_participants (game_id, round_id, player_id, points) VALUES
     (game_id, round_id, (SELECT id FROM public.players WHERE name = 'Domi'), 3),
     (game_id, round_id, (SELECT id FROM public.players WHERE name = 'Marcel'), 4),
     (game_id, round_id, (SELECT id FROM public.players WHERE name = 'Michael'), 8),
-    (game_id, round_id, (SELECT id FROM public.players WHERE name = 'Kristin'), 0);
+    (game_id, round_id, (SELECT id FROM public.players WHERE name = 'Krissi'), 0);
 
 
     -- Game 2025-04-25T12:00:00+02:00
@@ -338,7 +338,7 @@ BEGIN
     (game_id, round_id, (SELECT id FROM public.players WHERE name = 'Marcel'), 0),
     (game_id, round_id, (SELECT id FROM public.players WHERE name = 'Michael'), 1),
     (game_id, round_id, (SELECT id FROM public.players WHERE name = 'Ralf'), 8),
-    (game_id, round_id, (SELECT id FROM public.players WHERE name = 'Kristin'), 8);
+    (game_id, round_id, (SELECT id FROM public.players WHERE name = 'Krissi'), 8);
 
 
     -- Game 2025-05-22T12:00:00+02:00
@@ -350,7 +350,7 @@ BEGIN
     (game_id, round_id, (SELECT id FROM public.players WHERE name = 'Michael'), 0),
     (game_id, round_id, (SELECT id FROM public.players WHERE name = 'Ralf'), 0),
     (game_id, round_id, (SELECT id FROM public.players WHERE name = 'Severin'), 1),
-    (game_id, round_id, (SELECT id FROM public.players WHERE name = 'Kristin'), 0);
+    (game_id, round_id, (SELECT id FROM public.players WHERE name = 'Krissi'), 0);
 
 
     -- Game 2025-05-22T12:00:00+02:00
@@ -494,13 +494,13 @@ BEGIN
     INSERT INTO public.rp_round_participants (game_id, round_id, player_id, points) VALUES
     (game_id, round_id, (SELECT id FROM public.players WHERE name = 'Domi'), 4),
     (game_id, round_id, (SELECT id FROM public.players WHERE name = 'Michael'), 0),
-    (game_id, round_id, (SELECT id FROM public.players WHERE name = 'Kristin'), 10);
+    (game_id, round_id, (SELECT id FROM public.players WHERE name = 'Krissi'), 10);
 
     INSERT INTO public.rp_rounds (game_id, points) VALUES (game_id, 23) RETURNING id INTO round_id;
     INSERT INTO public.rp_round_participants (game_id, round_id, player_id, points) VALUES
     (game_id, round_id, (SELECT id FROM public.players WHERE name = 'Domi'), 3),
     (game_id, round_id, (SELECT id FROM public.players WHERE name = 'Michael'), 12),
-    (game_id, round_id, (SELECT id FROM public.players WHERE name = 'Kristin'), 8);
+    (game_id, round_id, (SELECT id FROM public.players WHERE name = 'Krissi'), 8);
 
 
     -- Game 2025-06-16T12:00:00+02:00
@@ -510,13 +510,13 @@ BEGIN
     (game_id, round_id, (SELECT id FROM public.players WHERE name = 'Domi'), 0),
     (game_id, round_id, (SELECT id FROM public.players WHERE name = 'Marcel'), 0),
     (game_id, round_id, (SELECT id FROM public.players WHERE name = 'Michael'), 2),
-    (game_id, round_id, (SELECT id FROM public.players WHERE name = 'Kristin'), 13);
+    (game_id, round_id, (SELECT id FROM public.players WHERE name = 'Krissi'), 13);
 
     INSERT INTO public.rp_rounds (game_id, points) VALUES (game_id, 15) RETURNING id INTO round_id;
     INSERT INTO public.rp_round_participants (game_id, round_id, player_id, points) VALUES
     (game_id, round_id, (SELECT id FROM public.players WHERE name = 'Domi'), 1),
     (game_id, round_id, (SELECT id FROM public.players WHERE name = 'Marcel'), 9),
     (game_id, round_id, (SELECT id FROM public.players WHERE name = 'Michael'), 5),
-    (game_id, round_id, (SELECT id FROM public.players WHERE name = 'Kristin'), 0);
+    (game_id, round_id, (SELECT id FROM public.players WHERE name = 'Krissi'), 0);
 
 END $$;
