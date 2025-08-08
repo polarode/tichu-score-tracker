@@ -4,6 +4,8 @@ import {
     Card,
     CardContent,
     Box,
+    Alert,
+    Chip,
 } from "@mui/material";
 import { Trans } from "@lingui/react/macro";
 
@@ -29,13 +31,20 @@ export const GameOverview = () => {
 
     return (
         <Box>
-            <Typography variant="h5" gutterBottom>
-                <Trans>Game Overview</Trans>
-            </Typography>
+            <Alert severity="info" sx={{ mb: 2 }}>
+                <Trans>Game overview statistics are under development. The data shown below is placeholder content.</Trans>
+            </Alert>
+            
+            <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 2 }}>
+                <Typography variant="h5">
+                    <Trans>Game Overview</Trans>
+                </Typography>
+                <Chip label="Placeholder" size="small" color="warning" variant="outlined" />
+            </Box>
 
             <Grid container spacing={3}>
                 <Grid item xs={12} sm={6} md={4}>
-                    <Card>
+                    <Card sx={{ opacity: 0.8, border: '1px dashed #ccc' }}>
                         <CardContent>
                             <Typography variant="h6" color="primary" gutterBottom>
                                 <Trans>General Statistics</Trans>
@@ -63,7 +72,7 @@ export const GameOverview = () => {
                 </Grid>
 
                 <Grid item xs={12} sm={6} md={4}>
-                    <Card>
+                    <Card sx={{ opacity: 0.8, border: '1px dashed #ccc' }}>
                         <CardContent>
                             <Typography variant="h6" color="primary" gutterBottom>
                                 <Trans>Score Statistics</Trans>
@@ -91,7 +100,7 @@ export const GameOverview = () => {
                 </Grid>
 
                 <Grid item xs={12} sm={6} md={4}>
-                    <Card>
+                    <Card sx={{ opacity: 0.8, border: '1px dashed #ccc' }}>
                         <CardContent>
                             <Typography variant="h6" color="primary" gutterBottom>
                                 <Trans>Tichu Statistics</Trans>
@@ -123,7 +132,7 @@ export const GameOverview = () => {
                 </Grid>
 
                 <Grid item xs={12} sm={6} md={4}>
-                    <Card>
+                    <Card sx={{ opacity: 0.8, border: '1px dashed #ccc' }}>
                         <CardContent>
                             <Typography variant="h6" color="primary" gutterBottom>
                                 <Trans>Bomb Statistics</Trans>
