@@ -1,12 +1,4 @@
-import {
-    Typography,
-    Grid,
-    Card,
-    CardContent,
-    Box,
-    Alert,
-    Chip,
-} from "@mui/material";
+import { Typography, Grid, Card, CardContent, Box, Alert, Chip } from "@mui/material";
 import { Trans } from "@lingui/react/macro";
 
 // Placeholder data - replace with real data later
@@ -26,15 +18,22 @@ const gameOverviewStats = {
 };
 
 export const GameOverview = () => {
-    const tichuSuccessRate = ((gameOverviewStats.successfulTichus / gameOverviewStats.totalTichuCalls) * 100).toFixed(1);
-    const grandTichuSuccessRate = ((gameOverviewStats.successfulGrandTichus / gameOverviewStats.totalGrandTichuCalls) * 100).toFixed(1);
+    const tichuSuccessRate = ((gameOverviewStats.successfulTichus / gameOverviewStats.totalTichuCalls) * 100).toFixed(
+        1,
+    );
+    const grandTichuSuccessRate = (
+        (gameOverviewStats.successfulGrandTichus / gameOverviewStats.totalGrandTichuCalls) *
+        100
+    ).toFixed(1);
 
     return (
         <Box>
             <Alert severity="info" sx={{ mb: 2 }}>
-                <Trans>Game overview statistics are under development. The data shown below is placeholder content.</Trans>
+                <Trans>
+                    Game overview statistics are under development. The data shown below is placeholder content.
+                </Trans>
             </Alert>
-            
+
             <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 2 }}>
                 <Typography variant="h5">
                     <Trans>Game Overview</Trans>
@@ -42,18 +41,29 @@ export const GameOverview = () => {
                 <Chip label="Placeholder" size="small" color="warning" variant="outlined" />
             </Box>
 
-            <Grid container spacing={3}>
-                <Grid item xs={12} sm={6} md={4}>
-                    <Card sx={{ opacity: 0.8, border: '1px dashed #ccc' }}>
-                        <CardContent>
-                            <Typography variant="h6" color="primary" gutterBottom>
+            <Grid container spacing={2}>
+                <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+                    <Card sx={{ opacity: 0.8, border: "1px dashed #ccc" }}>
+                        <CardContent sx={{ pb: 1 }}>
+                            <Typography
+                                variant="h6"
+                                color="primary"
+                                gutterBottom
+                                sx={{ fontSize: { xs: "1rem", sm: "1.25rem" } }}
+                            >
                                 <Trans>General Statistics</Trans>
                             </Typography>
-                            <Box sx={{ display: "flex", justifyContent: "space-between", mb: 1 }}>
-                                <Typography variant="body2" color="text.secondary">
+                            <Box sx={{ display: "flex", justifyContent: "space-between", mb: 0.5 }}>
+                                <Typography
+                                    variant="body2"
+                                    color="text.secondary"
+                                    sx={{ fontSize: { xs: "0.75rem", sm: "0.875rem" } }}
+                                >
                                     <Trans>Total Games:</Trans>
                                 </Typography>
-                                <Typography variant="body1">{gameOverviewStats.totalGames}</Typography>
+                                <Typography variant="body1" sx={{ fontSize: { xs: "0.875rem", sm: "1rem" } }}>
+                                    {gameOverviewStats.totalGames}
+                                </Typography>
                             </Box>
                             <Box sx={{ display: "flex", justifyContent: "space-between", mb: 1 }}>
                                 <Typography variant="body2" color="text.secondary">
@@ -71,8 +81,8 @@ export const GameOverview = () => {
                     </Card>
                 </Grid>
 
-                <Grid item xs={12} sm={6} md={4}>
-                    <Card sx={{ opacity: 0.8, border: '1px dashed #ccc' }}>
+                <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+                    <Card sx={{ opacity: 0.8, border: "1px dashed #ccc" }}>
                         <CardContent>
                             <Typography variant="h6" color="primary" gutterBottom>
                                 <Trans>Score Statistics</Trans>
@@ -99,8 +109,8 @@ export const GameOverview = () => {
                     </Card>
                 </Grid>
 
-                <Grid item xs={12} sm={6} md={4}>
-                    <Card sx={{ opacity: 0.8, border: '1px dashed #ccc' }}>
+                <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+                    <Card sx={{ opacity: 0.8, border: "1px dashed #ccc" }}>
                         <CardContent>
                             <Typography variant="h6" color="primary" gutterBottom>
                                 <Trans>Tichu Statistics</Trans>
@@ -110,7 +120,8 @@ export const GameOverview = () => {
                                     <Trans>Tichu Success:</Trans>
                                 </Typography>
                                 <Typography variant="body1">
-                                    {tichuSuccessRate}% ({gameOverviewStats.successfulTichus}/{gameOverviewStats.totalTichuCalls})
+                                    {tichuSuccessRate}% ({gameOverviewStats.successfulTichus}/
+                                    {gameOverviewStats.totalTichuCalls})
                                 </Typography>
                             </Box>
                             <Box sx={{ display: "flex", justifyContent: "space-between", mb: 1 }}>
@@ -118,7 +129,8 @@ export const GameOverview = () => {
                                     <Trans>Grand Tichu Success:</Trans>
                                 </Typography>
                                 <Typography variant="body1">
-                                    {grandTichuSuccessRate}% ({gameOverviewStats.successfulGrandTichus}/{gameOverviewStats.totalGrandTichuCalls})
+                                    {grandTichuSuccessRate}% ({gameOverviewStats.successfulGrandTichus}/
+                                    {gameOverviewStats.totalGrandTichuCalls})
                                 </Typography>
                             </Box>
                             <Box sx={{ display: "flex", justifyContent: "space-between" }}>
@@ -131,8 +143,8 @@ export const GameOverview = () => {
                     </Card>
                 </Grid>
 
-                <Grid item xs={12} sm={6} md={4}>
-                    <Card sx={{ opacity: 0.8, border: '1px dashed #ccc' }}>
+                <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+                    <Card sx={{ opacity: 0.8, border: "1px dashed #ccc" }}>
                         <CardContent>
                             <Typography variant="h6" color="primary" gutterBottom>
                                 <Trans>Bomb Statistics</Trans>

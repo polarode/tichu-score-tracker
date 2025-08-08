@@ -13,9 +13,7 @@ interface TabPanelProps {
 }
 
 const TabPanel = ({ children, value, index }: TabPanelProps) => (
-    <div hidden={value !== index}>
-        {value === index && <Box sx={{ pt: 3 }}>{children}</Box>}
-    </div>
+    <div hidden={value !== index}>{value === index && <Box sx={{ pt: 3 }}>{children}</Box>}</div>
 );
 
 export const Statistics = () => {
