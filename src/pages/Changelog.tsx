@@ -6,6 +6,7 @@ interface ChangelogEntry {
     version: string;
     date: string;
     changes: string[];
+    note?: string;
 }
 
 export default function ChangelogPage() {
@@ -36,6 +37,14 @@ export default function ChangelogPage() {
                                 </ListItem>
                             ))}
                         </List>
+
+                        {release.note && (
+                            <Box sx={{ mt: 2, p: 1, bgcolor: "#f0f4ff", borderRadius: 1 }}>
+                                <Typography variant="body2" color="text.primary" sx={{ fontStyle: "italic" }}>
+                                    {release.note}
+                                </Typography>
+                            </Box>
+                        )}
                     </CardContent>
                 </Card>
             ))}

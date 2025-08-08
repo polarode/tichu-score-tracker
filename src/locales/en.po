@@ -23,22 +23,44 @@ msgstr ""
 msgid "+ Add New Player"
 msgstr ""
 
+#: src/pages/tichu/statistics/GameOverview.tsx:70
+msgid "Active Players:"
+msgstr ""
+
 #: src/pages/tichu/NewGame.tsx:198
 #: src/pages/rebelPrincess/NewGame.tsx:131
 msgid "Add"
 msgstr ""
 
-#: src/pages/tichu/Statistics.tsx:113
+#: src/pages/tichu/statistics/TeamRanking.tsx:149
 msgid "Average Score"
+msgstr ""
+
+#: src/pages/tichu/statistics/TeamDetail.tsx:84
+#: src/pages/tichu/statistics/PlayerDetail.tsx:77
+msgid "Average Score:"
+msgstr ""
+
+#: src/pages/tichu/statistics/GameOverview.tsx:76
+msgid "Avg Game Score:"
+msgstr ""
+
+#: src/pages/tichu/statistics/GameOverview.tsx:160
+msgid "Avg per Game:"
 msgstr ""
 
 #: src/pages/rebelPrincess/Statistics.tsx:138
 msgid "Avg Points/Round:"
 msgstr ""
 
-#: src/pages/tichu/Statistics.tsx:138
-msgid "Avg Score:"
+#: src/pages/tichu/statistics/TeamRanking.tsx:177
+#: src/pages/tichu/statistics/PlayerRanking.tsx:145
+msgid "Avg Score"
 msgstr ""
+
+#: src/pages/tichu/Statistics.tsx:138
+#~ msgid "Avg Score:"
+#~ msgstr ""
 
 #: src/pages/tichu/GameResult.tsx:411
 msgid "Beschiss"
@@ -48,7 +70,20 @@ msgstr ""
 msgid "Beschiss ✓"
 msgstr ""
 
-#: src/pages/tichu/Statistics.tsx:169
+#: src/pages/tichu/statistics/PlayerDetail.tsx:135
+msgid "Best Partnership:"
+msgstr ""
+
+#: src/pages/tichu/statistics/GameOverview.tsx:150
+msgid "Bomb Statistics"
+msgstr ""
+
+#: src/pages/tichu/statistics/PlayerRanking.tsx:172
+msgid "Bombs"
+msgstr ""
+
+#: src/pages/tichu/statistics/TeamDetail.tsx:161
+#: src/pages/tichu/statistics/PlayerDetail.tsx:119
 msgid "Bombs Used:"
 msgstr ""
 
@@ -57,6 +92,10 @@ msgstr ""
 #: src/pages/tichu/NewGame.tsx:201
 #: src/pages/rebelPrincess/NewGame.tsx:134
 msgid "Cancel"
+msgstr ""
+
+#: src/pages/tichu/statistics/GameOverview.tsx:104
+msgid "Common Win Score:"
 msgstr ""
 
 #: src/pages/tichu/NewMatch.tsx:170
@@ -88,31 +127,73 @@ msgstr ""
 msgid "Enter Round Results"
 msgstr ""
 
+#: src/pages/tichu/statistics/PlayerDetail.tsx:145
+msgid "Frequent Partners:"
+msgstr ""
+
+#: src/pages/tichu/statistics/index.tsx:32
+#: src/pages/tichu/statistics/GameOverview.tsx:39
+msgid "Game Overview"
+msgstr ""
+
+#: src/pages/tichu/statistics/GameOverview.tsx:32
+msgid "Game overview statistics are under development. The data shown below is placeholder content."
+msgstr ""
+
 #: src/pages/tichu/LastMatches.tsx:143
 msgid "games"
 msgstr ""
 
 #: src/pages/Dashboard.tsx:148
 #: src/pages/tichu/MatchProgress.tsx:117
+#: src/pages/tichu/statistics/TeamRanking.tsx:165
+#: src/pages/tichu/statistics/PlayerRanking.tsx:136
 msgid "Games"
 msgstr ""
 
-#: src/pages/tichu/Statistics.tsx:110
+#: src/pages/tichu/statistics/TeamRanking.tsx:146
 #: src/pages/rebelPrincess/Statistics.tsx:103
 msgid "Games Played"
+msgstr ""
+
+#: src/pages/tichu/statistics/TeamDetail.tsx:69
+#: src/pages/tichu/statistics/PlayerDetail.tsx:63
+msgid "Games Played:"
 msgstr ""
 
 #: src/pages/rebelPrincess/Statistics.tsx:145
 msgid "Games Won:"
 msgstr ""
 
-#: src/pages/tichu/Statistics.tsx:131
 #: src/pages/rebelPrincess/Statistics.tsx:124
 msgid "Games:"
 msgstr ""
 
+#: src/pages/tichu/statistics/GameOverview.tsx:54
+msgid "General Statistics"
+msgstr ""
+
+#: src/pages/tichu/statistics/PlayerRanking.tsx:163
+msgid "Grand Tichu %"
+msgstr ""
+
+#: src/pages/tichu/statistics/TeamDetail.tsx:152
+#: src/pages/tichu/statistics/PlayerDetail.tsx:110
+#: src/pages/tichu/statistics/GameOverview.tsx:129
+msgid "Grand Tichu Success:"
+msgstr ""
+
 #: src/pages/tichu/Statistics.tsx:157
-msgid "Grand Tichus won:"
+#~ msgid "Grand Tichus won:"
+#~ msgstr ""
+
+#: src/pages/tichu/statistics/TeamDetail.tsx:173
+msgid "Head-to-Head Records"
+msgstr ""
+
+#: src/pages/tichu/statistics/TeamDetail.tsx:106
+#: src/pages/tichu/statistics/GameOverview.tsx:92
+msgid "Highest Score:"
 msgstr ""
 
 #: src/pages/Dashboard.tsx:38
@@ -121,6 +202,15 @@ msgstr ""
 
 #: src/pages/rebelPrincess/LastGames.tsx:35
 msgid "Loading recent games..."
+msgstr ""
+
+#: src/pages/tichu/statistics/TeamRanking.tsx:171
+msgid "Losses"
+msgstr ""
+
+#: src/pages/tichu/statistics/TeamDetail.tsx:112
+#: src/pages/tichu/statistics/GameOverview.tsx:98
+msgid "Lowest Score:"
 msgstr ""
 
 #: src/pages/tichu/MatchProgress.tsx:85
@@ -132,7 +222,6 @@ msgstr ""
 msgid "Matches"
 msgstr "Matches"
 
-#: src/pages/tichu/Statistics.tsx:107
 #: src/pages/rebelPrincess/Statistics.tsx:100
 msgid "Name"
 msgstr ""
@@ -146,16 +235,41 @@ msgstr ""
 msgid "No matches played yet"
 msgstr ""
 
+#: src/pages/tichu/statistics/PlayerDetail.tsx:131
+msgid "Partnership Analysis"
+msgstr ""
+
+#: src/pages/tichu/statistics/PlayerDetail.tsx:59
+msgid "Performance Overview"
+msgstr ""
+
+#: src/pages/tichu/statistics/TeamDetail.tsx:118
+msgid "Performance Trend:"
+msgstr ""
+
+#: src/pages/tichu/statistics/PlayerRanking.tsx:127
 #: src/pages/rebelPrincess/RoundResult.tsx:228
 msgid "Player"
 msgstr ""
 
-#: src/pages/tichu/Statistics.tsx:99
+#: src/pages/tichu/statistics/PlayerDetail.tsx:42
+msgid "Player detail statistics are under development. The data shown below is placeholder content."
+msgstr ""
+
+#: src/pages/tichu/statistics/PlayerRanking.tsx:112
+msgid "Player Rankings"
+msgstr ""
+
+#: src/pages/tichu/statistics/PlayerDetail.tsx:49
+msgid "Player Statistics"
+msgstr ""
+
 #: src/pages/rebelPrincess/Statistics.tsx:92
 msgid "Player Summary"
 msgstr ""
 
 #: src/pages/tichu/MatchProgress.tsx:111
+#: src/pages/tichu/statistics/index.tsx:30
 #: src/pages/rebelPrincess/NewGame.tsx:100
 #: src/pages/rebelPrincess/NewGame.tsx:107
 msgid "Players"
@@ -164,6 +278,10 @@ msgstr ""
 #: src/pages/tichu/LastMatches.tsx:124
 #: src/pages/rebelPrincess/LastGames.tsx:52
 msgid "points"
+msgstr ""
+
+#: src/pages/tichu/statistics/TeamRanking.tsx:159
+msgid "Rank"
 msgstr ""
 
 #: src/pages/Dashboard.tsx:182
@@ -175,6 +293,8 @@ msgid "Rebel Princess Statistics"
 msgstr ""
 
 #: src/pages/Dashboard.tsx:235
+#: src/pages/tichu/statistics/TeamDetail.tsx:194
+#: src/pages/tichu/statistics/PlayerDetail.tsx:160
 msgid "Recent Games"
 msgstr ""
 
@@ -228,6 +348,14 @@ msgstr ""
 msgid "Score"
 msgstr ""
 
+#: src/pages/tichu/statistics/TeamDetail.tsx:102
+msgid "Score Analysis"
+msgstr ""
+
+#: src/pages/tichu/statistics/GameOverview.tsx:88
+msgid "Score Statistics"
+msgstr ""
+
 #: src/pages/rebelPrincess/NewGame.tsx:95
 msgid "Select 3 to 6 Players"
 msgstr ""
@@ -242,9 +370,9 @@ msgstr ""
 msgid "Select Teams"
 msgstr ""
 
-#. placeholder {0}: sortBy === "games" ? "Games" : sortBy === "name" ? "Name" : "Score"
+#. placeholder {0}: getSortLabel()
 #. placeholder {0}: sortBy === "games" ? "Games" : sortBy === "name" ? "Name" : "Win Rate"
-#: src/pages/tichu/Statistics.tsx:103
+#: src/pages/tichu/statistics/TeamRanking.tsx:136
 #: src/pages/rebelPrincess/Statistics.tsx:96
 msgid "Sort by {0}"
 msgstr ""
@@ -284,6 +412,7 @@ msgid "Target: {0} points"
 msgstr ""
 
 #: src/pages/tichu/MatchProgress.tsx:108
+#: src/pages/tichu/statistics/TeamRanking.tsx:162
 msgid "Team"
 msgstr ""
 
@@ -307,9 +436,37 @@ msgstr ""
 msgid "Team 2"
 msgstr ""
 
+#: src/pages/tichu/statistics/TeamDetail.tsx:48
+msgid "Team detail statistics are under development. The data shown below is placeholder content."
+msgstr ""
+
+#: src/pages/tichu/statistics/TeamDetail.tsx:65
+msgid "Team Performance"
+msgstr ""
+
+#: src/pages/tichu/statistics/TeamRanking.tsx:131
+msgid "Team Rankings"
+msgstr ""
+
+#: src/pages/tichu/statistics/TeamDetail.tsx:55
+msgid "Team Statistics"
+msgstr ""
+
+#: src/pages/tichu/statistics/TeamRanking.tsx:125
+msgid "Team statistics are under development. The data shown below is placeholder content."
+msgstr ""
+
+#: src/pages/tichu/statistics/index.tsx:31
+msgid "Teams"
+msgstr ""
+
 #: src/pages/Dashboard.tsx:73
 msgid "Tichu"
 msgstr "Tichu"
+
+#: src/pages/tichu/statistics/PlayerRanking.tsx:154
+msgid "Tichu %"
+msgstr ""
 
 #: src/pages/Dashboard.tsx:108
 #~ msgid "Tichu Games"
@@ -319,29 +476,70 @@ msgstr "Tichu"
 #~ msgid "Tichu Matches"
 #~ msgstr "Tichu Matches"
 
-#: src/pages/tichu/Statistics.tsx:94
+#: src/pages/tichu/statistics/TeamDetail.tsx:140
+#: src/pages/tichu/statistics/PlayerDetail.tsx:97
+msgid "Tichu Performance"
+msgstr ""
+
+#: src/pages/tichu/statistics/GameOverview.tsx:116
 msgid "Tichu Statistics"
 msgstr ""
 
-#: src/pages/tichu/Statistics.tsx:145
-msgid "Tichus won:"
+#: src/pages/tichu/statistics/TeamDetail.tsx:144
+#: src/pages/tichu/statistics/PlayerDetail.tsx:101
+#: src/pages/tichu/statistics/GameOverview.tsx:120
+msgid "Tichu Success:"
 msgstr ""
+
+#: src/pages/tichu/Statistics.tsx:145
+#~ msgid "Tichus won:"
+#~ msgstr ""
 
 #: src/pages/rebelPrincess/RoundResult.tsx:259
 #: src/pages/rebelPrincess/RoundResult.tsx:307
 msgid "Total"
 msgstr ""
 
+#: src/pages/tichu/statistics/GameOverview.tsx:154
+msgid "Total Bombs Used:"
+msgstr ""
+
+#: src/pages/tichu/statistics/GameOverview.tsx:138
+msgid "Total Bombs:"
+msgstr ""
+
+#: src/pages/tichu/statistics/GameOverview.tsx:62
+msgid "Total Games:"
+msgstr ""
+
+#: src/pages/tichu/statistics/TeamRanking.tsx:180
+msgid "Total Points"
+msgstr ""
+
+#: src/pages/tichu/statistics/TeamDetail.tsx:90
+#: src/pages/tichu/statistics/PlayerDetail.tsx:83
+msgid "Total Points:"
+msgstr ""
+
 #: src/components/GameCard.tsx:78
 msgid "vs"
 msgstr ""
 
+#: src/pages/tichu/statistics/TeamRanking.tsx:143
+#: src/pages/tichu/statistics/TeamRanking.tsx:174
 #: src/pages/rebelPrincess/Statistics.tsx:106
 msgid "Win Rate"
 msgstr ""
 
+#: src/pages/tichu/statistics/TeamDetail.tsx:75
+#: src/pages/tichu/statistics/PlayerDetail.tsx:69
 #: src/pages/rebelPrincess/Statistics.tsx:152
 msgid "Win Rate:"
+msgstr ""
+
+#: src/pages/tichu/statistics/TeamRanking.tsx:140
+#: src/pages/tichu/statistics/TeamRanking.tsx:168
+msgid "Wins"
 msgstr ""
 
 #: src/pages/tichu/LastMatches.tsx:147

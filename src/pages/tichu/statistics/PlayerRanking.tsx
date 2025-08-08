@@ -11,11 +11,8 @@ import {
     Paper,
     Box,
     CircularProgress,
-    Button,
-    Menu,
-    MenuItem,
+    TableSortLabel,
 } from "@mui/material";
-import SortIcon from "@mui/icons-material/Sort";
 import { Trans } from "@lingui/react/macro";
 import { useNavigate } from "react-router-dom";
 
@@ -31,14 +28,15 @@ interface PlayerStatistics {
     bombs_used: number;
 }
 
-type SortOption = "games" | "name" | "score";
+type SortOption = "games" | "name" | "score" | "tichu" | "grandTichu" | "bombs";
+type SortOrder = "asc" | "desc";
 
 export const PlayerRanking = () => {
     const navigate = useNavigate();
     const [playerStats, setPlayerStats] = useState<PlayerStatistics[]>([]);
     const [loading, setLoading] = useState(true);
     const [sortBy, setSortBy] = useState<SortOption>("games");
-    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+    const [sortOrder, setSortOrder] = useState<SortOrder>("desc");
 
     useEffect(() => {
         const fetchPlayerStatistics = async () => {
@@ -60,29 +58,40 @@ export const PlayerRanking = () => {
         return `${Math.round((success / total) * 100)}%`;
     };
 
-    const handleSortClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleSortClose = (option?: SortOption) => {
-        if (option) {
-            setSortBy(option);
+    const handleSort = (column: SortOption) => {
+        if (sortBy === column) {
+            setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+        } else {
+            setSortBy(column);
+            setSortOrder("desc");
         }
-        setAnchorEl(null);
     };
 
     const getSortedPlayers = () => {
         const filtered = playerStats.filter((player) => player.games_played > 0);
+        const multiplier = sortOrder === "asc" ? 1 : -1;
 
-        switch (sortBy) {
-            case "name":
-                return filtered.sort((a, b) => a.player_name.localeCompare(b.player_name));
-            case "score":
-                return filtered.sort((a, b) => b.avg_score - a.avg_score);
-            case "games":
-            default:
-                return filtered.sort((a, b) => b.games_played - a.games_played);
-        }
+        return filtered.sort((a, b) => {
+            switch (sortBy) {
+                case "name":
+                    return multiplier * a.player_name.localeCompare(b.player_name);
+                case "score":
+                    return multiplier * (a.avg_score - b.avg_score);
+                case "tichu":
+                    const aTichuRate = a.tichu_calls > 0 ? a.tichu_success / a.tichu_calls : 0;
+                    const bTichuRate = b.tichu_calls > 0 ? b.tichu_success / b.tichu_calls : 0;
+                    return multiplier * (aTichuRate - bTichuRate);
+                case "grandTichu":
+                    const aGrandRate = a.grand_tichu_calls > 0 ? a.grand_tichu_success / a.grand_tichu_calls : 0;
+                    const bGrandRate = b.grand_tichu_calls > 0 ? b.grand_tichu_success / b.grand_tichu_calls : 0;
+                    return multiplier * (aGrandRate - bGrandRate);
+                case "bombs":
+                    return multiplier * (a.bombs_used - b.bombs_used);
+                case "games":
+                default:
+                    return multiplier * (a.games_played - b.games_played);
+            }
+        });
     };
 
     const handlePlayerClick = (playerId: string) => {
@@ -102,38 +111,72 @@ export const PlayerRanking = () => {
                 <Typography variant="h5">
                     <Trans>Player Rankings</Trans>
                 </Typography>
-                <Button variant="outlined" size="small" startIcon={<SortIcon />} onClick={handleSortClick}>
-                    <Trans>Sort by {sortBy === "games" ? "Games" : sortBy === "name" ? "Name" : "Score"}</Trans>
-                </Button>
-                <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={() => handleSortClose()}>
-                    <MenuItem onClick={() => handleSortClose("name")}>
-                        <Trans>Name</Trans>
-                    </MenuItem>
-                    <MenuItem onClick={() => handleSortClose("games")}>
-                        <Trans>Games Played</Trans>
-                    </MenuItem>
-                    <MenuItem onClick={() => handleSortClose("score")}>
-                        <Trans>Average Score</Trans>
-                    </MenuItem>
-                </Menu>
             </Box>
 
             <TableContainer component={Paper}>
                 <Table>
                     <TableHead>
                         <TableRow>
-                            <TableCell><Trans>Rank</Trans></TableCell>
-                            <TableCell><Trans>Player</Trans></TableCell>
-                            <TableCell align="right"><Trans>Games</Trans></TableCell>
-                            <TableCell align="right"><Trans>Avg Score</Trans></TableCell>
-                            <TableCell align="right"><Trans>Tichu %</Trans></TableCell>
-                            <TableCell align="right"><Trans>Grand Tichu %</Trans></TableCell>
-                            <TableCell align="right"><Trans>Bombs</Trans></TableCell>
+                            <TableCell sx={{ width: 60 }}>#</TableCell>
+                            <TableCell>
+                                <TableSortLabel
+                                    active={sortBy === "name"}
+                                    direction={sortBy === "name" ? sortOrder : "desc"}
+                                    onClick={() => handleSort("name")}
+                                >
+                                    <Trans>Player</Trans>
+                                </TableSortLabel>
+                            </TableCell>
+                            <TableCell align="right">
+                                <TableSortLabel
+                                    active={sortBy === "games"}
+                                    direction={sortBy === "games" ? sortOrder : "desc"}
+                                    onClick={() => handleSort("games")}
+                                >
+                                    <Trans>Games</Trans>
+                                </TableSortLabel>
+                            </TableCell>
+                            <TableCell align="right">
+                                <TableSortLabel
+                                    active={sortBy === "score"}
+                                    direction={sortBy === "score" ? sortOrder : "desc"}
+                                    onClick={() => handleSort("score")}
+                                >
+                                    <Trans>Avg Score</Trans>
+                                </TableSortLabel>
+                            </TableCell>
+                            <TableCell align="right">
+                                <TableSortLabel
+                                    active={sortBy === "tichu"}
+                                    direction={sortBy === "tichu" ? sortOrder : "desc"}
+                                    onClick={() => handleSort("tichu")}
+                                >
+                                    <Trans>Tichu %</Trans>
+                                </TableSortLabel>
+                            </TableCell>
+                            <TableCell align="right">
+                                <TableSortLabel
+                                    active={sortBy === "grandTichu"}
+                                    direction={sortBy === "grandTichu" ? sortOrder : "desc"}
+                                    onClick={() => handleSort("grandTichu")}
+                                >
+                                    <Trans>Grand Tichu %</Trans>
+                                </TableSortLabel>
+                            </TableCell>
+                            <TableCell align="right">
+                                <TableSortLabel
+                                    active={sortBy === "bombs"}
+                                    direction={sortBy === "bombs" ? sortOrder : "desc"}
+                                    onClick={() => handleSort("bombs")}
+                                >
+                                    <Trans>Bombs</Trans>
+                                </TableSortLabel>
+                            </TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {getSortedPlayers().map((player, index) => (
-                            <TableRow 
+                            <TableRow
                                 key={player.player_id}
                                 hover
                                 sx={{ cursor: "pointer" }}

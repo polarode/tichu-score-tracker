@@ -106,11 +106,16 @@ export const TeamRanking = () => {
 
     const getSortLabel = () => {
         switch (sortBy) {
-            case "winRate": return "Win Rate";
-            case "games": return "Games";
-            case "avgScore": return "Avg Score";
-            case "wins": return "Wins";
-            default: return "Wins";
+            case "winRate":
+                return "Win Rate";
+            case "games":
+                return "Games";
+            case "avgScore":
+                return "Avg Score";
+            case "wins":
+                return "Wins";
+            default:
+                return "Wins";
         }
     };
 
@@ -119,7 +124,7 @@ export const TeamRanking = () => {
             <Alert severity="info" sx={{ mb: 2 }}>
                 <Trans>Team statistics are under development. The data shown below is placeholder content.</Trans>
             </Alert>
-            
+
             <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 2 }}>
                 <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                     <Typography variant="h5">
@@ -146,30 +151,48 @@ export const TeamRanking = () => {
                 </Menu>
             </Box>
 
-            <TableContainer component={Paper} sx={{ opacity: 0.8, border: '2px dashed #ccc' }}>
+            <TableContainer component={Paper} sx={{ opacity: 0.8, border: "2px dashed #ccc" }}>
                 <Table>
                     <TableHead>
                         <TableRow>
-                            <TableCell><Trans>Rank</Trans></TableCell>
-                            <TableCell><Trans>Team</Trans></TableCell>
-                            <TableCell align="right"><Trans>Games</Trans></TableCell>
-                            <TableCell align="right"><Trans>Wins</Trans></TableCell>
-                            <TableCell align="right"><Trans>Losses</Trans></TableCell>
-                            <TableCell align="right"><Trans>Win Rate</Trans></TableCell>
-                            <TableCell align="right"><Trans>Avg Score</Trans></TableCell>
-                            <TableCell align="right"><Trans>Total Points</Trans></TableCell>
+                            <TableCell>
+                                <Trans>Rank</Trans>
+                            </TableCell>
+                            <TableCell>
+                                <Trans>Team</Trans>
+                            </TableCell>
+                            <TableCell align="right">
+                                <Trans>Games</Trans>
+                            </TableCell>
+                            <TableCell align="right">
+                                <Trans>Wins</Trans>
+                            </TableCell>
+                            <TableCell align="right">
+                                <Trans>Losses</Trans>
+                            </TableCell>
+                            <TableCell align="right">
+                                <Trans>Win Rate</Trans>
+                            </TableCell>
+                            <TableCell align="right">
+                                <Trans>Avg Score</Trans>
+                            </TableCell>
+                            <TableCell align="right">
+                                <Trans>Total Points</Trans>
+                            </TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {getSortedTeams().map((team, index) => (
-                            <TableRow 
+                            <TableRow
                                 key={team.team_id}
                                 hover
                                 sx={{ cursor: "pointer" }}
                                 onClick={() => handleTeamClick(team.team_id)}
                             >
                                 <TableCell>{index + 1}</TableCell>
-                                <TableCell>{team.player1_name} & {team.player2_name}</TableCell>
+                                <TableCell>
+                                    {team.player1_name} & {team.player2_name}
+                                </TableCell>
                                 <TableCell align="right">{team.games_played}</TableCell>
                                 <TableCell align="right">{team.wins}</TableCell>
                                 <TableCell align="right">{team.losses}</TableCell>

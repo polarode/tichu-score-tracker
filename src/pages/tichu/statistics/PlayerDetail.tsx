@@ -1,14 +1,5 @@
-import { useParams } from "react-router-dom";
-import {
-    Typography,
-    Grid,
-    Card,
-    CardContent,
-    Box,
-    Divider,
-    Chip,
-    Alert,
-} from "@mui/material";
+//import { useParams } from "react-router-dom";
+import { Typography, Grid, Card, CardContent, Box, Divider, Chip, Alert } from "@mui/material";
 import { PageTemplate } from "../../../components/PageTemplate";
 import { Trans } from "@lingui/react/macro";
 
@@ -37,17 +28,22 @@ const mockPlayerDetail = {
 };
 
 const PlayerDetail = () => {
-    const { playerId } = useParams<{ playerId: string }>();
+    //const { playerId } = useParams<{ playerId: string }>();
 
     const tichuSuccessRate = ((mockPlayerDetail.tichu_success / mockPlayerDetail.tichu_calls) * 100).toFixed(1);
-    const grandTichuSuccessRate = ((mockPlayerDetail.grand_tichu_success / mockPlayerDetail.grand_tichu_calls) * 100).toFixed(1);
+    const grandTichuSuccessRate = (
+        (mockPlayerDetail.grand_tichu_success / mockPlayerDetail.grand_tichu_calls) *
+        100
+    ).toFixed(1);
 
     return (
         <PageTemplate maxWidth="lg" showVersionButton={false}>
             <Alert severity="info" sx={{ mb: 2 }}>
-                <Trans>Player detail statistics are under development. The data shown below is placeholder content.</Trans>
+                <Trans>
+                    Player detail statistics are under development. The data shown below is placeholder content.
+                </Trans>
             </Alert>
-            
+
             <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 2 }}>
                 <Typography variant="h4">
                     {mockPlayerDetail.player_name} - <Trans>Player Statistics</Trans>
@@ -56,7 +52,7 @@ const PlayerDetail = () => {
             </Box>
 
             <Grid container spacing={3}>
-                <Grid item xs={12} md={6}>
+                <Grid size={{ xs: 12, md: 6 }}>
                     <Card>
                         <CardContent>
                             <Typography variant="h6" color="primary" gutterBottom>
@@ -86,13 +82,15 @@ const PlayerDetail = () => {
                                 <Typography variant="body2" color="text.secondary">
                                     <Trans>Total Points:</Trans>
                                 </Typography>
-                                <Typography variant="body1">{mockPlayerDetail.total_points.toLocaleString()}</Typography>
+                                <Typography variant="body1">
+                                    {mockPlayerDetail.total_points.toLocaleString()}
+                                </Typography>
                             </Box>
                         </CardContent>
                     </Card>
                 </Grid>
 
-                <Grid item xs={12} md={6}>
+                <Grid size={{ xs: 12, md: 6 }}>
                     <Card>
                         <CardContent>
                             <Typography variant="h6" color="primary" gutterBottom>
@@ -103,7 +101,8 @@ const PlayerDetail = () => {
                                     <Trans>Tichu Success:</Trans>
                                 </Typography>
                                 <Typography variant="body1">
-                                    {tichuSuccessRate}% ({mockPlayerDetail.tichu_success}/{mockPlayerDetail.tichu_calls})
+                                    {tichuSuccessRate}% ({mockPlayerDetail.tichu_success}/{mockPlayerDetail.tichu_calls}
+                                    )
                                 </Typography>
                             </Box>
                             <Box sx={{ display: "flex", justifyContent: "space-between", mb: 1 }}>
@@ -111,7 +110,8 @@ const PlayerDetail = () => {
                                     <Trans>Grand Tichu Success:</Trans>
                                 </Typography>
                                 <Typography variant="body1">
-                                    {grandTichuSuccessRate}% ({mockPlayerDetail.grand_tichu_success}/{mockPlayerDetail.grand_tichu_calls})
+                                    {grandTichuSuccessRate}% ({mockPlayerDetail.grand_tichu_success}/
+                                    {mockPlayerDetail.grand_tichu_calls})
                                 </Typography>
                             </Box>
                             <Box sx={{ display: "flex", justifyContent: "space-between" }}>
@@ -124,7 +124,7 @@ const PlayerDetail = () => {
                     </Card>
                 </Grid>
 
-                <Grid item xs={12} md={6}>
+                <Grid size={{ xs: 12, md: 6 }}>
                     <Card>
                         <CardContent>
                             <Typography variant="h6" color="primary" gutterBottom>
@@ -135,8 +135,9 @@ const PlayerDetail = () => {
                                     <Trans>Best Partnership:</Trans>
                                 </Typography>
                                 <Typography variant="body1">
-                                    {mockPlayerDetail.best_partnership.partner} - {mockPlayerDetail.best_partnership.win_rate}% 
-                                    ({mockPlayerDetail.best_partnership.games} games)
+                                    {mockPlayerDetail.best_partnership.partner} -{" "}
+                                    {mockPlayerDetail.best_partnership.win_rate}% (
+                                    {mockPlayerDetail.best_partnership.games} games)
                                 </Typography>
                             </Box>
                             <Divider sx={{ my: 2 }} />
@@ -152,7 +153,7 @@ const PlayerDetail = () => {
                     </Card>
                 </Grid>
 
-                <Grid item xs={12} md={6}>
+                <Grid size={{ xs: 12, md: 6 }}>
                     <Card>
                         <CardContent>
                             <Typography variant="h6" color="primary" gutterBottom>
@@ -160,12 +161,14 @@ const PlayerDetail = () => {
                             </Typography>
                             {mockPlayerDetail.recent_games.map((game, index) => (
                                 <Box key={index} sx={{ mb: 2 }}>
-                                    <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                                    <Box
+                                        sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}
+                                    >
                                         <Typography variant="body2">{game.date}</Typography>
-                                        <Chip 
-                                            label={game.result} 
-                                            color={game.result === "Win" ? "success" : "error"} 
-                                            size="small" 
+                                        <Chip
+                                            label={game.result}
+                                            color={game.result === "Win" ? "success" : "error"}
+                                            size="small"
                                         />
                                     </Box>
                                     <Typography variant="body2" color="text.secondary">
