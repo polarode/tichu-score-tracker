@@ -1,14 +1,5 @@
-import { useParams } from "react-router-dom";
-import {
-    Typography,
-    Grid,
-    Card,
-    CardContent,
-    Box,
-    Divider,
-    Chip,
-    Alert,
-} from "@mui/material";
+//import { useParams } from "react-router-dom";
+import { Typography, Grid, Card, CardContent, Box, Divider, Chip, Alert } from "@mui/material";
 import { PageTemplate } from "../../../components/PageTemplate";
 import { Trans } from "@lingui/react/macro";
 
@@ -43,17 +34,22 @@ const mockTeamDetail = {
 };
 
 const TeamDetail = () => {
-    const { teamId } = useParams<{ teamId: string }>();
+    //const { teamId } = useParams<{ teamId: string }>();
 
     const tichuSuccessRate = ((mockTeamDetail.tichu_success / mockTeamDetail.tichu_calls) * 100).toFixed(1);
-    const grandTichuSuccessRate = ((mockTeamDetail.grand_tichu_success / mockTeamDetail.grand_tichu_calls) * 100).toFixed(1);
+    const grandTichuSuccessRate = (
+        (mockTeamDetail.grand_tichu_success / mockTeamDetail.grand_tichu_calls) *
+        100
+    ).toFixed(1);
 
     return (
         <PageTemplate maxWidth="lg" showVersionButton={false}>
             <Alert severity="info" sx={{ mb: 2 }}>
-                <Trans>Team detail statistics are under development. The data shown below is placeholder content.</Trans>
+                <Trans>
+                    Team detail statistics are under development. The data shown below is placeholder content.
+                </Trans>
             </Alert>
-            
+
             <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 2 }}>
                 <Typography variant="h4">
                     {mockTeamDetail.player1_name} & {mockTeamDetail.player2_name} - <Trans>Team Statistics</Trans>
@@ -62,7 +58,7 @@ const TeamDetail = () => {
             </Box>
 
             <Grid container spacing={3}>
-                <Grid item xs={12} md={6}>
+                <Grid size={{ xs: 12, md: 6 }}>
                     <Card>
                         <CardContent>
                             <Typography variant="h6" color="primary" gutterBottom>
@@ -79,7 +75,8 @@ const TeamDetail = () => {
                                     <Trans>Win Rate:</Trans>
                                 </Typography>
                                 <Typography variant="body1">
-                                    {mockTeamDetail.win_rate.toFixed(1)}% ({mockTeamDetail.wins}W - {mockTeamDetail.losses}L)
+                                    {mockTeamDetail.win_rate.toFixed(1)}% ({mockTeamDetail.wins}W -{" "}
+                                    {mockTeamDetail.losses}L)
                                 </Typography>
                             </Box>
                             <Box sx={{ display: "flex", justifyContent: "space-between", mb: 1 }}>
@@ -98,7 +95,7 @@ const TeamDetail = () => {
                     </Card>
                 </Grid>
 
-                <Grid item xs={12} md={6}>
+                <Grid size={{ xs: 12, md: 6 }}>
                     <Card>
                         <CardContent>
                             <Typography variant="h6" color="primary" gutterBottom>
@@ -120,10 +117,15 @@ const TeamDetail = () => {
                                 <Typography variant="body2" color="text.secondary">
                                     <Trans>Performance Trend:</Trans>
                                 </Typography>
-                                <Chip 
-                                    label={mockTeamDetail.performance_trend} 
-                                    color={mockTeamDetail.performance_trend === "Improving" ? "success" : 
-                                           mockTeamDetail.performance_trend === "Declining" ? "error" : "default"}
+                                <Chip
+                                    label={mockTeamDetail.performance_trend}
+                                    color={
+                                        mockTeamDetail.performance_trend === "Improving"
+                                            ? "success"
+                                            : mockTeamDetail.performance_trend === "Declining"
+                                              ? "error"
+                                              : "default"
+                                    }
                                     size="small"
                                 />
                             </Box>
@@ -131,7 +133,7 @@ const TeamDetail = () => {
                     </Card>
                 </Grid>
 
-                <Grid item xs={12} md={6}>
+                <Grid size={{ xs: 12, md: 6 }}>
                     <Card>
                         <CardContent>
                             <Typography variant="h6" color="primary" gutterBottom>
@@ -150,7 +152,8 @@ const TeamDetail = () => {
                                     <Trans>Grand Tichu Success:</Trans>
                                 </Typography>
                                 <Typography variant="body1">
-                                    {grandTichuSuccessRate}% ({mockTeamDetail.grand_tichu_success}/{mockTeamDetail.grand_tichu_calls})
+                                    {grandTichuSuccessRate}% ({mockTeamDetail.grand_tichu_success}/
+                                    {mockTeamDetail.grand_tichu_calls})
                                 </Typography>
                             </Box>
                             <Box sx={{ display: "flex", justifyContent: "space-between" }}>
@@ -163,7 +166,7 @@ const TeamDetail = () => {
                     </Card>
                 </Grid>
 
-                <Grid item xs={12} md={6}>
+                <Grid size={{ xs: 12, md: 6 }}>
                     <Card>
                         <CardContent>
                             <Typography variant="h6" color="primary" gutterBottom>
@@ -184,7 +187,7 @@ const TeamDetail = () => {
                     </Card>
                 </Grid>
 
-                <Grid item xs={12}>
+                <Grid size={{ xs: 12 }}>
                     <Card>
                         <CardContent>
                             <Typography variant="h6" color="primary" gutterBottom>
@@ -192,15 +195,22 @@ const TeamDetail = () => {
                             </Typography>
                             <Grid container spacing={2}>
                                 {mockTeamDetail.recent_games.map((game, index) => (
-                                    <Grid item xs={12} sm={6} md={4} key={index}>
+                                    <Grid size={{ xs: 12, sm: 6, md: 4 }} key={index}>
                                         <Card variant="outlined">
                                             <CardContent sx={{ pb: 2 }}>
-                                                <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 1 }}>
+                                                <Box
+                                                    sx={{
+                                                        display: "flex",
+                                                        justifyContent: "space-between",
+                                                        alignItems: "center",
+                                                        mb: 1,
+                                                    }}
+                                                >
                                                     <Typography variant="body2">{game.date}</Typography>
-                                                    <Chip 
-                                                        label={game.result} 
-                                                        color={game.result === "Win" ? "success" : "error"} 
-                                                        size="small" 
+                                                    <Chip
+                                                        label={game.result}
+                                                        color={game.result === "Win" ? "success" : "error"}
+                                                        size="small"
                                                     />
                                                 </Box>
                                                 <Typography variant="body1" gutterBottom>
