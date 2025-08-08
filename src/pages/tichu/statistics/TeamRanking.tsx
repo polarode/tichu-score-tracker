@@ -12,6 +12,8 @@ import {
     Button,
     Menu,
     MenuItem,
+    Alert,
+    Chip,
 } from "@mui/material";
 import SortIcon from "@mui/icons-material/Sort";
 import { Trans } from "@lingui/react/macro";
@@ -114,10 +116,17 @@ export const TeamRanking = () => {
 
     return (
         <Box>
+            <Alert severity="info" sx={{ mb: 2 }}>
+                <Trans>Team statistics are under development. The data shown below is placeholder content.</Trans>
+            </Alert>
+            
             <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 2 }}>
-                <Typography variant="h5">
-                    <Trans>Team Rankings</Trans>
-                </Typography>
+                <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                    <Typography variant="h5">
+                        <Trans>Team Rankings</Trans>
+                    </Typography>
+                    <Chip label="Placeholder" size="small" color="warning" variant="outlined" />
+                </Box>
                 <Button variant="outlined" size="small" startIcon={<SortIcon />} onClick={handleSortClick}>
                     <Trans>Sort by {getSortLabel()}</Trans>
                 </Button>
@@ -137,7 +146,7 @@ export const TeamRanking = () => {
                 </Menu>
             </Box>
 
-            <TableContainer component={Paper}>
+            <TableContainer component={Paper} sx={{ opacity: 0.8, border: '2px dashed #ccc' }}>
                 <Table>
                     <TableHead>
                         <TableRow>

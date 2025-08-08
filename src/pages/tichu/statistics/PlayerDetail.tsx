@@ -7,6 +7,7 @@ import {
     Box,
     Divider,
     Chip,
+    Alert,
 } from "@mui/material";
 import { PageTemplate } from "../../../components/PageTemplate";
 import { Trans } from "@lingui/react/macro";
@@ -43,9 +44,16 @@ const PlayerDetail = () => {
 
     return (
         <PageTemplate maxWidth="lg" showVersionButton={false}>
-            <Typography variant="h4" gutterBottom>
-                {mockPlayerDetail.player_name} - <Trans>Player Statistics</Trans>
-            </Typography>
+            <Alert severity="info" sx={{ mb: 2 }}>
+                <Trans>Player detail statistics are under development. The data shown below is placeholder content.</Trans>
+            </Alert>
+            
+            <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 2 }}>
+                <Typography variant="h4">
+                    {mockPlayerDetail.player_name} - <Trans>Player Statistics</Trans>
+                </Typography>
+                <Chip label="Placeholder" size="small" color="warning" variant="outlined" />
+            </Box>
 
             <Grid container spacing={3}>
                 <Grid item xs={12} md={6}>
