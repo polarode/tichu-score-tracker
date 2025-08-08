@@ -18,7 +18,7 @@ export const LastRebelPrincessGames = () => {
 
     useEffect(() => {
         const fetchRecentGames = async () => {
-            const { data, error } = await supabase.rpc("get_latest_rebel_princess_games", { number_of_games: 20 });
+            const { data, error } = await supabase.rpc("get_latest_rebel_princess_games", { number_of_games: 200 });
 
             if (!error && data) {
                 setRecentGames(data as RPGame[]);
