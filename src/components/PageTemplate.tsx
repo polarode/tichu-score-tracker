@@ -1,8 +1,10 @@
-import { Box, Button, Container } from "@mui/material";
+import { Box, Button, Container, IconButton } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { LanguageSelector } from "./LanguageSelector";
 import changelogData from "../data/changelog.json";
 import HomeIcon from "@mui/icons-material/Home";
+import { CatPaws } from "react-cat-paws";
+import { useState } from "react";
 
 interface PageTemplateProps {
     children: React.ReactNode;
@@ -18,6 +20,7 @@ export function PageTemplate({
     showHomeButton = true,
 }: PageTemplateProps) {
     const navigate = useNavigate();
+    const [showCatPaws, setShowCatPaws] = useState(false);
 
     return (
         <Box>
@@ -45,6 +48,21 @@ export function PageTemplate({
             <Container maxWidth={maxWidth} sx={{ p: "8px", position: "relative" }}>
                 <Box sx={{ mt: 8 }}>{children}</Box>
             </Container>
+
+            <IconButton
+                onClick={() => setShowCatPaws(true)}
+                sx={{
+                    position: "fixed",
+                    bottom: 20,
+                    right: 20,
+                    fontSize: "0.8rem",
+                    padding: "4px",
+                    zIndex: 1000,
+                }}
+            >
+                🐱
+            </IconButton>
+            {showCatPaws && <CatPaws onClose={() => setShowCatPaws(false)} fillScreen />}
         </Box>
     );
 }

@@ -1,5 +1,10 @@
 [
     {
+        "version": "1.2.6",
+        "date": "2025-08-11",
+        "changes": ["🐱"]
+    },
+    {
         "version": "1.2.5",
         "date": "2025-08-03",
         "changes": ["Imported Rebel Princess games from Micheal's recordings"]

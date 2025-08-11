@@ -1,7 +1,7 @@
 {
     "name": "tichu-score-tracker",
     "private": true,
-    "version": "1.2.5",
+    "version": "1.2.6",
     "type": "module",
     "homepage": "https://polarode.github.io/tichu-score-tracker",
     "scripts": {
@@ -29,6 +29,7 @@
         "@supabase/supabase-js": "^2.49.8",
         "classnames": "^2.5.1",
         "react": "^19.1.0",
+        "react-cat-paws": "^0.3.0",
         "react-dom": "^19.1.0",
         "react-router-dom": "^7.6.0",
         "react-toastify": "^11.0.5"

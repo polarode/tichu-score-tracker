@@ -12,4 +12,7 @@ export default defineConfig({
         }),
         lingui(),
     ],
+    optimizeDeps: {
+        exclude: ["react-cat-paws"],
+    },
 });
