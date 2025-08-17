@@ -53,7 +53,7 @@ msgstr ""
 msgid "Avg Points/Round:"
 msgstr ""
 
-#: src/pages/tichu/statistics/TeamRanking.tsx:153
+#: src/pages/tichu/statistics/TeamRanking.tsx:179
 #: src/pages/tichu/statistics/PlayerRanking.tsx:145
 msgid "Avg Score"
 msgstr ""
@@ -115,6 +115,10 @@ msgstr ""
 msgid "Custom Target"
 msgstr ""
 
+#: src/pages/tichu/statistics/TeamRanking.tsx:162
+msgid "Draws"
+msgstr ""
+
 #: src/pages/tichu/MatchProgress.tsx:146
 msgid "End Match"
 msgstr ""
@@ -147,7 +151,7 @@ msgstr ""
 
 #: src/pages/Dashboard.tsx:148
 #: src/pages/tichu/MatchProgress.tsx:117
-#: src/pages/tichu/statistics/TeamRanking.tsx:123
+#: src/pages/tichu/statistics/TeamRanking.tsx:146
 #: src/pages/tichu/statistics/PlayerRanking.tsx:136
 msgid "Games"
 msgstr ""
@@ -212,7 +216,7 @@ msgstr ""
 msgid "Loading recent games..."
 msgstr ""
 
-#: src/pages/tichu/statistics/TeamRanking.tsx:136
+#: src/pages/tichu/statistics/TeamRanking.tsx:159
 msgid "Losses"
 msgstr ""
 
@@ -231,6 +235,10 @@ msgstr "Matches"
 
 #: src/pages/tichu/statistics/GameOverview.tsx:182
 msgid "Max in One Game:"
+msgstr ""
+
+#: src/pages/tichu/statistics/TeamRanking.tsx:118
+msgid "Min. Games:"
 msgstr ""
 
 #: src/pages/rebelPrincess/Statistics.tsx:100
@@ -425,7 +433,7 @@ msgid "Target: {0} points"
 msgstr ""
 
 #: src/pages/tichu/MatchProgress.tsx:108
-#: src/pages/tichu/statistics/TeamRanking.tsx:115
+#: src/pages/tichu/statistics/TeamRanking.tsx:138
 msgid "Team"
 msgstr ""
 
@@ -457,7 +465,7 @@ msgstr ""
 msgid "Team Performance"
 msgstr ""
 
-#: src/pages/tichu/statistics/TeamRanking.tsx:105
+#: src/pages/tichu/statistics/TeamRanking.tsx:114
 msgid "Team Rankings"
 msgstr ""
 
@@ -534,7 +542,7 @@ msgstr ""
 msgid "Total Games:"
 msgstr ""
 
-#: src/pages/tichu/statistics/TeamRanking.tsx:162
+#: src/pages/tichu/statistics/TeamRanking.tsx:188
 msgid "Total Points"
 msgstr ""
 
@@ -547,7 +555,7 @@ msgstr ""
 msgid "vs"
 msgstr ""
 
-#: src/pages/tichu/statistics/TeamRanking.tsx:144
+#: src/pages/tichu/statistics/TeamRanking.tsx:170
 #: src/pages/rebelPrincess/Statistics.tsx:106
 msgid "Win Rate"
 msgstr ""
@@ -558,7 +566,7 @@ msgstr ""
 msgid "Win Rate:"
 msgstr ""
 
-#: src/pages/tichu/statistics/TeamRanking.tsx:132
+#: src/pages/tichu/statistics/TeamRanking.tsx:155
 msgid "Wins"
 msgstr ""
 

@@ -11,6 +11,7 @@ import {
     Box,
     CircularProgress,
     TableSortLabel,
+    TextField,
 } from "@mui/material";
 import { supabase } from "../../../lib/supabase";
 import { Trans } from "@lingui/react/macro";
@@ -24,6 +25,7 @@ interface TeamStatistics {
     games_played: number;
     wins: number;
     losses: number;
+    draws: number;
     win_rate: number;
     avg_score: number;
     total_points: number;
@@ -38,11 +40,14 @@ export const TeamRanking = () => {
     const [loading, setLoading] = useState(true);
     const [sortBy, setSortBy] = useState<SortOption>("wins");
     const [sortOrder, setSortOrder] = useState<SortOrder>("desc");
+    const [minGames, setMinGames] = useState(10);
+    const [appliedMinGames, setAppliedMinGames] = useState(10);
 
     useEffect(() => {
         const fetchTeamStats = async () => {
             try {
-                const { data, error } = await supabase.rpc("get_tichu_team_rankings");
+                setLoading(true);
+                const { data, error } = await supabase.rpc("get_tichu_team_rankings", { min_games: appliedMinGames });
                 if (error) {
                     console.error("Error fetching team stats:", error);
                 } else if (data) {
@@ -56,7 +61,11 @@ export const TeamRanking = () => {
         };
 
         fetchTeamStats();
-    }, []);
+    }, [appliedMinGames]);
+
+    const handleMinGamesBlur = () => {
+        setAppliedMinGames(minGames);
+    };
 
     const handleSort = (column: SortOption) => {
         if (sortBy === column) {
@@ -104,6 +113,20 @@ export const TeamRanking = () => {
                 <Typography variant="h5">
                     <Trans>Team Rankings</Trans>
                 </Typography>
+                <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                    <Typography variant="body2" color="text.secondary">
+                        <Trans>Min. Games:</Trans>
+                    </Typography>
+                    <TextField
+                        size="small"
+                        type="number"
+                        value={minGames}
+                        onChange={(e) => setMinGames(Math.max(0, parseInt(e.target.value) || 0))}
+                        onBlur={handleMinGamesBlur}
+                        sx={{ width: 80 }}
+                        inputProps={{ min: 0 }}
+                    />
+                </Box>
             </Box>
 
             <TableContainer component={Paper}>
@@ -134,6 +157,9 @@ export const TeamRanking = () => {
                             </TableCell>
                             <TableCell align="right">
                                 <Trans>Losses</Trans>
+                            </TableCell>
+                            <TableCell align="right">
+                                <Trans>Draws</Trans>
                             </TableCell>
                             <TableCell align="right">
                                 <TableSortLabel
@@ -179,6 +205,7 @@ export const TeamRanking = () => {
                                 <TableCell align="right">{team.games_played}</TableCell>
                                 <TableCell align="right">{team.wins}</TableCell>
                                 <TableCell align="right">{team.losses}</TableCell>
+                                <TableCell align="right">{team.draws}</TableCell>
                                 <TableCell align="right">{team.win_rate}%</TableCell>
                                 <TableCell align="right">{Math.round(team.avg_score)}</TableCell>
                                 <TableCell align="right">{team.total_points.toLocaleString()}</TableCell>
