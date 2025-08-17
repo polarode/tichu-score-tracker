@@ -1,7 +1,7 @@
 [
-        {
+    {
         "version": "1.2.7-preview",
-        "date": "2025-08-08",
+        "date": "2025-08-25",
         "changes": [
             "Enhanced statistics interface with tabbed navigation",
             "Added team statistics and game overview sections",

@@ -39,7 +39,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                             <Route path="/tichu/result" element={<GameResult />} />
                             <Route path="/tichu/stats" element={<Statistics />} />
                             <Route path="/tichu/stats/player/:playerId" element={<PlayerDetail />} />
-                            <Route path="/tichu/stats/team/:teamId" element={<TeamDetail />} />
+                            <Route path="/tichu/stats/team/:player1Id/:player2Id" element={<TeamDetail />} />
                             <Route path="/rebel-princess/new" element={<RPNewGame />} />
                             <Route path="/rebel-princess/result" element={<RPResult />} />
                             <Route path="/rebel-princess/stats" element={<RPStatistics />} />
