@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
     Typography,
     Table,
@@ -9,18 +9,16 @@ import {
     TableRow,
     Paper,
     Box,
-    Button,
-    Menu,
-    MenuItem,
-    Alert,
-    Chip,
+    CircularProgress,
+    TableSortLabel,
 } from "@mui/material";
-import SortIcon from "@mui/icons-material/Sort";
+import { supabase } from "../../../lib/supabase";
 import { Trans } from "@lingui/react/macro";
 import { useNavigate } from "react-router-dom";
 
 interface TeamStatistics {
-    team_id: string;
+    player1_id: string;
+    player2_id: string;
     player1_name: string;
     player2_name: string;
     games_played: number;
@@ -31,163 +29,148 @@ interface TeamStatistics {
     total_points: number;
 }
 
-type SortOption = "wins" | "winRate" | "games" | "avgScore";
-
-// Placeholder data - replace with real data later
-const mockTeamStats: TeamStatistics[] = [
-    {
-        team_id: "1",
-        player1_name: "Alice",
-        player2_name: "Bob",
-        games_played: 15,
-        wins: 10,
-        losses: 5,
-        win_rate: 66.7,
-        avg_score: 850,
-        total_points: 12750,
-    },
-    {
-        team_id: "2",
-        player1_name: "Charlie",
-        player2_name: "Diana",
-        games_played: 12,
-        wins: 8,
-        losses: 4,
-        win_rate: 66.7,
-        avg_score: 820,
-        total_points: 9840,
-    },
-    {
-        team_id: "3",
-        player1_name: "Eve",
-        player2_name: "Frank",
-        games_played: 8,
-        wins: 3,
-        losses: 5,
-        win_rate: 37.5,
-        avg_score: 720,
-        total_points: 5760,
-    },
-];
+type SortOption = "wins" | "winRate" | "games" | "avgScore" | "totalPoints";
+type SortOrder = "asc" | "desc";
 
 export const TeamRanking = () => {
     const navigate = useNavigate();
+    const [teamStats, setTeamStats] = useState<TeamStatistics[]>([]);
+    const [loading, setLoading] = useState(true);
     const [sortBy, setSortBy] = useState<SortOption>("wins");
-    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+    const [sortOrder, setSortOrder] = useState<SortOrder>("desc");
 
-    const handleSortClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        setAnchorEl(event.currentTarget);
-    };
+    useEffect(() => {
+        const fetchTeamStats = async () => {
+            try {
+                const { data, error } = await supabase.rpc("get_tichu_team_rankings");
+                if (error) {
+                    console.error("Error fetching team stats:", error);
+                } else if (data) {
+                    setTeamStats(data);
+                }
+            } catch (error) {
+                console.error("Error fetching team stats:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
 
-    const handleSortClose = (option?: SortOption) => {
-        if (option) {
-            setSortBy(option);
+        fetchTeamStats();
+    }, []);
+
+    const handleSort = (column: SortOption) => {
+        if (sortBy === column) {
+            setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+        } else {
+            setSortBy(column);
+            setSortOrder(column === "games" ? "desc" : "desc");
         }
-        setAnchorEl(null);
     };
 
     const getSortedTeams = () => {
-        switch (sortBy) {
-            case "winRate":
-                return [...mockTeamStats].sort((a, b) => b.win_rate - a.win_rate);
-            case "games":
-                return [...mockTeamStats].sort((a, b) => b.games_played - a.games_played);
-            case "avgScore":
-                return [...mockTeamStats].sort((a, b) => b.avg_score - a.avg_score);
-            case "wins":
-            default:
-                return [...mockTeamStats].sort((a, b) => b.wins - a.wins);
-        }
+        const multiplier = sortOrder === "asc" ? 1 : -1;
+        return [...teamStats].sort((a, b) => {
+            switch (sortBy) {
+                case "winRate":
+                    return multiplier * (a.win_rate - b.win_rate);
+                case "games":
+                    return multiplier * (a.games_played - b.games_played);
+                case "avgScore":
+                    return multiplier * (a.avg_score - b.avg_score);
+                case "totalPoints":
+                    return multiplier * (a.total_points - b.total_points);
+                case "wins":
+                default:
+                    return multiplier * (a.wins - b.wins);
+            }
+        });
     };
 
-    const handleTeamClick = (teamId: string) => {
-        navigate(`/tichu/stats/team/${teamId}`);
+    const handleTeamClick = (player1Id: string, player2Id: string) => {
+        navigate(`/tichu/stats/team/${player1Id}/${player2Id}`);
     };
 
-    const getSortLabel = () => {
-        switch (sortBy) {
-            case "winRate":
-                return "Win Rate";
-            case "games":
-                return "Games";
-            case "avgScore":
-                return "Avg Score";
-            case "wins":
-                return "Wins";
-            default:
-                return "Wins";
-        }
-    };
+    if (loading) {
+        return (
+            <Box display="flex" justifyContent="center" alignItems="center" minHeight="200px">
+                <CircularProgress />
+            </Box>
+        );
+    }
 
     return (
         <Box>
-            <Alert severity="info" sx={{ mb: 2 }}>
-                <Trans>Team statistics are under development. The data shown below is placeholder content.</Trans>
-            </Alert>
-
             <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 2 }}>
-                <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                    <Typography variant="h5">
-                        <Trans>Team Rankings</Trans>
-                    </Typography>
-                    <Chip label="Placeholder" size="small" color="warning" variant="outlined" />
-                </Box>
-                <Button variant="outlined" size="small" startIcon={<SortIcon />} onClick={handleSortClick}>
-                    <Trans>Sort by {getSortLabel()}</Trans>
-                </Button>
-                <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={() => handleSortClose()}>
-                    <MenuItem onClick={() => handleSortClose("wins")}>
-                        <Trans>Wins</Trans>
-                    </MenuItem>
-                    <MenuItem onClick={() => handleSortClose("winRate")}>
-                        <Trans>Win Rate</Trans>
-                    </MenuItem>
-                    <MenuItem onClick={() => handleSortClose("games")}>
-                        <Trans>Games Played</Trans>
-                    </MenuItem>
-                    <MenuItem onClick={() => handleSortClose("avgScore")}>
-                        <Trans>Average Score</Trans>
-                    </MenuItem>
-                </Menu>
+                <Typography variant="h5">
+                    <Trans>Team Rankings</Trans>
+                </Typography>
             </Box>
 
-            <TableContainer component={Paper} sx={{ opacity: 0.8, border: "2px dashed #ccc" }}>
+            <TableContainer component={Paper}>
                 <Table>
                     <TableHead>
                         <TableRow>
-                            <TableCell>
-                                <Trans>Rank</Trans>
-                            </TableCell>
+                            <TableCell sx={{ width: 60 }}>#</TableCell>
                             <TableCell>
                                 <Trans>Team</Trans>
                             </TableCell>
                             <TableCell align="right">
-                                <Trans>Games</Trans>
+                                <TableSortLabel
+                                    active={sortBy === "games"}
+                                    direction={sortBy === "games" ? sortOrder : "desc"}
+                                    onClick={() => handleSort("games")}
+                                >
+                                    <Trans>Games</Trans>
+                                </TableSortLabel>
                             </TableCell>
                             <TableCell align="right">
-                                <Trans>Wins</Trans>
+                                <TableSortLabel
+                                    active={sortBy === "wins"}
+                                    direction={sortBy === "wins" ? sortOrder : "desc"}
+                                    onClick={() => handleSort("wins")}
+                                >
+                                    <Trans>Wins</Trans>
+                                </TableSortLabel>
                             </TableCell>
                             <TableCell align="right">
                                 <Trans>Losses</Trans>
                             </TableCell>
                             <TableCell align="right">
-                                <Trans>Win Rate</Trans>
+                                <TableSortLabel
+                                    active={sortBy === "winRate"}
+                                    direction={sortBy === "winRate" ? sortOrder : "desc"}
+                                    onClick={() => handleSort("winRate")}
+                                >
+                                    <Trans>Win Rate</Trans>
+                                </TableSortLabel>
                             </TableCell>
                             <TableCell align="right">
-                                <Trans>Avg Score</Trans>
+                                <TableSortLabel
+                                    active={sortBy === "avgScore"}
+                                    direction={sortBy === "avgScore" ? sortOrder : "desc"}
+                                    onClick={() => handleSort("avgScore")}
+                                >
+                                    <Trans>Avg Score</Trans>
+                                </TableSortLabel>
                             </TableCell>
                             <TableCell align="right">
-                                <Trans>Total Points</Trans>
+                                <TableSortLabel
+                                    active={sortBy === "totalPoints"}
+                                    direction={sortBy === "totalPoints" ? sortOrder : "desc"}
+                                    onClick={() => handleSort("totalPoints")}
+                                >
+                                    <Trans>Total Points</Trans>
+                                </TableSortLabel>
                             </TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {getSortedTeams().map((team, index) => (
                             <TableRow
-                                key={team.team_id}
+                                key={`${team.player1_id}-${team.player2_id}`}
                                 hover
                                 sx={{ cursor: "pointer" }}
-                                onClick={() => handleTeamClick(team.team_id)}
+                                onClick={() => handleTeamClick(team.player1_id, team.player2_id)}
                             >
                                 <TableCell>{index + 1}</TableCell>
                                 <TableCell>
@@ -196,8 +179,8 @@ export const TeamRanking = () => {
                                 <TableCell align="right">{team.games_played}</TableCell>
                                 <TableCell align="right">{team.wins}</TableCell>
                                 <TableCell align="right">{team.losses}</TableCell>
-                                <TableCell align="right">{team.win_rate.toFixed(1)}%</TableCell>
-                                <TableCell align="right">{team.avg_score}</TableCell>
+                                <TableCell align="right">{team.win_rate}%</TableCell>
+                                <TableCell align="right">{Math.round(team.avg_score)}</TableCell>
                                 <TableCell align="right">{team.total_points.toLocaleString()}</TableCell>
                             </TableRow>
                         ))}
