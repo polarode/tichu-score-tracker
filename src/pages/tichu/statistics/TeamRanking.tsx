@@ -31,7 +31,7 @@ interface TeamStatistics {
     total_points: number;
 }
 
-type SortOption = "wins" | "winRate" | "games" | "avgScore" | "totalPoints";
+type SortOption = "wins" | "losses" | "draws" | "winRate" | "games" | "avgScore" | "totalPoints";
 type SortOrder = "asc" | "desc";
 
 export const TeamRanking = () => {
@@ -88,6 +88,10 @@ export const TeamRanking = () => {
                     return multiplier * (a.avg_score - b.avg_score);
                 case "totalPoints":
                     return multiplier * (a.total_points - b.total_points);
+                case "losses":
+                    return multiplier * (a.losses - b.losses);
+                case "draws":
+                    return multiplier * (a.draws - b.draws);
                 case "wins":
                 default:
                     return multiplier * (a.wins - b.wins);
@@ -156,10 +160,22 @@ export const TeamRanking = () => {
                                 </TableSortLabel>
                             </TableCell>
                             <TableCell align="right">
-                                <Trans>Losses</Trans>
+                                <TableSortLabel
+                                    active={sortBy === "losses"}
+                                    direction={sortBy === "losses" ? sortOrder : "desc"}
+                                    onClick={() => handleSort("losses")}
+                                >
+                                    <Trans>Losses</Trans>
+                                </TableSortLabel>
                             </TableCell>
                             <TableCell align="right">
-                                <Trans>Draws</Trans>
+                                <TableSortLabel
+                                    active={sortBy === "draws"}
+                                    direction={sortBy === "draws" ? sortOrder : "desc"}
+                                    onClick={() => handleSort("draws")}
+                                >
+                                    <Trans>Draws</Trans>
+                                </TableSortLabel>
                             </TableCell>
                             <TableCell align="right">
                                 <TableSortLabel

@@ -20,19 +20,19 @@ const TabPanel = ({ children, value, index }: TabPanelProps) => (
 export const Statistics = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const [tabValue, setTabValue] = useState(() => {
-        const tab = searchParams.get('tab');
-        return tab === 'players' ? 1 : tab === 'teams' ? 2 : 0;
+        const tab = searchParams.get("tab");
+        return tab === "players" ? 1 : tab === "teams" ? 2 : 0;
     });
 
     useEffect(() => {
-        const tab = searchParams.get('tab');
-        const newValue = tab === 'players' ? 1 : tab === 'teams' ? 2 : 0;
+        const tab = searchParams.get("tab");
+        const newValue = tab === "players" ? 1 : tab === "teams" ? 2 : 0;
         setTabValue(newValue);
     }, [searchParams]);
 
     const handleTabChange = (_: React.SyntheticEvent, newValue: number) => {
         setTabValue(newValue);
-        const tabName = newValue === 1 ? 'players' : newValue === 2 ? 'teams' : 'overview';
+        const tabName = newValue === 1 ? "players" : newValue === 2 ? "teams" : "overview";
         setSearchParams({ tab: tabName });
     };
 
