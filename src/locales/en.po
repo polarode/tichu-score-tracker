@@ -37,7 +37,7 @@ msgstr ""
 #~ msgstr ""
 
 #: src/pages/tichu/statistics/TeamDetail.tsx:84
-#: src/pages/tichu/statistics/PlayerDetail.tsx:77
+#: src/pages/tichu/statistics/PlayerDetail.tsx:141
 msgid "Average Score:"
 msgstr ""
 
@@ -70,7 +70,7 @@ msgstr ""
 msgid "Beschiss ✓"
 msgstr ""
 
-#: src/pages/tichu/statistics/PlayerDetail.tsx:135
+#: src/pages/tichu/statistics/PlayerDetail.tsx:196
 msgid "Best Partnership:"
 msgstr ""
 
@@ -83,7 +83,7 @@ msgid "Bombs"
 msgstr ""
 
 #: src/pages/tichu/statistics/TeamDetail.tsx:161
-#: src/pages/tichu/statistics/PlayerDetail.tsx:119
+#: src/pages/tichu/statistics/PlayerDetail.tsx:180
 msgid "Bombs Used:"
 msgstr ""
 
@@ -131,7 +131,7 @@ msgstr ""
 msgid "Enter Round Results"
 msgstr ""
 
-#: src/pages/tichu/statistics/PlayerDetail.tsx:145
+#: src/pages/tichu/statistics/PlayerDetail.tsx:221
 msgid "Frequent Partners:"
 msgstr ""
 
@@ -161,7 +161,7 @@ msgid "Games Played"
 msgstr ""
 
 #: src/pages/tichu/statistics/TeamDetail.tsx:69
-#: src/pages/tichu/statistics/PlayerDetail.tsx:63
+#: src/pages/tichu/statistics/PlayerDetail.tsx:127
 msgid "Games Played:"
 msgstr ""
 
@@ -191,7 +191,7 @@ msgstr ""
 #~ msgstr ""
 
 #: src/pages/tichu/statistics/TeamDetail.tsx:152
-#: src/pages/tichu/statistics/PlayerDetail.tsx:110
+#: src/pages/tichu/statistics/PlayerDetail.tsx:171
 #: src/pages/tichu/statistics/GameOverview.tsx:136
 msgid "Grand Tichu Success:"
 msgstr ""
@@ -254,15 +254,27 @@ msgstr ""
 msgid "No data available"
 msgstr ""
 
+#: src/pages/tichu/statistics/PlayerDetail.tsx:329
+msgid "No games played yet"
+msgstr ""
+
 #: src/pages/tichu/LastMatches.tsx:99
 msgid "No matches played yet"
 msgstr ""
 
-#: src/pages/tichu/statistics/PlayerDetail.tsx:131
+#: src/pages/tichu/statistics/PlayerDetail.tsx:214
+#~ msgid "No partnerships with 3+ games"
+#~ msgstr ""
+
+#: src/pages/tichu/statistics/PlayerDetail.tsx:215
+msgid "No partnerships with 5+ games"
+msgstr ""
+
+#: src/pages/tichu/statistics/PlayerDetail.tsx:192
 msgid "Partnership Analysis"
 msgstr ""
 
-#: src/pages/tichu/statistics/PlayerDetail.tsx:59
+#: src/pages/tichu/statistics/PlayerDetail.tsx:123
 msgid "Performance Overview"
 msgstr ""
 
@@ -276,14 +288,14 @@ msgid "Player"
 msgstr ""
 
 #: src/pages/tichu/statistics/PlayerDetail.tsx:42
-msgid "Player detail statistics are under development. The data shown below is placeholder content."
-msgstr ""
+#~ msgid "Player detail statistics are under development. The data shown below is placeholder content."
+#~ msgstr ""
 
 #: src/pages/tichu/statistics/PlayerRanking.tsx:112
 msgid "Player Rankings"
 msgstr ""
 
-#: src/pages/tichu/statistics/PlayerDetail.tsx:49
+#: src/pages/tichu/statistics/PlayerDetail.tsx:114
 msgid "Player Statistics"
 msgstr ""
 
@@ -317,7 +329,7 @@ msgstr ""
 
 #: src/pages/Dashboard.tsx:235
 #: src/pages/tichu/statistics/TeamDetail.tsx:194
-#: src/pages/tichu/statistics/PlayerDetail.tsx:160
+#: src/pages/tichu/statistics/PlayerDetail.tsx:242
 msgid "Recent Games"
 msgstr ""
 
@@ -507,7 +519,7 @@ msgstr ""
 #~ msgstr "Tichu Matches"
 
 #: src/pages/tichu/statistics/TeamDetail.tsx:140
-#: src/pages/tichu/statistics/PlayerDetail.tsx:97
+#: src/pages/tichu/statistics/PlayerDetail.tsx:159
 msgid "Tichu Performance"
 msgstr ""
 
@@ -516,7 +528,7 @@ msgid "Tichu Statistics"
 msgstr ""
 
 #: src/pages/tichu/statistics/TeamDetail.tsx:144
-#: src/pages/tichu/statistics/PlayerDetail.tsx:101
+#: src/pages/tichu/statistics/PlayerDetail.tsx:163
 #: src/pages/tichu/statistics/GameOverview.tsx:128
 msgid "Tichu Success:"
 msgstr ""
@@ -547,10 +559,11 @@ msgid "Total Points"
 msgstr ""
 
 #: src/pages/tichu/statistics/TeamDetail.tsx:90
-#: src/pages/tichu/statistics/PlayerDetail.tsx:83
+#: src/pages/tichu/statistics/PlayerDetail.tsx:147
 msgid "Total Points:"
-msgstr ""
+msgstr "<<<<<<< HEAD"
 
+#: src/pages/tichu/statistics/PlayerDetail.tsx:322
 #: src/components/GameCard.tsx:78
 msgid "vs"
 msgstr ""
@@ -561,7 +574,7 @@ msgid "Win Rate"
 msgstr ""
 
 #: src/pages/tichu/statistics/TeamDetail.tsx:75
-#: src/pages/tichu/statistics/PlayerDetail.tsx:69
+#: src/pages/tichu/statistics/PlayerDetail.tsx:133
 #: src/pages/rebelPrincess/Statistics.tsx:152
 msgid "Win Rate:"
 msgstr ""
