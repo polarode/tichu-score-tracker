@@ -38,7 +38,7 @@ export const LastGames = () => {
                 `)
                 .is("match_id", null)
                 .order("timestamp", { ascending: false })
-                .limit(10);
+                .limit(5);
 
             if (!error && data) {
                 const formattedGames = data.map((game: any) => {

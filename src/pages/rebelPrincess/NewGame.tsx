@@ -113,7 +113,9 @@ export default function NewGame() {
                         }}
                     >
                         {knownPlayers.map((p) => (
-                            <MenuItem value={p.name}>{p.name}</MenuItem>
+                            <MenuItem key={p.id} value={p.name}>
+                                {p.name}
+                            </MenuItem>
                         ))}
                     </Select>
                 </FormControl>
