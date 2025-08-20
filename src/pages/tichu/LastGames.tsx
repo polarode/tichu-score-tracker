@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { supabase } from "../../lib/supabase"; // adjust if you use a different path
-import { Card, CardContent, Typography, Box } from "@mui/material";
+import { supabase } from "../../lib/supabase";
+import { Typography, Box } from "@mui/material";
+import { GameCard } from "../../components/GameCard";
 import { Trans } from "@lingui/react/macro";
 
 interface Game {
@@ -88,38 +89,18 @@ export const LastGames = () => {
                 <Trans>Recent games of Tichu</Trans>
             </Typography>
             {recentGames.map((game) => (
-                <Card key={game.id} variant="outlined" sx={{ mb: 2, position: "relative" }}>
-                    <CardContent>
-                        <Typography variant="subtitle2" color="text.secondary">
-                            {new Date(game.played_at).toLocaleString()}
-                        </Typography>
-                        <Typography>
-                            {game.players[0][0]}
-                            {"💣".repeat(game.bomb_counts[0][0])},{game.players[0][1]}
-                            {"💣".repeat(game.bomb_counts[0][1])}: {game.team_scores[0]}
-                        </Typography>
-                        <Typography>
-                            {game.players[1][0]}
-                            {"💣".repeat(game.bomb_counts[1][0])},{game.players[1][1]}
-                            {"💣".repeat(game.bomb_counts[1][1])}: {game.team_scores[1]}
-                        </Typography>
-                        {game.beschiss && (
-                            <Box
-                                sx={{
-                                    position: "absolute",
-                                    top: 8,
-                                    right: 8,
-                                    color: "error.main",
-                                    fontSize: "0.85rem",
-                                    fontWeight: "bold",
-                                }}
-                            >
-                                Beschiss
-                            </Box>
-                        )}
-                    </CardContent>
-                </Card>
+                <GameCard
+                    key={game.id}
+                    gameDate={game.played_at}
+                    team1Score={game.team_scores[0]}
+                    team2Score={game.team_scores[1]}
+                    team1Names={`${game.players[0][0]}${"💣".repeat(game.bomb_counts[0][0])}, ${game.players[0][1]}${"💣".repeat(game.bomb_counts[0][1])}`}
+                    team2Names={`${game.players[1][0]}${"💣".repeat(game.bomb_counts[1][0])}, ${game.players[1][1]}${"💣".repeat(game.bomb_counts[1][1])}`}
+                />
             ))}
+            {recentGames.some((game) => game.beschiss) && (
+                <Box sx={{ mt: 1, fontSize: "0.75rem", color: "text.secondary" }}>💣 = Bombs used</Box>
+            )}
         </>
     );
 };
