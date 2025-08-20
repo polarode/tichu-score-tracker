@@ -2,6 +2,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Typography, Grid, Card, CardContent, Box, Divider, Chip, CircularProgress, Link } from "@mui/material";
 import { PageTemplate } from "../../../components/PageTemplate";
+import { GameCard } from "../../../components/GameCard";
 import { Trans } from "@lingui/react/macro";
 import { supabase } from "../../../lib/supabase";
 
@@ -243,86 +244,15 @@ const PlayerDetail = () => {
                             </Typography>
                             {recentGames.length > 0 ? (
                                 recentGames.map((game, index) => (
-                                    <Box
+                                    <GameCard
                                         key={index}
-                                        sx={{ mb: 1, p: 1.5, border: 1, borderColor: "divider", borderRadius: 1 }}
-                                    >
-                                        <Box
-                                            sx={{
-                                                display: "flex",
-                                                justifyContent: "space-between",
-                                                alignItems: "center",
-                                                mb: 0.5,
-                                            }}
-                                        >
-                                            <Typography variant="caption" color="text.secondary">
-                                                {new Date(game.game_date).toLocaleDateString()}
-                                            </Typography>
-                                            <Chip
-                                                label={game.result || "Unknown"}
-                                                color={
-                                                    game.result === "Win"
-                                                        ? "success"
-                                                        : game.result === "Loss"
-                                                          ? "error"
-                                                          : "default"
-                                                }
-                                                size="small"
-                                            />
-                                        </Box>
-                                        <Box
-                                            sx={{
-                                                display: "flex",
-                                                justifyContent: "center",
-                                                alignItems: "center",
-                                                mb: 0.5,
-                                            }}
-                                        >
-                                            <Typography
-                                                variant="body1"
-                                                fontWeight="bold"
-                                                color={
-                                                    game.result === "Win"
-                                                        ? "success.main"
-                                                        : game.result === "Loss"
-                                                          ? "error.main"
-                                                          : "text.primary"
-                                                }
-                                            >
-                                                {game.own_score}
-                                            </Typography>
-                                            <Typography variant="body2" sx={{ mx: 1 }}>
-                                                :
-                                            </Typography>
-                                            <Typography
-                                                variant="body1"
-                                                fontWeight="bold"
-                                                color={
-                                                    game.result === "Loss"
-                                                        ? "success.main"
-                                                        : game.result === "Win"
-                                                          ? "error.main"
-                                                          : "text.primary"
-                                                }
-                                            >
-                                                {game.opponent_score}
-                                            </Typography>
-                                        </Box>
-                                        <Box
-                                            sx={{
-                                                display: "flex",
-                                                justifyContent: "space-between",
-                                                alignItems: "center",
-                                            }}
-                                        >
-                                            <Typography variant="caption" color="text.secondary">
-                                                {game.partner_name}
-                                            </Typography>
-                                            <Typography variant="caption" color="text.secondary">
-                                                <Trans>vs</Trans> {game.opponent_names}
-                                            </Typography>
-                                        </Box>
-                                    </Box>
+                                        gameDate={game.game_date}
+                                        team1Score={game.own_score}
+                                        team2Score={game.opponent_score}
+                                        team1Names={game.partner_name}
+                                        team2Names={game.opponent_names}
+                                        result={game.result}
+                                    />
                                 ))
                             ) : (
                                 <Typography variant="body2" color="text.secondary">
