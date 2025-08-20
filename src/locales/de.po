@@ -19,12 +19,12 @@ msgid "{0}% to target"
 msgstr "{0}% zum Ziel"
 
 #: src/pages/tichu/NewGame.tsx:206
-#: src/pages/rebelPrincess/NewGame.tsx:137
+#: src/pages/rebelPrincess/NewGame.tsx:139
 msgid "+ Add New Player"
 msgstr "+ Neuen Spieler hinzufügen"
 
 #: src/pages/tichu/NewGame.tsx:198
-#: src/pages/rebelPrincess/NewGame.tsx:129
+#: src/pages/rebelPrincess/NewGame.tsx:131
 msgid "Add"
 msgstr "Hinzufügen"
 
@@ -55,7 +55,7 @@ msgstr "Bomben verwendet:"
 #: src/pages/tichu/NewMatch.tsx:268
 #: src/pages/tichu/NewMatch.tsx:305
 #: src/pages/tichu/NewGame.tsx:201
-#: src/pages/rebelPrincess/NewGame.tsx:132
+#: src/pages/rebelPrincess/NewGame.tsx:134
 msgid "Cancel"
 msgstr "Abbrechen"
 
@@ -68,7 +68,7 @@ msgid "Continue Match"
 msgstr "Match fortsetzen"
 
 #: src/pages/tichu/NewGame.tsx:214
-#: src/pages/rebelPrincess/NewGame.tsx:142
+#: src/pages/rebelPrincess/NewGame.tsx:144
 msgid "Continue to Result Entry"
 msgstr "Zur Ergebniseingabe"
 
@@ -92,6 +92,7 @@ msgstr "Rundenergebnisse eingeben"
 msgid "games"
 msgstr "Spiele"
 
+#: src/pages/Dashboard.tsx:148
 #: src/pages/tichu/MatchProgress.tsx:117
 msgid "Games"
 msgstr "Spiele"
@@ -115,8 +116,8 @@ msgid "Grand Tichus won:"
 msgstr "Grand Tichus gewonnen:"
 
 #: src/pages/Dashboard.tsx:38
-msgid "Lets play a game of..."
-msgstr "Lass uns ein Spiel spielen..."
+#~ msgid "Lets play a game of..."
+#~ msgstr "Lass uns ein Spiel spielen..."
 
 #: src/pages/rebelPrincess/LastGames.tsx:35
 msgid "Loading recent games..."
@@ -126,7 +127,8 @@ msgstr "Letzte Spiele werden geladen"
 msgid "Match Progress"
 msgstr "Match-Fortschritt"
 
-#: src/pages/Dashboard.tsx:63
+#: src/pages/Dashboard.tsx:119
+#: src/pages/Dashboard.tsx:149
 msgid "Matches"
 msgstr "Matches"
 
@@ -136,7 +138,7 @@ msgid "Name"
 msgstr "Name"
 
 #: src/pages/tichu/NewGame.tsx:192
-#: src/pages/rebelPrincess/NewGame.tsx:123
+#: src/pages/rebelPrincess/NewGame.tsx:125
 msgid "New Player Name"
 msgstr "Neuer Spielername"
 
@@ -160,12 +162,11 @@ msgid "Players"
 msgstr "Spieler"
 
 #: src/pages/tichu/LastMatches.tsx:124
-#: src/pages/rebelPrincess/LastGames.tsx:55
+#: src/pages/rebelPrincess/LastGames.tsx:52
 msgid "points"
 msgstr "Punkte"
 
-#: src/pages/Dashboard.tsx:81
-#: src/pages/Dashboard.tsx:110
+#: src/pages/Dashboard.tsx:182
 msgid "Rebel Princess"
 msgstr "Rebel Princess"
 
@@ -173,11 +174,15 @@ msgstr "Rebel Princess"
 msgid "Rebel Princess Statistics"
 msgstr "Rebel Princess Statistiken"
 
-#: src/pages/rebelPrincess/LastGames.tsx:42
-msgid "Recent games of Rebel Princess"
-msgstr "Zuletzt gespielte Spiele von Rebel Princess"
+#: src/pages/Dashboard.tsx:235
+msgid "Recent Games"
+msgstr ""
 
-#: src/pages/tichu/LastGames.tsx:88
+#: src/pages/rebelPrincess/LastGames.tsx:42
+#~ msgid "Recent games of Rebel Princess"
+#~ msgstr "Zuletzt gespielte Spiele von Rebel Princess"
+
+#: src/pages/tichu/LastGames.tsx:89
 msgid "Recent games of Tichu"
 msgstr "Zuletzt gespielte Spiele von Tichu"
 
@@ -202,7 +207,7 @@ msgstr "Runde {0}"
 msgid "Round modifier"
 msgstr "Rundenmodifikator"
 
-#: src/pages/rebelPrincess/LastGames.tsx:51
+#: src/pages/rebelPrincess/LastGames.tsx:48
 msgid "Rounds played"
 msgstr "Runden gespielt"
 
@@ -244,8 +249,8 @@ msgstr "Teams auswählen"
 msgid "Sort by {0}"
 msgstr "Sortieren nach {0}"
 
-#: src/pages/Dashboard.tsx:55
-#: src/pages/Dashboard.tsx:91
+#: src/pages/Dashboard.tsx:103
+#: src/pages/Dashboard.tsx:213
 msgid "Start Game"
 msgstr "Spiel starten"
 
@@ -257,10 +262,13 @@ msgstr "Match starten"
 msgid "Start New Match"
 msgstr "Neues Match starten"
 
-#: src/pages/Dashboard.tsx:71
-#: src/pages/Dashboard.tsx:99
+#: src/pages/Dashboard.tsx:228
 msgid "Statistics"
 msgstr "Statistiken"
+
+#: src/pages/Dashboard.tsx:135
+msgid "Stats"
+msgstr "Stats"
 
 #: src/pages/tichu/LastMatches.tsx:124
 msgid "Target"
@@ -299,17 +307,17 @@ msgstr "Team 1 Punkte"
 msgid "Team 2"
 msgstr "Team 2"
 
-#: src/pages/Dashboard.tsx:45
+#: src/pages/Dashboard.tsx:73
 msgid "Tichu"
 msgstr "Tichu"
 
 #: src/pages/Dashboard.tsx:108
-msgid "Tichu Games"
-msgstr "Tichu Spiele"
+#~ msgid "Tichu Games"
+#~ msgstr "Tichu Spiele"
 
 #: src/pages/Dashboard.tsx:109
-msgid "Tichu Matches"
-msgstr "Tichu Matches"
+#~ msgid "Tichu Matches"
+#~ msgstr "Tichu Matches"
 
 #: src/pages/tichu/Statistics.tsx:94
 msgid "Tichu Statistics"
@@ -323,6 +331,10 @@ msgstr "Tichus gewonnen:"
 #: src/pages/rebelPrincess/RoundResult.tsx:307
 msgid "Total"
 msgstr "Total"
+
+#: src/components/GameCard.tsx:78
+msgid "vs"
+msgstr "gegen"
 
 #: src/pages/rebelPrincess/Statistics.tsx:106
 msgid "Win Rate"
