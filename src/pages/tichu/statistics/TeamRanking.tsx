@@ -133,26 +133,32 @@ export const TeamRanking = () => {
                 </Box>
             </Box>
 
-            <TableContainer component={Paper} sx={{ overflowX: 'auto', maxHeight: '70vh', overflowY: 'auto' }}>
-                <Table sx={{ minWidth: 800, '& .MuiTableCell-root': { px: 1, py: 1 } }}>
-                    <TableHead sx={{ position: 'sticky', top: 0, zIndex: 2 }}>
+            <TableContainer component={Paper} sx={{ overflowX: "auto", maxHeight: "70vh", overflowY: "auto" }}>
+                <Table sx={{ minWidth: 800, "& .MuiTableCell-root": { px: 1, py: 1 } }}>
+                    <TableHead sx={{ position: "sticky", top: 0, zIndex: 2 }}>
                         <TableRow>
-                            <TableCell sx={{ 
-                                width: 60, 
-                                position: 'sticky', 
-                                left: 0, 
-                                backgroundColor: 'background.paper',
-                                zIndex: 3
-                            }}>#</TableCell>
-                            <TableCell sx={{
-                                position: 'sticky',
-                                left: 60,
-                                backgroundColor: 'background.paper',
-                                zIndex: 3
-                            }}>
+                            <TableCell
+                                sx={{
+                                    width: 60,
+                                    position: "sticky",
+                                    left: 0,
+                                    backgroundColor: "background.paper",
+                                    zIndex: 3,
+                                }}
+                            >
+                                #
+                            </TableCell>
+                            <TableCell
+                                sx={{
+                                    position: "sticky",
+                                    left: 60,
+                                    backgroundColor: "background.paper",
+                                    zIndex: 3,
+                                }}
+                            >
                                 <Trans>Team</Trans>
                             </TableCell>
-                            <TableCell align="right" sx={{ backgroundColor: 'background.paper' }}>
+                            <TableCell align="right" sx={{ backgroundColor: "background.paper" }}>
                                 <TableSortLabel
                                     active={sortBy === "games"}
                                     direction={sortBy === "games" ? sortOrder : "desc"}
@@ -161,7 +167,7 @@ export const TeamRanking = () => {
                                     <Trans>Games</Trans>
                                 </TableSortLabel>
                             </TableCell>
-                            <TableCell align="right" sx={{ backgroundColor: 'background.paper' }}>
+                            <TableCell align="right" sx={{ backgroundColor: "background.paper" }}>
                                 <TableSortLabel
                                     active={sortBy === "wins"}
                                     direction={sortBy === "wins" ? sortOrder : "desc"}
@@ -170,7 +176,7 @@ export const TeamRanking = () => {
                                     <Trans>Wins</Trans>
                                 </TableSortLabel>
                             </TableCell>
-                            <TableCell align="right" sx={{ backgroundColor: 'background.paper' }}>
+                            <TableCell align="right" sx={{ backgroundColor: "background.paper" }}>
                                 <TableSortLabel
                                     active={sortBy === "losses"}
                                     direction={sortBy === "losses" ? sortOrder : "desc"}
@@ -179,7 +185,7 @@ export const TeamRanking = () => {
                                     <Trans>Losses</Trans>
                                 </TableSortLabel>
                             </TableCell>
-                            <TableCell align="right" sx={{ backgroundColor: 'background.paper' }}>
+                            <TableCell align="right" sx={{ backgroundColor: "background.paper" }}>
                                 <TableSortLabel
                                     active={sortBy === "draws"}
                                     direction={sortBy === "draws" ? sortOrder : "desc"}
@@ -188,7 +194,7 @@ export const TeamRanking = () => {
                                     <Trans>Draws</Trans>
                                 </TableSortLabel>
                             </TableCell>
-                            <TableCell align="right" sx={{ backgroundColor: 'background.paper' }}>
+                            <TableCell align="right" sx={{ backgroundColor: "background.paper" }}>
                                 <TableSortLabel
                                     active={sortBy === "winRate"}
                                     direction={sortBy === "winRate" ? sortOrder : "desc"}
@@ -197,7 +203,7 @@ export const TeamRanking = () => {
                                     <Trans>Win Rate</Trans>
                                 </TableSortLabel>
                             </TableCell>
-                            <TableCell align="right" sx={{ backgroundColor: 'background.paper' }}>
+                            <TableCell align="right" sx={{ backgroundColor: "background.paper" }}>
                                 <TableSortLabel
                                     active={sortBy === "avgScore"}
                                     direction={sortBy === "avgScore" ? sortOrder : "desc"}
@@ -206,7 +212,7 @@ export const TeamRanking = () => {
                                     <Trans>Avg Score</Trans>
                                 </TableSortLabel>
                             </TableCell>
-                            <TableCell align="right" sx={{ backgroundColor: 'background.paper' }}>
+                            <TableCell align="right" sx={{ backgroundColor: "background.paper" }}>
                                 <TableSortLabel
                                     active={sortBy === "totalPoints"}
                                     direction={sortBy === "totalPoints" ? sortOrder : "desc"}
@@ -225,19 +231,25 @@ export const TeamRanking = () => {
                                 sx={{ cursor: "pointer" }}
                                 onClick={() => handleTeamClick(team.player1_id, team.player2_id)}
                             >
-                                <TableCell sx={{
-                                    position: 'sticky',
-                                    left: 0,
-                                    backgroundColor: 'background.paper',
-                                    zIndex: 1
-                                }}>{index + 1}</TableCell>
-                                <TableCell sx={{
-                                    position: 'sticky',
-                                    left: 60,
-                                    backgroundColor: 'background.paper',
-                                    zIndex: 1
-                                }}>
-                                    <Box sx={{ display: 'flex', flexDirection: 'column', lineHeight: 1.2 }}>
+                                <TableCell
+                                    sx={{
+                                        position: "sticky",
+                                        left: 0,
+                                        backgroundColor: "background.paper",
+                                        zIndex: 1,
+                                    }}
+                                >
+                                    {index + 1}
+                                </TableCell>
+                                <TableCell
+                                    sx={{
+                                        position: "sticky",
+                                        left: 60,
+                                        backgroundColor: "background.paper",
+                                        zIndex: 1,
+                                    }}
+                                >
+                                    <Box sx={{ display: "flex", flexDirection: "column", lineHeight: 1.2 }}>
                                         <span>{team.player1_name}</span>
                                         <span>{team.player2_name}</span>
                                     </Box>

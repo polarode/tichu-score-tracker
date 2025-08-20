@@ -113,25 +113,31 @@ export const PlayerRanking = () => {
                 </Typography>
             </Box>
 
-            <TableContainer component={Paper} sx={{ overflowX: 'auto', maxHeight: '70vh', overflowY: 'auto' }}>
-                <Table sx={{ minWidth: 700, '& .MuiTableCell-root': { px: 1, py: 1 } }}>
-                    <TableHead sx={{ position: 'sticky', top: 0, zIndex: 2 }}>
+            <TableContainer component={Paper} sx={{ overflowX: "auto", maxHeight: "70vh", overflowY: "auto" }}>
+                <Table sx={{ minWidth: 700, "& .MuiTableCell-root": { px: 1, py: 1 } }}>
+                    <TableHead sx={{ position: "sticky", top: 0, zIndex: 2 }}>
                         <TableRow>
-                            <TableCell sx={{ 
-                                width: 60, 
-                                position: 'sticky', 
-                                left: 0, 
-                                backgroundColor: 'background.paper',
-                                zIndex: 3,
-                                borderRight: 'none'
-                            }}>#</TableCell>
-                            <TableCell sx={{
-                                position: 'sticky',
-                                left: 60,
-                                backgroundColor: 'background.paper',
-                                zIndex: 3,
-                                borderLeft: 'none'
-                            }}>
+                            <TableCell
+                                sx={{
+                                    width: 60,
+                                    position: "sticky",
+                                    left: 0,
+                                    backgroundColor: "background.paper",
+                                    zIndex: 3,
+                                    borderRight: "none",
+                                }}
+                            >
+                                #
+                            </TableCell>
+                            <TableCell
+                                sx={{
+                                    position: "sticky",
+                                    left: 60,
+                                    backgroundColor: "background.paper",
+                                    zIndex: 3,
+                                    borderLeft: "none",
+                                }}
+                            >
                                 <TableSortLabel
                                     active={sortBy === "name"}
                                     direction={sortBy === "name" ? sortOrder : "desc"}
@@ -140,7 +146,7 @@ export const PlayerRanking = () => {
                                     <Trans>Player</Trans>
                                 </TableSortLabel>
                             </TableCell>
-                            <TableCell align="right" sx={{ backgroundColor: 'background.paper' }}>
+                            <TableCell align="right" sx={{ backgroundColor: "background.paper" }}>
                                 <TableSortLabel
                                     active={sortBy === "games"}
                                     direction={sortBy === "games" ? sortOrder : "desc"}
@@ -149,7 +155,7 @@ export const PlayerRanking = () => {
                                     <Trans>Games</Trans>
                                 </TableSortLabel>
                             </TableCell>
-                            <TableCell align="right" sx={{ backgroundColor: 'background.paper' }}>
+                            <TableCell align="right" sx={{ backgroundColor: "background.paper" }}>
                                 <TableSortLabel
                                     active={sortBy === "score"}
                                     direction={sortBy === "score" ? sortOrder : "desc"}
@@ -158,7 +164,7 @@ export const PlayerRanking = () => {
                                     <Trans>Avg Score</Trans>
                                 </TableSortLabel>
                             </TableCell>
-                            <TableCell align="right" sx={{ backgroundColor: 'background.paper' }}>
+                            <TableCell align="right" sx={{ backgroundColor: "background.paper" }}>
                                 <TableSortLabel
                                     active={sortBy === "tichu"}
                                     direction={sortBy === "tichu" ? sortOrder : "desc"}
@@ -167,7 +173,7 @@ export const PlayerRanking = () => {
                                     <Trans>Tichu %</Trans>
                                 </TableSortLabel>
                             </TableCell>
-                            <TableCell align="right" sx={{ backgroundColor: 'background.paper' }}>
+                            <TableCell align="right" sx={{ backgroundColor: "background.paper" }}>
                                 <TableSortLabel
                                     active={sortBy === "grandTichu"}
                                     direction={sortBy === "grandTichu" ? sortOrder : "desc"}
@@ -176,7 +182,7 @@ export const PlayerRanking = () => {
                                     <Trans>Grand Tichu %</Trans>
                                 </TableSortLabel>
                             </TableCell>
-                            <TableCell align="right" sx={{ backgroundColor: 'background.paper' }}>
+                            <TableCell align="right" sx={{ backgroundColor: "background.paper" }}>
                                 <TableSortLabel
                                     active={sortBy === "bombs"}
                                     direction={sortBy === "bombs" ? sortOrder : "desc"}
@@ -195,20 +201,28 @@ export const PlayerRanking = () => {
                                 sx={{ cursor: "pointer" }}
                                 onClick={() => handlePlayerClick(player.player_id)}
                             >
-                                <TableCell sx={{
-                                    position: 'sticky',
-                                    left: 0,
-                                    backgroundColor: 'background.paper',
-                                    zIndex: 1,
-                                    borderRight: 'none'
-                                }}>{index + 1}</TableCell>
-                                <TableCell sx={{
-                                    position: 'sticky',
-                                    left: 60,
-                                    backgroundColor: 'background.paper',
-                                    zIndex: 1,
-                                    borderLeft: 'none'
-                                }}>{player.player_name}</TableCell>
+                                <TableCell
+                                    sx={{
+                                        position: "sticky",
+                                        left: 0,
+                                        backgroundColor: "background.paper",
+                                        zIndex: 1,
+                                        borderRight: "none",
+                                    }}
+                                >
+                                    {index + 1}
+                                </TableCell>
+                                <TableCell
+                                    sx={{
+                                        position: "sticky",
+                                        left: 60,
+                                        backgroundColor: "background.paper",
+                                        zIndex: 1,
+                                        borderLeft: "none",
+                                    }}
+                                >
+                                    {player.player_name}
+                                </TableCell>
                                 <TableCell align="right">{player.games_played}</TableCell>
                                 <TableCell align="right">{Math.round(player.avg_score)}</TableCell>
                                 <TableCell align="right">
