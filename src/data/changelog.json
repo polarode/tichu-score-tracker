@@ -1,6 +1,6 @@
 [
     {
-        "version": "1.2.8-preview",
+        "version": "1.2.9-preview",
         "date": "2025-08-19",
         "changes": [
             "Enhanced statistics interface with tabbed navigation",
