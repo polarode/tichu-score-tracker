@@ -6,6 +6,8 @@ export type Player = {
 export type RPRoundModifier = {
     id: string;
     name: string;
+    description: string | null;
+    team: boolean;
 };
 
 export type MatchSeries = {

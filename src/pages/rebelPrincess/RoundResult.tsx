@@ -18,7 +18,9 @@ import {
     Tooltip,
     CircularProgress,
     Backdrop,
+    IconButton,
 } from "@mui/material";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { useRebelPrincessGameContext } from "../../context/RebelPrincessGameContext";
 import type { RPRoundModifier } from "../../lib/types";
 import { toast } from "react-toastify";
@@ -42,6 +44,7 @@ export default function RoundResult() {
     const [savedRounds, setSavedRounds] = useState<SavedRound[]>([]);
     const [error, setError] = useState<string | null>(null);
     const [isSaving, setIsSaving] = useState<boolean>(false);
+    const [showDescription, setShowDescription] = useState(false);
 
     useEffect(() => {
         if (!isAuthenticated) {
@@ -115,28 +118,119 @@ export default function RoundResult() {
 
     function initializeAvailableRoundModifiers(): RPRoundModifier[] {
         return [
-            { id: "-", name: "ohne" },
-            { id: "a", name: "Es war einmal ..." },
-            { id: "b", name: "Einladung" },
-            { id: "c", name: "Maskenball" },
-            { id: "d", name: "Königliches Dekret" },
-            { id: "e", name: "Stuhltanz" },
-            { id: "f", name: "Tierisch gemein" },
-            { id: "g", name: "Späte Gäste" },
-            { id: "h", name: "Vergifteter Apfel" },
-            { id: "i", name: "Gläserner Schuh" },
-            { id: "j", name: "Verkehrte Welt" },
-            { id: "k", name: "Ballköniginnen" },
-            { id: "l", name: "Wenn der Prinz zweimal klingelt" },
-            { id: "m", name: "Hochzeitsgeschenk" },
-            { id: "n", name: "Reste-Party" },
-            { id: "o", name: "Frischmachen" },
-            { id: "p", name: "Single-Feen" },
-            { id: "q", name: "Blindes Huhn" },
-            { id: "r", name: "Nächtliche Verwandlung" },
-            { id: "s", name: "Brautstrauß" },
-            { id: "t", name: "Tauschhandel" },
-            { id: "u", name: "Gerade und ungerade" },
+            { id: "-", name: "ohne", description: "", team: false },
+            { id: "a", name: "Es war einmal ...", description: "", team: false },
+            { id: "b", name: "Einladung", description: "", team: false },
+            { id: "c", name: "Maskenball", description: "", team: false },
+            { id: "d", name: "Königliches Dekret", description: "", team: false },
+            { id: "e", name: "Stuhltanz", description: "", team: false },
+            { id: "f", name: "Tierisch gemein", description: "", team: false },
+            { id: "g", name: "Späte Gäste", description: "", team: false },
+            { id: "h", name: "Vergifteter Apfel", description: "", team: false },
+            { id: "i", name: "Gläserner Schuh", description: "", team: false },
+            { id: "j", name: "Verkehrte Welt", description: "", team: false },
+            { id: "k", name: "Ballköniginnen", description: "", team: false },
+            { id: "l", name: "Wenn der Prinz zweimal klingelt", description: "", team: false },
+            { id: "m", name: "Hochzeitsgeschenk", description: "", team: false },
+            { id: "n", name: "Reste-Party", description: "", team: false },
+            { id: "o", name: "Frischmachen", description: "", team: false },
+            { id: "p", name: "Single-Feen", description: "", team: false },
+            { id: "q", name: "Blindes Huhn", description: "", team: false },
+            { id: "r", name: "Nächtliche Verwandlung", description: "", team: false },
+            { id: "s", name: "Brautstrauß", description: "", team: false },
+            { id: "t", name: "Tauschhandel", description: "", team: false },
+            { id: "u", name: "Gerade und ungerade", description: "", team: false },
+            {
+                id: "eg",
+                name: "Die alte Leier",
+                description:
+                    "Jeder Prinz zählt in dieserRunde als -1 Antrag. Es ist also ratsam, Stiche mitPrinzen zu gewinnen. Der Frosch hingegen zähltweiterhin als 5 Anträge.",
+                team: false,
+            },
+            {
+                id: "eh",
+                name: "Vererbt",
+                description:
+                    "Gewinnst du den letzten Stich, gibst du alle deine gewonnenen Stiche der Person zu deiner Linken.",
+                team: false,
+            },
+            {
+                id: "ei",
+                name: "Hochzeitsüberraschung",
+                description:
+                    "Wer einen Stich beginnt, spielt die erste Karte verdeckt und sagt nur die Farbe der gespielten Karte an. Erst wenn alle eine Karte ausgespielt haben, wird die verdeckte Karte umgedreht und geprüft, wer den Stich gewonnen hat. \nMulan und die jüngere Stiefschwester können die erste Karte des Stichs nur gegen eine Karte der gleichen Farbe tauschen.",
+                team: false,
+            },
+            {
+                id: "ej",
+                name: "Durchzug",
+                description:
+                    "Vor dem ersten Stich wählt ihr alle je 2 Karten aus eurer Hand, legt diese verdeckt vor euch ab und gebt die restlichen Karten an die Person zu eurer Linken. Wiederholt das mit den Karten, die ihr von rechts bekommen habt, bis ihr keine Karten mehr weitergeben könnt. Nehmt dann alle Karten vor euch auf die Hand und beginnt die Runde.",
+                team: false,
+            },
+            {
+                id: "ek",
+                name: "Vergiftetes Geschenk",
+                description:
+                    "Zu Beginn der Runde legen alle je eine Karte verdeckt auf einen gemeinsamen Stapel. Legt die Hilfskarte Vergiftetes Geschenk auf diesen Stapel und gebt ihn der Person, die den ersten Stich beginnen wird. Gewinnt die Person, die den Stapel hat, einen Stich, gibt sie den Stapel mit dem vergifteten Geschenk an eine beliebige andere Person. Am Ende der Runde zählt der Stapel wie ein gewonnener Stich für die Person, die ihn in dem Moment besitzt.",
+                team: false,
+            },
+            {
+                id: "el",
+                name: "Geheimes Gebot",
+                description:
+                    "Vor dem ersten Stich, nach der Weitergabe der Karten, legt ihr alle je eine Karte aus eurer Hand verdeckt unter eure Prinzessinnen-Karte. Dies darf, wenn möglich, kein Prinz oder der Frosch sein. Erst am Ende der Runde, nach dem letzten Stich, deckt ihr eure Karte auf. Entspricht die Zahl auf der Karte der Anzahl eurer gewonnenen Stiche in dieser Runde, ignoriert ihr alle erhalteten Anträge und wertet stattdessen -1 Antrag für jeden gewonnenen Stich. Andernfalls wertet ihr wie gewohnt die erhaltenen Anträge.",
+                team: false,
+            },
+            {
+                id: "em",
+                name: "Ein verzauberter Abend",
+                description:
+                    "Vor dem ersten Stich, nach der Weitergabe der Karten, legt ihr alle gleichzeitig je eine Karte mit Wert kleiner als 8 aus eurer Hand auf den Tisch. Addiert die Werte dieser Karten zur Zielsumme und legt die Karten dann beiseite. Sie werden in dieser Runde nicht mehr benötigt. Während jedes Stichs addiert ihr nun die Werte der in diesem Stich gespielten Karten. Überschreitet eine Person mit ihrer ausgespielten Karte die Zielsumme, gewinnt sie den Stich. Überschreitet die Summe der Werte im Stich die Zielsumme nicht, überprüft ihr wie gewohnt, wer den Stich gewonnen hat. Hat mindestens eine Person nach der Weitergabe der Karten keine Karte mit Wert kleiner als 8, beginnt ihr diese Runde neu. Mischt alle Karten und teilt sie neu aus. \nSchneewittchen kann während eines Stichs wie gewohnt ihre Fähigkeit nutzen und den Wert einer Karte zu 0 machen, um die Zielsumme nicht zu überschreiten. Mulan, die Herzkönigin und die jüngere Stiefschwester hingegen können ihre Fähigkeiten nicht einsetzen um zu verändern, wer die Zielsumme in einem Stich überschritten hat. Sie können ihre Fähigkeiten aber einsetzen, wenn der Stich nach den gewohnten Regeln verteilt wird.",
+                team: false,
+            },
+            {
+                id: "en",
+                name: "Böse, aber willkommen",
+                description:
+                    "Die Weitergabe der Karten zu Beginn der Runde erfolgt nur zwischen den Mitgliedern des jeweiligen Teams. Diese Runden-Karte wird für die erste Partie im Team-Modus empfohlen.",
+                team: true,
+            },
+            {
+                id: "eo",
+                name: "Partnerlook",
+                description:
+                    "Haben am Ende einer Runde beide Mitglieder eines Teams dieselbe Anzahl an gewonnenen Stichen, erhalten sie -3 Anträge zu ihrem Teamergebnis. Ansonsten erhalten sie zusätzliche 3 Anträge.",
+                team: true,
+            },
+            {
+                id: "ep",
+                name: "Yin und Yang",
+                description:
+                    "In jedem Stich spielt die erste Person eines Teams ihre Karte wahlweise offen oder verdeckt. Die zweite Person spielt ihre Karte auf die andere Weise. Erst am Ende eines Stichs werden alle verdeckten Karten aufgedeckt. Beginnt eine Person den Stich mit einer verdeckten Karte, muss sie die gespielte Farbe ansagen.",
+                team: true,
+            },
+            {
+                id: "eq",
+                name: "Doppel-Date",
+                description:
+                    "Am Ende jedes Stichs addieren die Teammitglieder ihre gespielten Karten der Trumpffarbe. Das Team mit der höchsten Summe gewinnt den Stich. Bei Gleichstand gewinnt das Team mit der höherwertigeren Einzelkarte. Das Teammitglied mit der höherwertigeren Einzelkarte in der Trumpffarbe erhält auch den Stich.",
+                team: true,
+            },
+            {
+                id: "er",
+                name: "Seelenverwandt",
+                description:
+                    "Können beide Teammitglieder in einem Stich die Trumpffarbe nicht bedienen, zählen ihre gespielten Karten zur Trumpffarbe. Bei Gleichstand gewinnt, wer zuerst die Karte gespielt hat.",
+                team: true,
+            },
+            {
+                id: "es",
+                name: "Lieber Single",
+                description:
+                    "Vergleicht am Ende der Runde die gewonnenen Stiche innerhalb eures Teams. Für jedes Zahlenpaar, für das jede Person des Teams eine Karte beisteuern kann, erhaltet ihr zusätzlich 1 Antrag für das Teamergebnis.",
+                team: true,
+            },
         ];
     }
 
@@ -161,6 +255,8 @@ export default function RoundResult() {
         }
 
         const cardsPerColor = getCardsPerColor(numberOfPlayers);
+        const totalCards = cardsPerColor * 4;
+        const rounds = totalCards / numberOfPlayers;
         let basePointsPerPrinceCard = 1;
         const frogPoints = 5;
         const additionalPointsForNumberMatchingQueenPrinceMatches = 2;
@@ -182,6 +278,29 @@ export default function RoundResult() {
         } else if (roundModifier?.id === "p") {
             min += cardsPerColor * additionalPointsPerFairyCard;
             max = min;
+        } else if (roundModifier?.id === "eg") {
+            min = cardsPerColor * -1 * additionalPointsPerFairyCard + frogPoints;
+            max = min;
+        } else if (roundModifier?.id === "el") {
+            min = -1 * rounds;
+        } else if (roundModifier?.id === "en") {
+            min = min * 2;
+            max = max * 2;
+        } else if (roundModifier?.id === "eo") {
+            min = (min - (numberOfPlayers / 2) * 3) * 2;
+            max = (max + (numberOfPlayers / 2) * 3) * 2;
+        } else if (roundModifier?.id === "ep") {
+            min = min * 2;
+            max = max * 2;
+        } else if (roundModifier?.id === "eq") {
+            min = min * 2;
+            max = max * 2;
+        } else if (roundModifier?.id === "er") {
+            min = min * 2;
+            max = max * 2;
+        } else if (roundModifier?.id === "es") {
+            min = min * 2;
+            max = (max + 12) * 2;
         }
         return [min, max];
     }
@@ -191,7 +310,7 @@ export default function RoundResult() {
             <Typography variant="h5" gutterBottom>
                 <Trans>Enter Round Results</Trans>
             </Typography>
-            <Grid sx={{ xs: 12, md: 6 }}>
+            <Grid sx={{ xs: 12, md: 6, display: "flex", alignItems: "center", gap: 1 }}>
                 <FormControl fullWidth>
                     <InputLabel id="roundModifier">
                         <Trans>Round modifier</Trans>
@@ -217,8 +336,16 @@ export default function RoundResult() {
                         ))}
                     </Select>
                 </FormControl>
+                <IconButton size="small" onClick={() => setShowDescription((prev) => !prev)}>
+                    <InfoOutlinedIcon fontSize="small" />
+                </IconButton>
             </Grid>
             <Box sx={{ overflowX: "auto" }}>
+                {showDescription && (
+                    <Typography variant="body2" sx={{ ml: 1 }}>
+                        {roundModifier?.description}
+                    </Typography>
+                )}
                 <Table sx={{ minWidth: 300 }}>
                     <TableHead>
                         <TableRow>

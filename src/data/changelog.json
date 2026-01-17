@@ -1,5 +1,10 @@
 [
     {
+        "version": "1.2.8",
+        "date": "2026-01-17",
+        "changes": ["Added new round modifiers from Rebel Princess extension"]
+    },
+    {
         "version": "1.2.7",
         "date": "2025-08-20",
         "changes": ["Updated dashboard", "Updated design of recent tichu games card"]
