@@ -561,7 +561,7 @@ msgstr ""
 #: src/pages/tichu/statistics/TeamDetail.tsx:90
 #: src/pages/tichu/statistics/PlayerDetail.tsx:147
 msgid "Total Points:"
-msgstr "<<<<<<< HEAD"
+msgstr ""
 
 #: src/pages/tichu/statistics/PlayerDetail.tsx:322
 #: src/components/GameCard.tsx:78

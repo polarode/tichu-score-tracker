@@ -281,7 +281,7 @@ msgstr "Spieler"
 #: src/pages/tichu/LastMatches.tsx:124
 #: src/pages/rebelPrincess/LastGames.tsx:52
 msgid "points"
-msgstr "Punkte<<<<<<< HEAD"
+msgstr "Punkte"
 
 #: src/pages/tichu/statistics/TeamRanking.tsx:159
 #~ msgid "Rank"
@@ -509,12 +509,12 @@ msgstr "Gesamtpunkte"
 #: src/pages/tichu/statistics/TeamDetail.tsx:90
 #: src/pages/tichu/statistics/PlayerDetail.tsx:147
 msgid "Total Points:"
-msgstr "Gesamtpunkte:<<<<<<< HEAD"
+msgstr "Gesamtpunkte:"
 
 #: src/pages/tichu/statistics/PlayerDetail.tsx:322
 #: src/components/GameCard.tsx:78
 msgid "vs"
-msgstr "gegen>>>>>>> d9f2d2d (Implement detailed statistics for player (and translations))"
+msgstr "gegen"
 
 #: src/pages/tichu/statistics/TeamRanking.tsx:170
 #: src/pages/rebelPrincess/Statistics.tsx:106
