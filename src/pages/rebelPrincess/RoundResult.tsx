@@ -119,27 +119,140 @@ export default function RoundResult() {
     function initializeAvailableRoundModifiers(): RPRoundModifier[] {
         return [
             { id: "-", name: "ohne", description: "", team: false },
-            { id: "a", name: "Es war einmal ...", description: "", team: false },
-            { id: "b", name: "Einladung", description: "", team: false },
-            { id: "c", name: "Maskenball", description: "", team: false },
-            { id: "d", name: "Königliches Dekret", description: "", team: false },
-            { id: "e", name: "Stuhltanz", description: "", team: false },
-            { id: "f", name: "Tierisch gemein", description: "", team: false },
-            { id: "g", name: "Späte Gäste", description: "", team: false },
-            { id: "h", name: "Vergifteter Apfel", description: "", team: false },
-            { id: "i", name: "Gläserner Schuh", description: "", team: false },
-            { id: "j", name: "Verkehrte Welt", description: "", team: false },
-            { id: "k", name: "Ballköniginnen", description: "", team: false },
-            { id: "l", name: "Wenn der Prinz zweimal klingelt", description: "", team: false },
-            { id: "m", name: "Hochzeitsgeschenk", description: "", team: false },
-            { id: "n", name: "Reste-Party", description: "", team: false },
-            { id: "o", name: "Frischmachen", description: "", team: false },
-            { id: "p", name: "Single-Feen", description: "", team: false },
-            { id: "q", name: "Blindes Huhn", description: "", team: false },
-            { id: "r", name: "Nächtliche Verwandlung", description: "", team: false },
-            { id: "s", name: "Brautstrauß", description: "", team: false },
-            { id: "t", name: "Tauschhandel", description: "", team: false },
-            { id: "u", name: "Gerade und ungerade", description: "", team: false },
+            { id: "a", name: "Es war einmal ...", description: "Ohne zusätzliche Regel.", team: false },
+            { id: "b", name: "Einladung", description: "Ohne zusätzliche Regel.", team: false },
+            {
+                id: "c",
+                name: "Maskenball",
+                description:
+                    "In dieser Runde spielen alle außer der Person, die den Stich beginnt, ihre Karten verdeckt aus und folgen dabei den üblichen Regeln. Nachdem alle ihre Karten gespielt haben, dreht ihr sie um und prüft, wer den Stich gewonnen hat.",
+                team: false,
+            },
+            {
+                id: "d",
+                name: "Königliches Dekret",
+                description:
+                    "Die Karten in der Königinnen-Farbe gewinnen immer den Stich. Wenn es mehr als eine Königinnen-Karte gibt, gewinnt diejenige mit dem höchsten Wert.",
+                team: false,
+            },
+            {
+                id: "e",
+                name: "Stuhltanz",
+                description:
+                    "Nach jedem Stich gebt ihr alle gleichzeitig eine Karte verdeckt aus eurer Hand an die Person rechts von euch weiter.",
+                team: false,
+            },
+            {
+                id: "f",
+                name: "Tierisch gemein",
+                description: "Am Ende der Runde zählen auch Tiere als 1 Antrag (und der Frosch 6!).",
+                team: false,
+            },
+            {
+                id: "g",
+                name: "Späte Gäste",
+                description:
+                    "Vor dem ersten Stich, nach der Weitergabe der Karten, legt ihr alle je eine Karte aus eurer Hand verdeckt vor euch ab. Diese Karten werden im letzten Stich der Runde gemäß den normalen Regeln gespielt",
+                team: false,
+            },
+            {
+                id: "h",
+                name: "Vergifteter Apfel",
+                description:
+                    "In dieser Runde sind alle Karten, die nicht der Trumpffarbe angehören, höherwertiger und gewinnen den Stich. Wenn mehr als eine Person nicht bedienen konnte, gewinnt davon die Person mit der gespielten Karte mit dem höchsten Wert. Bei Gleichstand gewinnt, wer hiervon zuletzt die Karte gespielt hat.",
+                team: false,
+            },
+            {
+                id: "i",
+                name: "Gläserner Schuh",
+                description:
+                    "Zu Beginn der Runde wählt ihr eine der Farben aus eurer Hand und legt alle Karten dieser Farbe vor euch aus. Die Runde wird mit diesen Karten offen gespielt. Die aufgedeckten Karten gehören immer noch zu eurer Hand und können wie gewohnt gespielt werden.",
+                team: false,
+            },
+            {
+                id: "j",
+                name: "Verkehrte Welt",
+                description:
+                    "Jede gespielte 6 kehrt die Reihenfolge der Zahlen für diesen Stich um. Damit wird z. B. 12 die Karte mit dem niedrigsten Wert und 1 die höchste. Wird eine weitere 6 gespielt, wird die Reihenfolge erneut umgekehrt.",
+                team: false,
+            },
+            {
+                id: "k",
+                name: "Ballköniginnen",
+                description:
+                    "Bei der Wertung der Anträge trennt jede Person die gewonnenen Prinzen und Königinnen in den von ihr gewonnenen Stichen. Ein Paar aus Prinz und Königin mit gleicher Zahl zählt als 3 Anträge. Paare, die in der Zahl nicht übereinstimmen, zählen als 2 Anträge. Einzelne Prinzen zählen wie üblich als 1 Antrag.",
+                team: false,
+            },
+            {
+                id: "l",
+                name: "Wenn der Prinz zweimal klingelt",
+                description:
+                    "Nachdem ihr alle eure erste Karte gespielt habt, spielt ihr in jeden Stich dieser Runde reihum eine zweite Karte gemäß der Regeln. Um zu prüfen, wer den Stich gewinnt, addiert die Werte eurer Karten der Trumpffarbe. Bei einem Gleichstand gewinnt die Person, die die höhere Karte der Trumpffarbe gespielt hat. Wenn nur eine der beiden Karten zur Trumpffarbe gehört, wird die andere nicht berücksichtigt.",
+                team: false,
+            },
+            {
+                id: "m",
+                name: "Hochzeitsgeschenk",
+                description:
+                    "Legt vor jedem Stich alle je eine Karte von der Hand verdeckt auf einen gemeinsamen Stapel. Wer den Stich gewinnt, bekommt den Stapel als zusätzlichen Stich. Es werden daher nur die Hälfte der Stiche gespielt",
+                team: false,
+            },
+            {
+                id: "n",
+                name: "Reste-Party",
+                description:
+                    "Teilt eure Handkarten in zwei gleiche Hälften und legt eine davon verdeckt beiseite. Spielt zuerst eine Hälfte eurer Hand, dann die andere.",
+                team: false,
+            },
+            {
+                id: "o",
+                name: "Frischmachen",
+                description:
+                    "Prinzen zählen als doppelt so viele Anträge, außer für die Person, die bisher im Spiel die meisten Anträge gesammelt hat.",
+                team: false,
+            },
+            {
+                id: "p",
+                name: "Single-Feen",
+                description:
+                    "Am Ende der Runde entfernt jede gewonnene Fee 1 Antrag. In dieser Runde könnt ihr eine negative Anzahl von Anträgen erzielen",
+                team: false,
+            },
+            {
+                id: "q",
+                name: "Blindes Huhn",
+                description:
+                    "Teilt eure Handkarten in zwei gleiche Hälften und legt eine davon verdeckt beiseite. Spielt zuerst eine Hälfte eurer Hand und gebt dann die andere Hälfte an die Person zu eurer Rechten, damit sie sie spielen kann.",
+                team: false,
+            },
+            {
+                id: "r",
+                name: "Nächtliche Verwandlung",
+                description:
+                    "Die Feen sind Joker und können jede Farbe bedienen. Sie können immer gespielt werden und solange ihr welche habt, müsst ihr bedienen. Wer die höchste Zahl gespielt hat (von der Trumpffarbe oder den Feen), gewinnt den Stich. Bei Gleichstand gewinnt, wer zuletzt eine Karte gespielt hat. Wenn ein Stich mit einer Fee begonnen wird, sind die Feen die Trumpffarbe.",
+                team: false,
+            },
+            {
+                id: "s",
+                name: "Brautstrauß",
+                description:
+                    "Die zuletzt in den Stich gespielte Farbe ist die aktuelle Trumpffarbe und muss von den nachfolgenden Personen bedient werden, sofern möglich. Den Stich gewinnt die höchste Karte der zuletzt gespielten Farbe. Beispiel. Person A beginnt mit Königinnen. Person B kann nicht bedienen und spielt ein Tier, das damit zur neuen Trumpffarbe wird.",
+                team: false,
+            },
+            {
+                id: "t",
+                name: "Tauschhandel",
+                description:
+                    "Gewinnst du einen Stich, darfst du eine Karte von deiner Hand aufdecken und gegen eine Karte aus dem Stich austauschen. Die ausgetauschte Karte darf nicht die sein, die du zuvor gespielt hast.",
+                team: false,
+            },
+            {
+                id: "u",
+                name: "Gerade und ungerade",
+                description:
+                    "Zusätzlich zur Trumpffarbe müsst ihr gerade oder ungerade Karten spielen, passend zur Karte, mit der der Stich begonnen wurde. Wenn ihr diese Regel nicht befolgen könnt, müsst ihr die Trumpffarbe bedienen. Könnt ihr das nicht, hat das Spielen einer geraden oder ungeraden Karte wieder Vorrang.",
+                team: false,
+            },
             {
                 id: "eg",
                 name: "Die alte Leier",
@@ -279,10 +392,12 @@ export default function RoundResult() {
             min += cardsPerColor * additionalPointsPerFairyCard;
             max = min;
         } else if (roundModifier?.id === "eg") {
-            min = cardsPerColor * -1 * additionalPointsPerFairyCard + frogPoints;
+            min = cardsPerColor * -1 + frogPoints;
             max = min;
         } else if (roundModifier?.id === "el") {
             min = -1 * rounds;
+        } else if (roundModifier?.id === "em") {
+            min = max - numberOfPlayers;
         } else if (roundModifier?.id === "en") {
             min = min * 2;
             max = max * 2;
